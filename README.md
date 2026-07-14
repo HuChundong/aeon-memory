@@ -262,16 +262,10 @@ AEON_MEMORY_DATA_DIR > data.baseDir > ~/.aeon-memory/data
 
 ## 兼容性与已知边界
 
-本项目目标是保持上游核心语义，而不是继续依赖上游的 OpenClaw/Node.js 宿主实现。
-兼容性证据与边界记录在：
-
-- [TEST_PARITY_MATRIX.md](TEST_PARITY_MATRIX.md)：上游 TypeScript 与 Rust 测试映射；
-- [TS_DIFFERENTIAL_BASELINE.md](TS_DIFFERENTIAL_BASELINE.md)：差分测试基线；
-- [APPROVED_DIFFERENCES.md](APPROVED_DIFFERENCES.md)：经确认的语言/宿主差异；
-- [DIFFERENTIAL_E2E.md](DIFFERENTIAL_E2E.md)：双实现端到端验证方法。
-
-在兼容性测试未覆盖的边缘行为上，请先提交可复现用例，再讨论是否属于缺陷。Aeon Memory
-不会使用腾讯商标暗示官方关系，也不复制上游的 Benchmark 成绩作为本实现成绩。
+本项目目标是保持上游核心记忆语义，而不是继续依赖上游的 OpenClaw/Node.js 宿主实现。
+仓库内保留可执行的 TypeScript fixture、Rust oracle 与真实 SQLite 集成测试作为兼容性
+证据。不可避免的语言或宿主差异必须通过测试和 PR 说明公开审查。Aeon Memory 不会使用
+腾讯商标暗示官方关系，也不复制上游的 Benchmark 成绩作为本实现成绩。
 
 ## 开发与验证
 

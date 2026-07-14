@@ -48,3 +48,7 @@ test-offload-sessions.sh
 
 # Rust build output
 target/
+
+# Local migration notes and historical differential records. These are kept
+# by maintainers for provenance but are not part of the public project.
+migration/

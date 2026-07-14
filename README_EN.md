@@ -143,9 +143,9 @@ Report vulnerabilities privately according to [SECURITY.md](SECURITY.md).
 
 ## Compatibility and development
 
-Compatibility evidence is documented in [TEST_PARITY_MATRIX.md](TEST_PARITY_MATRIX.md),
-[TS_DIFFERENTIAL_BASELINE.md](TS_DIFFERENTIAL_BASELINE.md), and
-[APPROVED_DIFFERENCES.md](APPROVED_DIFFERENCES.md).
+Executable TypeScript fixtures, Rust oracles, and real SQLite integration tests
+are retained in the repository as compatibility evidence. Any unavoidable
+language or host difference must be documented and reviewed in its pull request.
 
 ```bash
 cargo fmt --all -- --check

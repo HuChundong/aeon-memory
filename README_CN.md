@@ -308,4 +308,4 @@ cargo build --workspace --locked --release --bins
 示例和更底层的兼容性说明见 [README_RUST.md](README_RUST.md)。
 
 离线迁移/导出工具位于 `bin/` 与 `scripts/`，不属于运行时适配层。历史
-`CHANGELOG.md`、`RUST_MIGRATION_PLAN.md` 中的宿主名称仅作为迁移证据保留。
+历史迁移记录不属于公开运行时文档；当前公开变更只记录在 `CHANGELOG.md`。

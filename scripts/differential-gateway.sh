@@ -10,7 +10,7 @@ expected="4339e63650920871eb0e8888083a1779d114e3ae"
   exit 2
 }
 [[ -d "$baseline/node_modules" ]] || {
-  echo "TS baseline dependencies are missing; see TS_DIFFERENTIAL_BASELINE.md" >&2
+  echo "TS baseline dependencies are missing; run scripts/prepare-ts-baseline.sh first" >&2
   exit 2
 }
 

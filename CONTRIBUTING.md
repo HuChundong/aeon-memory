@@ -27,7 +27,7 @@ with lexical or mocked shortcuts.
 
 Changes to memory semantics require evidence against preserved TypeScript
 goldens and real SQLite integration tests. Record unavoidable language or host
-differences in `APPROVED_DIFFERENCES.md`.
+differences explicitly in the pull request and cover them with regression tests.
 
 ## Local checks
 
@@ -49,8 +49,8 @@ npm test
 npm run pack:check
 ```
 
-Use the targeted scripts documented in `TEST_PARITY_MATRIX.md` for core
-semantic changes. Tests must be deterministic and must not read or write the
+Use the targeted differential scripts under `scripts/` for core semantic
+changes. Tests must be deterministic and must not read or write the
 developer's real `~/.aeon-memory` or OpenCode configuration.
 
 ## Pull requests
@@ -66,6 +66,6 @@ developer's real `~/.aeon-memory` or OpenCode configuration.
 
 感谢参与 Aeon Memory。开始较大的功能、公开接口、存储格式或上游语义差异前，请先提交
 Issue 讨论。修改必须保持聚焦，不得包含密钥、生产记忆或用户数据。核心语义修改必须补充
-TypeScript 基线差分证据与真实 SQLite 测试；不可避免的差异记录到
-`APPROVED_DIFFERENCES.md`。提交 PR 时请说明用户可见结果、兼容性影响和实际执行的验证，
+TypeScript 基线差分证据与真实 SQLite 测试；不可避免的差异必须在 PR 中明确说明并由回归
+测试覆盖。提交 PR 时请说明用户可见结果、兼容性影响和实际执行的验证，
 公开接口变化应同步更新中英文文档。
