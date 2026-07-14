@@ -1,6 +1,6 @@
 {
   "name": "@aeon-memory/opencode",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Automatic Aeon Memory lifecycle integration for OpenCode",
   "type": "module",
   "license": "MIT",

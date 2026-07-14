@@ -6,6 +6,13 @@ Aeon Memory 的所有重要公开变更记录在此。格式遵循
 
 ## [Unreleased]
 
+## [0.6.2] - 2026-07-14
+
+### 修复
+
+- OpenCode 发布包安装测试同时兼容 npm 11 的数组输出和 npm 12 的对象输出。
+- 完成 npm Trusted Publishing 与 provenance 发布链路。
+
 ## [0.6.1] - 2026-07-14
 
 ### 新增
@@ -28,6 +35,7 @@ Aeon Memory 的所有重要公开变更记录在此。格式遵循
 - OpenCode 自动记忆插件 `@aeon-memory/opencode` 首次公开发布。
 - 行为回归测试与跨平台原生打包流程。
 
-[Unreleased]: https://github.com/HuChundong/aeon-memory/compare/v0.6.1...HEAD
+[Unreleased]: https://github.com/HuChundong/aeon-memory/compare/v0.6.2...HEAD
+[0.6.2]: https://github.com/HuChundong/aeon-memory/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/HuChundong/aeon-memory/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/HuChundong/aeon-memory/releases/tag/v0.6.0

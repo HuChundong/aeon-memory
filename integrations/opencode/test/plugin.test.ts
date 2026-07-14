@@ -887,7 +887,14 @@ test("npm pack installs cleanly and exposes an OpenCode-loadable plugin", async 
   const appDir = join(root, "clean-app")
   try {
     const packed = await execFileAsync("npm", ["pack", "--json", "--pack-destination", root], { cwd: integrationDir })
-    const [{ filename }] = JSON.parse(packed.stdout)
+    const packResult: unknown = JSON.parse(packed.stdout)
+    const packEntry = Array.isArray(packResult)
+      ? packResult[0]
+      : packResult && typeof packResult === "object"
+        ? Object.values(packResult)[0]
+        : undefined
+    assert.ok(packEntry && typeof packEntry === "object" && "filename" in packEntry)
+    const { filename } = packEntry as { filename: string }
     await execFileAsync("npm", ["init", "-y"], { cwd: root })
     await execFileAsync("npm", ["install", "--ignore-scripts", join(root, filename), "--prefix", appDir], { cwd: root })
     const modulePath = join(appDir, "node_modules", "@aeon-memory", "opencode", "dist", "aeon-memory.js")
