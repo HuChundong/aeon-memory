@@ -50,10 +50,10 @@
     "aeon-memory"
   ],
   "devDependencies": {
-    "@opencode-ai/plugin": "1.17.18",
-    "@types/node": "^22.15.0",
-    "esbuild": "^0.25.0",
+    "@opencode-ai/plugin": "1.17.20",
+    "@types/node": "^26.1.1",
+    "esbuild": "^0.28.1",
     "tsx": "^4.20.0",
-    "typescript": "^5.8.0"
+    "typescript": "^7.0.2"
   }
 }
