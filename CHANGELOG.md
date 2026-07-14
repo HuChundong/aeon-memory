@@ -6,6 +6,13 @@ Aeon Memory 的所有重要公开变更记录在此。格式遵循
 
 ## [Unreleased]
 
+## [0.6.3] - 2026-07-14
+
+### 修复
+
+- OpenCode 安装器现在检测并安全编辑现有 `opencode.jsonc` 或 `opencode.json`；双配置文件时要求显式选择，并保留无关 JSONC 注释与配置。
+- 已发布的 OpenCode 安装器现在安装精确的 npm registry 版本，并把旧的 `file://` 插件入口迁移为标准包名 tuple，避免工作区链接和重复加载。
+
 ## [0.6.2] - 2026-07-14
 
 ### 修复
@@ -35,7 +42,8 @@ Aeon Memory 的所有重要公开变更记录在此。格式遵循
 - OpenCode 自动记忆插件 `@aeon-memory/opencode` 首次公开发布。
 - 行为回归测试与跨平台原生打包流程。
 
-[Unreleased]: https://github.com/HuChundong/aeon-memory/compare/v0.6.2...HEAD
+[Unreleased]: https://github.com/HuChundong/aeon-memory/compare/v0.6.3...HEAD
+[0.6.3]: https://github.com/HuChundong/aeon-memory/compare/v0.6.2...v0.6.3
 [0.6.2]: https://github.com/HuChundong/aeon-memory/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/HuChundong/aeon-memory/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/HuChundong/aeon-memory/releases/tag/v0.6.0

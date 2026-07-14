@@ -98,11 +98,13 @@ npx @aeon-memory/opencode@latest install
 npx @aeon-memory/opencode@latest status
 ```
 
-The installer writes a standard plugin tuple to
-`~/.config/opencode/opencode.json`. Set `gatewayUrl` and, when server
-authentication is enabled, `apiKey` there. The plugin recalls before each user
-turn, captures completed user/assistant pairs, and flushes only on a true
-session or instance lifecycle boundary. See
+The installer adds the exact published npm version to OpenCode's global npm
+directory and writes a standard plugin tuple to the existing
+`~/.config/opencode/opencode.jsonc` or `opencode.json`. If both files exist it
+stops and requires an explicit selection. Set `gatewayUrl` and, when server
+authentication is enabled, `apiKey` in the selected file. The plugin recalls
+before each user turn, captures completed user/assistant pairs, and flushes
+only on a true session or instance lifecycle boundary. See
 [the plugin documentation](integrations/opencode/README.md) for every option.
 
 ## HTTP API

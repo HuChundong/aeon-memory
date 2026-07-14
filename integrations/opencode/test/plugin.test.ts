@@ -6,6 +6,7 @@ import { dirname, join } from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
 import { promisify } from "node:util"
 import test from "node:test"
+import { parse as parseJsonc } from "jsonc-parser/lib/esm/main.js"
 import { AeonMemoryPlugin } from "../src/aeon-memory.ts"
 
 interface TestPart {
@@ -815,30 +816,31 @@ test("sanitizer removes injected memory and common credentials", () => {
   assert.doesNotMatch(cleaned, /<\/aeon-memory-context>/)
 })
 
-test("installer uses a local npm dependency, preserves configured options, and uninstaller preserves other config", async () => {
+test("source installer migrates JSONC file URLs to a local npm dependency without losing unrelated comments", async () => {
   const root = await mkdtemp(join(tmpdir(), "aeon-memory-opencode-"))
   const integrationDir = join(here, "..")
-  const oldBundle = join(root, "aeon-memory", "aeon-memory.js")
+  const oldBundle = join(root, "node_modules", "@aeon-memory", "opencode", "dist", "aeon-memory.js")
   try {
-    await mkdir(dirname(oldBundle), { recursive: true })
-    await writeFile(oldBundle, 'const PLUGIN_NAME = "aeon-memory"')
     await writeFile(join(root, "package.json"), JSON.stringify({ private: true, dependencies: { keep: "1.0.0" } }))
-    await writeFile(join(root, "opencode.json"), JSON.stringify({
-      provider: { keep: {} },
-      plugin: [
-        "keep-plugin",
-        [pathToFileURL(oldBundle).href, { captureTimeoutMs: 23456, offloadEnabled: true }],
-      ],
-    }))
+    await writeFile(join(root, "opencode.jsonc"), `{
+  // preserve unrelated user comments
+  "provider": { "keep": {} },
+  "plugin": [
+    "keep-plugin",
+    ["${pathToFileURL(oldBundle).href}", { "captureTimeoutMs": 23456, "offloadEnabled": true }],
+  ],
+}
+`)
     await execFileAsync(join(integrationDir, "install.sh"), ["--target", root])
     const installedPath = join(root, "node_modules", "@aeon-memory", "opencode", "dist", "aeon-memory.js")
     const installed = await readFile(installedPath, "utf8")
     assert.match(installed, /AeonMemoryPlugin/)
-    await assert.rejects(readFile(oldBundle))
     const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"))
     assert.match(packageJson.dependencies["@aeon-memory/opencode"], /^file:/)
     assert.equal(packageJson.dependencies.keep, "1.0.0")
-    const configured = JSON.parse(await readFile(join(root, "opencode.json"), "utf8"))
+    const configText = await readFile(join(root, "opencode.jsonc"), "utf8")
+    assert.match(configText, /preserve unrelated user comments/)
+    const configured = parseJsonc(configText)
     assert.equal(configured.plugin.length, 2)
     assert.equal(configured.plugin[1][0], "@aeon-memory/opencode")
     assert.equal(configured.plugin[1][1].gatewayUrl, "http://127.0.0.1:8420")
@@ -849,8 +851,27 @@ test("installer uses a local npm dependency, preserves configured options, and u
     const uninstalledPackageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"))
     assert.equal(uninstalledPackageJson.dependencies["@aeon-memory/opencode"], undefined)
     assert.equal(uninstalledPackageJson.dependencies.keep, "1.0.0")
-    const after = JSON.parse(await readFile(join(root, "opencode.json"), "utf8"))
-    assert.deepEqual(after, { provider: { keep: {} }, plugin: ["keep-plugin"] })
+    const afterText = await readFile(join(root, "opencode.jsonc"), "utf8")
+    assert.match(afterText, /preserve unrelated user comments/)
+    assert.deepEqual(parseJsonc(afterText), { provider: { keep: {} }, plugin: ["keep-plugin"] })
+  } finally {
+    await rm(root, { recursive: true, force: true })
+  }
+})
+
+test("installer defaults to the published registry package and requires an explicit choice for duplicate config files", async () => {
+  const root = await mkdtemp(join(tmpdir(), "aeon-memory-opencode-config-"))
+  const cli = join(here, "..", "dist", "cli.js")
+  try {
+    const dryRun = await execFileAsync(cli, ["install", "--target", root, "--dry-run"])
+    assert.match(dryRun.stdout, /Would run npm install: @aeon-memory\/opencode@0\.6\.3/)
+    assert.match(dryRun.stdout, /Would configure: .*opencode\.jsonc/)
+    await writeFile(join(root, "opencode.json"), "{}\n")
+    await writeFile(join(root, "opencode.jsonc"), "{}\n")
+    await assert.rejects(
+      execFileAsync(cli, ["status", "--target", root]),
+      (error: unknown) => Boolean(error && typeof error === "object" && "stderr" in error && typeof error.stderr === "string" && /Both OpenCode config files exist/.test(error.stderr)),
+    )
   } finally {
     await rm(root, { recursive: true, force: true })
   }

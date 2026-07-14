@@ -32,7 +32,7 @@ npx @aeon-memory/opencode@latest install
 ./integrations/opencode/install.sh
 ```
 
-插件以 `src/aeon-memory.ts` 作为唯一手写实现，通过 esbuild 生成无需 TS loader 的单文件 ESM `dist/aeon-memory.js`。源码安装器会在 OpenCode 全局配置目录执行标准的本地磁盘 npm 安装，把当前包以 `file:` 依赖写入 `package.json` 和 `node_modules`；`opencode.json` 只注册标准的 `["@aeon-memory/opencode", 配置对象]` tuple。以后发布到 npm 时无需改变插件配置结构，只需把依赖来源从本地 `file:` 切换到 registry 版本。旧版 `aeon-memory/aeon-memory.js` 和 `plugins/aeon-memory.js` 会安全迁移，避免重复加载。安装器会保留其他 npm 依赖、OpenCode 配置、插件条目以及已有的 aeon-memory 配置值。低于 1.17.18 时拒绝安装，可在自行验证后显式传 `--force`。重启 OpenCode 后生效。
+插件以 `src/aeon-memory.ts` 作为唯一手写实现，通过 esbuild 生成无需 TS loader 的单文件 ESM `dist/aeon-memory.js`。已发布包的安装器会在 OpenCode 全局配置目录把当前发布版本作为精确的 npm registry 依赖写入 `package.json` 和 `node_modules`，并注册标准的 `["@aeon-memory/opencode", 配置对象]` tuple；源码脚本才会显式使用本地 `file:` 依赖。安装器会自动选择已有的 `opencode.jsonc` 或 `opencode.json`，两者同时存在时安全停止并要求使用 `--config FILE` 明确选择；两者都不存在时创建 `opencode.jsonc`。旧版 bundle 与 `file://…/node_modules/@aeon-memory/opencode/dist/aeon-memory.js` 条目会安全迁移，避免重复加载。它会保留其他 npm 依赖、OpenCode 配置与 JSONC 注释。低于 1.17.18 时拒绝安装，可在自行验证后显式传 `--force`。重启 OpenCode 后生效。
 
 卸载：
 
@@ -48,11 +48,11 @@ npx @aeon-memory/opencode status
 npx @aeon-memory/opencode config
 ```
 
-`--target DIR` 可指定另一个 OpenCode 配置目录用于隔离测试，`--dry-run` 只显示将执行的动作。
+`--target DIR` 可指定另一个 OpenCode 配置目录用于隔离测试，`--config FILE` 可指定确切的 JSON/JSONC 文件，`--local` 仅用于从当前源码目录安装，`--dry-run` 只显示将执行的动作。
 
 ## OpenCode 配置项
 
-安装后可直接编辑 `~/.config/opencode/opencode.json` 中安装器生成的 tuple：
+安装后可直接编辑安装器检测到的 `~/.config/opencode/opencode.jsonc` 或 `opencode.json` 中的 tuple：
 
 ```json
 {
