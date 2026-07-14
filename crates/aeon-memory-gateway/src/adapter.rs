@@ -112,10 +112,11 @@ impl AeonMemoryService for CoreService {
             .await
             .map_err(map_core_error)?;
         Ok(RecallResponse {
-            // The pinned gateway intentionally exposes only stable system
-            // context here. Dynamic L1 prepend context is a host-adapter
-            // concern and is not part of the shared HTTP contract.
             context: result.append_system_context.unwrap_or_default(),
+            // Keep the original stable `context` contract while exposing the
+            // strategy-selected and budgeted L1 payload to HTTP host adapters.
+            // This avoids adapters re-running a semantically different search.
+            prepend_context: result.prepend_context,
             strategy: (!result.recall_strategy.is_empty()).then_some(result.recall_strategy),
             memory_count: result.recalled_l1_memories.len(),
         })

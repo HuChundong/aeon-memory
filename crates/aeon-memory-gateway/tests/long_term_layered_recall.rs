@@ -174,6 +174,11 @@ async fn capture_pipeline_and_recall_preserve_all_long_term_layers_and_channels(
         "official recall body reports L1 count"
     );
     assert_eq!(recalled.strategy.as_deref(), Some("keyword"));
+    let recalled_dynamic = recalled
+        .prepend_context
+        .as_deref()
+        .expect("recall must expose the strategy-selected dynamic L1 payload");
+    assert!(recalled_dynamic.contains("cobalt bicycle"));
     let dynamic = service
         .search_memories(MemorySearchRequest {
             query: "cobalt bicycle".into(),

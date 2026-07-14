@@ -40,12 +40,14 @@ impl AeonMemoryService for RecordingService {
         if r.query == "empty" {
             return Ok(RecallResponse {
                 context: String::new(),
+                prepend_context: None,
                 strategy: None,
                 memory_count: 0,
             });
         }
         Ok(RecallResponse {
             context: "stable official context".into(),
+            prepend_context: Some("dynamic official context".into()),
             strategy: Some("hybrid".into()),
             memory_count: 1,
         })
@@ -248,13 +250,14 @@ async fn health_is_public_but_post_routes_require_configured_bearer_token() {
     assert_eq!(valid.status(), StatusCode::OK);
     let json = body_json(valid).await;
     assert_eq!(json["context"], "stable official context");
+    assert_eq!(json["prepend_context"], "dynamic official context");
     assert_eq!(json["memory_count"], 1);
     assert_eq!(json["strategy"], "hybrid");
-    assert_eq!(json.as_object().unwrap().len(), 3);
+    assert_eq!(json.as_object().unwrap().len(), 4);
 }
 
 #[tokio::test]
-async fn recall_http_body_exactly_matches_pinned_ts_gateway_oracle() {
+async fn recall_http_body_preserves_pinned_ts_fields_with_additive_dynamic_context() {
     let oracle: serde_json::Value =
         serde_json::from_str(include_str!("fixtures/recall_http_oracle.json")).unwrap();
     let router = app(Arc::new(RecordingService::default()), AppConfig::default());
@@ -273,11 +276,14 @@ async fn recall_http_body_exactly_matches_pinned_ts_gateway_oracle() {
             fixture["status"].as_u64().unwrap() as u16
         );
         let body = response.into_body().collect().await.unwrap().to_bytes();
-        assert_eq!(std::str::from_utf8(&body).unwrap(), fixture["text"]);
-        assert_eq!(
-            serde_json::from_slice::<serde_json::Value>(&body).unwrap(),
-            fixture["body"]
-        );
+        let mut actual = serde_json::from_slice::<serde_json::Value>(&body).unwrap();
+        let dynamic = actual.as_object_mut().unwrap().remove("prepend_context");
+        assert_eq!(actual, fixture["body"]);
+        if query == "q" {
+            assert_eq!(dynamic, Some(serde_json::json!("dynamic official context")));
+        } else {
+            assert!(dynamic.is_none());
+        }
     }
 }
 

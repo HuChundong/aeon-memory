@@ -2,9 +2,9 @@
 
 > npm 展示与安装入口请优先阅读 [README.md](README.md)。本文件保留更详细的实现与测试说明。
 
-这是可独立发布的 npm 包 `@aeon-memory/opencode`，最低验证版本为 OpenCode 1.17.18。它采用 OpenCode 官方插件事件和 SDK，复现自动 HostAdapter 生命周期：
+这是可独立发布的 npm 包 `@aeon-memory/opencode`，最低支持 OpenCode 1.17.18，当前测试至 1.17.20。它采用 OpenCode 官方插件事件和 SDK，复现自动 HostAdapter 生命周期。消息与 system transform 仍是 OpenCode experimental hook；安装器会对高于已测试版本的 OpenCode 给出兼容性提醒，但不会阻止安装：
 
-- `chat.message` 调用 Aeon Memory `/recall`：官方共享接口返回的 `context` 是稳定 system context；当 `memory_count > 0` 时，插件再通过官方 `/search/memories` 获取动态 L1，并由 `experimental.chat.messages.transform` 作为带“不可信历史数据”边界的 synthetic text part 附加到当前 user message。旧版 aeon-memory 仅返回 `context` 且没有 `memory_count` 时，仍按动态 user context 兼容；
+- `chat.message` 调用 Aeon Memory `/recall`：`context` 是稳定 system context，`prepend_context` 是同一次召回已按策略、阈值和预算选定的动态 L1；插件将后者通过 `experimental.chat.messages.transform` 作为带“不可信历史数据”边界的 synthetic text part 附加到当前 user message。连接 v0.7.0 之前的服务端时，才在 `memory_count > 0` 后兼容调用 `/search/memories`；
 - OpenCode 自动压缩使用一次性的 session gate：召回内容不会进入 compaction 模型；`session.compacted` 后，未消费的本轮召回会安全重绑到 auto-continue 或 overflow replay 创建的新 user message；
 - 注册 `aeon-memory_memory_search` 与 `aeon-memory_conversation_search`，分别映射 `/search/memories` 和 `/search/conversations`；每个用户轮次两个工具合计最多调用三次；
 - assistant `message.updated` 带 `time.completed` 时作为主轮次边界：通过 `client.session.messages()` 读取稳定的 user/assistant 文本并调用 `/capture`；即使 `opencode run` 随后立即退出且没有 idle，也能完成 L0 提交；
@@ -61,6 +61,9 @@ npx @aeon-memory/opencode config
       "@aeon-memory/opencode",
       {
         "enabled": true,
+        "recallEnabled": true,
+        "captureEnabled": true,
+        "toolsEnabled": true,
         "gatewayUrl": "http://127.0.0.1:8420",
         "recallTimeoutMs": 5000,
         "captureTimeoutMs": 10000,
@@ -80,8 +83,11 @@ npx @aeon-memory/opencode config
 |---|---:|---|
 | `gatewayUrl` | `http://127.0.0.1:8420` | Aeon Memory Gateway 根地址 |
 | `apiKey` | 空 | Gateway Bearer token |
-| `userId` | 空 | 可选的跨 Agent 用户命名空间 |
+| `userId` | 空 | 转发给兼容网关的元数据；当前本地存储不按此字段隔离 |
 | `enabled` | `true` | 设为 `false` 可完全停用插件 |
+| `recallEnabled` | `true` | 是否自动召回并注入本轮上下文 |
+| `captureEnabled` | `true` | 是否自动记录完成轮次并在会话结束时排空管线 |
+| `toolsEnabled` | `true` | 是否向 Agent 注册两个显式记忆搜索工具 |
 | `recallTimeoutMs` | `5000` | `/recall` 和搜索超时 |
 | `captureTimeoutMs` | `10000` | `/capture` HTTP 超时 |
 | `sessionEndTimeoutMs` | `120000` | 真正结束会话时 `/session/end` 的 flush 超时 |
@@ -105,4 +111,4 @@ npm test
 npm run pack:check
 ```
 
-当前插件套件共 45 项测试。TypeScript 单元测试通过 tsx 直接导入 `src/aeon-memory.ts`；发布包测试执行构建与 `npm pack`，安装 tarball 后导入 `dist/aeon-memory.js`。其中 Offload 组合测试会启动隔离的真实 Rust `aeon-memory-server` 和临时 LLM fixture，覆盖 mild、aggressive deletion 与 MMD injection；其余测试使用 mock HTTP/fixture 事件，不启动 OpenCode，也不读写用户的 `~/.config/opencode`。安装脚本测试通过 `--target` 在临时 OpenCode 配置目录执行本地磁盘 npm 安装，并验证安装和卸载都保留无关依赖与配置。
+当前插件套件共 50 项测试。TypeScript 单元测试通过 tsx 直接导入 `src/aeon-memory.ts`；发布包测试执行构建与 `npm pack`，安装 tarball 后导入 `dist/aeon-memory.js`。其中 Offload 组合测试会启动隔离的真实 Rust `aeon-memory-server` 和临时 LLM fixture，覆盖 mild、aggressive deletion 与 MMD injection；其余测试使用 mock HTTP/fixture 事件，不启动 OpenCode，也不读写用户的 `~/.config/opencode`。安装脚本测试通过 `--target` 在临时 OpenCode 配置目录执行本地磁盘 npm 安装，并验证安装和卸载都保留无关依赖与配置。
