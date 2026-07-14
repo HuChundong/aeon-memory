@@ -1,7 +1,7 @@
 <div align="center">
   <img src="assets/images/aeon-memory-banner.png" alt="Aeon Memory：跨越时间的分层记忆" width="100%" />
   <h1>Aeon Memory</h1>
-  <p><strong>让每个 Agent 都拥有可追溯、可迁移、真正属于用户的长期记忆。</strong></p>
+  <p><strong>穿越时间，历久弥新。</strong></p>
 
 [![CI](https://github.com/HuChundong/aeon-memory/actions/workflows/pr-ci.yml/badge.svg)](https://github.com/HuChundong/aeon-memory/actions/workflows/pr-ci.yml)
 [![Release](https://github.com/HuChundong/aeon-memory/actions/workflows/release.yml/badge.svg)](https://github.com/HuChundong/aeon-memory/actions/workflows/release.yml)
