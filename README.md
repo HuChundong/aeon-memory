@@ -181,8 +181,9 @@ npx @aeon-memory/opencode@latest install
 npx @aeon-memory/opencode@latest status
 ```
 
-重启 OpenCode 后生效。安装器会使用 OpenCode 标准全局插件配置，保留已有配置，并写入
-`~/.config/opencode/opencode.json`：
+重启 OpenCode 后生效。安装器将当前发布版本作为精确 npm registry 依赖写入 OpenCode 全局目录，
+并使用标准插件配置。它会自动使用已有的 `~/.config/opencode/opencode.jsonc` 或 `opencode.json`；
+两者同时存在时会安全停止并要求显式选择：
 
 ```json
 {

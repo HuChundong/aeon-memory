@@ -25,9 +25,11 @@ npx @aeon-memory/opencode@latest install
 npx @aeon-memory/opencode@latest status
 ```
 
-重启 OpenCode 后生效。安装器采用标准 npm 本地依赖和 OpenCode `plugin` tuple，默认修改
-`~/.config/opencode/package.json`、`package-lock.json`、`node_modules` 与
-`~/.config/opencode/opencode.json`。已有的其他插件和配置会被保留。
+重启 OpenCode 后生效。发布包安装器会把当前发布版本作为精确的 npm registry 依赖写入
+`~/.config/opencode/package.json`、`package-lock.json` 与 `node_modules`，并注册标准 OpenCode
+`plugin` tuple。它会自动选择已有的 `opencode.jsonc` 或 `opencode.json`；两者同时存在时会安全
+停止并要求用 `--config FILE` 明确选择。没有配置文件时默认创建 `opencode.jsonc`。已有的其他插件、
+配置和 JSONC 注释会被保留。
 
 卸载：
 
@@ -39,6 +41,8 @@ npx @aeon-memory/opencode@latest uninstall
 
 ```text
 --target DIR  指定 OpenCode 配置目录，适合隔离测试
+--config FILE 指定确切的 OpenCode JSON/JSONC 配置文件
+--local       从当前源码目录安装，仅用于开发测试
 --dry-run     仅显示将执行的操作
 --force       在低于最低验证版本时强制安装
 ```

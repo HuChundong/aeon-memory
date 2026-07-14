@@ -1,6 +1,6 @@
 {
   "name": "@aeon-memory/data-tools",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "private": true,
   "description": "Private offline data inspection and export tools for Aeon Memory",
   "type": "module",
@@ -16,7 +16,9 @@
     "read-local-memory": "node ./bin/read-local-memory.mjs"
   },
   "license": "MIT",
-  "engines": { "node": ">=22.16.0" },
+  "engines": {
+    "node": ">=22.16.0"
+  },
   "dependencies": {
     "sqlite-vec": "0.1.9"
   },

@@ -3,7 +3,8 @@ import { execFileSync } from "node:child_process"
 import { existsSync, mkdirSync, readFileSync, rmSync, rmdirSync, statSync, writeFileSync } from "node:fs"
 import { homedir } from "node:os"
 import { dirname, join, resolve } from "node:path"
-import { fileURLToPath, pathToFileURL } from "node:url"
+import { fileURLToPath } from "node:url"
+import { applyEdits, modify, parse as parseJsonc, type ParseError } from "jsonc-parser/lib/esm/main.js"
 
 const MIN_OPENCODE = "1.17.18"
 const PACKAGE_NAME = "@aeon-memory/opencode"
@@ -20,7 +21,9 @@ interface Options {
   command?: Command | string
   force: boolean
   dryRun: boolean
+  local: boolean
   target?: string
+  config?: string
 }
 
 interface Detection {
@@ -40,19 +43,24 @@ Commands:
 
 Options:
   --target DIR Override the OpenCode config directory
+  --config FILE Override the exact OpenCode JSON or JSONC config file
+  --local      Install the package from this source checkout (development only)
   --force      Install even when the detected OpenCode version is too old
   --dry-run    Print actions without writing files
 `)
 }
 
 function parse(argv: string[]): Options {
-  const result: Options = { command: argv[0], force: false, dryRun: false }
+  const result: Options = { command: argv[0], force: false, dryRun: false, local: false }
   for (let i = 1; i < argv.length; i += 1) {
     if (argv[i] === "--force") result.force = true
     else if (argv[i] === "--dry-run") result.dryRun = true
+    else if (argv[i] === "--local") result.local = true
     else if (argv[i] === "--target" && argv[i + 1]) result.target = argv[++i]
+    else if (argv[i] === "--config" && argv[i + 1]) result.config = argv[++i]
     else throw new Error(`Unknown or incomplete option: ${argv[i]}`)
   }
+  if (result.target && result.config) throw new Error("Use either --target DIR or --config FILE, not both")
   return result
 }
 
@@ -60,6 +68,15 @@ function configDir(option?: string): string {
   if (option) return resolve(option)
   const configHome = process.env.XDG_CONFIG_HOME || join(homedir(), ".config")
   return join(configHome, "opencode")
+}
+
+function configPath(dir: string, option?: string): string {
+  if (option) return resolve(option)
+  const candidates = [join(dir, "opencode.jsonc"), join(dir, "opencode.json")].filter(existsSync)
+  if (candidates.length > 1) {
+    throw new Error(`Both OpenCode config files exist; rerun with --config FILE: ${candidates.join(", ")}`)
+  }
+  return candidates[0] ?? join(dir, "opencode.jsonc")
 }
 
 const DEFAULT_OPTIONS = {
@@ -75,13 +92,24 @@ const DEFAULT_OPTIONS = {
   contextWindow: 200000,
 }
 
-function readConfig(path: string): Record<string, unknown> {
-  if (!existsSync(path)) return { $schema: "https://opencode.ai/config.json" }
-  const parsed = JSON.parse(readFileSync(path, "utf8"))
+interface ConfigDocument {
+  text: string
+  value: Record<string, unknown>
+}
+
+function readConfig(path: string): ConfigDocument {
+  const text = existsSync(path)
+    ? readFileSync(path, "utf8")
+    : '{\n  "$schema": "https://opencode.ai/config.json"\n}\n'
+  const errors: ParseError[] = []
+  const parsed = parseJsonc(text, errors, { allowTrailingComma: true, disallowComments: false })
+  if (errors.length > 0) {
+    throw new Error(`OpenCode config is not valid JSON/JSONC: ${path}`)
+  }
   if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
     throw new Error(`OpenCode config must contain a JSON object: ${path}`)
   }
-  return parsed as Record<string, unknown>
+  return { text, value: parsed as Record<string, unknown> }
 }
 
 function pluginSpec(entry: unknown): string | undefined {
@@ -90,9 +118,20 @@ function pluginSpec(entry: unknown): string | undefined {
   return undefined
 }
 
-function configuredOptions(entries: unknown[], specs: Set<string>): Record<string, unknown> | undefined {
+function isKnownPluginSpec(spec: string | undefined, oldBundle: string, legacy: string): boolean {
+  if (!spec) return false
+  if (spec === PACKAGE_NAME || spec === LEGACY_PACKAGE_NAME) return true
+  try {
+    const file = resolve(fileURLToPath(spec))
+    return file === resolve(oldBundle) || file === resolve(legacy) || file.endsWith(join("node_modules", "@aeon-memory", "opencode", "dist", "aeon-memory.js"))
+  } catch {
+    return false
+  }
+}
+
+function configuredOptions(entries: unknown[], oldBundle: string, legacy: string): Record<string, unknown> | undefined {
   for (const entry of entries) {
-    if (!Array.isArray(entry) || !specs.has(pluginSpec(entry) || "")) continue
+    if (!Array.isArray(entry) || !isKnownPluginSpec(pluginSpec(entry), oldBundle, legacy)) continue
     const options = entry[1]
     if (options && typeof options === "object" && !Array.isArray(options)) return options as Record<string, unknown>
   }
@@ -100,15 +139,15 @@ function configuredOptions(entries: unknown[], specs: Set<string>): Record<strin
 }
 
 function writePluginConfig(configPath: string, oldBundle: string, legacy: string, remove: boolean): void {
-  const config = readConfig(configPath)
-  const entries = Array.isArray(config.plugin) ? config.plugin : []
-  const specs = new Set([pathToFileURL(oldBundle).href, pathToFileURL(legacy).href, PACKAGE_NAME, LEGACY_PACKAGE_NAME])
-  const retained = entries.filter((entry) => !specs.has(pluginSpec(entry) || ""))
-  if (!remove) retained.push([PACKAGE_NAME, { ...DEFAULT_OPTIONS, ...configuredOptions(entries, specs) }])
-  if (retained.length > 0) config.plugin = retained
-  else delete config.plugin
+  const document = readConfig(configPath)
+  const entries = Array.isArray(document.value.plugin) ? document.value.plugin : []
+  const retained = entries.filter((entry) => !isKnownPluginSpec(pluginSpec(entry), oldBundle, legacy))
+  if (!remove) retained.push([PACKAGE_NAME, { ...DEFAULT_OPTIONS, ...configuredOptions(entries, oldBundle, legacy) }])
+  const edits = modify(document.text, ["plugin"], retained.length > 0 ? retained : undefined, {
+    formattingOptions: { insertSpaces: true, tabSize: 2, eol: "\n" },
+  })
   mkdirSync(dirname(configPath), { recursive: true })
-  writeFileSync(configPath, `${JSON.stringify(config, null, 2)}\n`, { mode: 0o600 })
+  writeFileSync(configPath, applyEdits(document.text, edits), { mode: 0o600 })
 }
 
 function packageJsonPath(dir: string): string {
@@ -119,29 +158,36 @@ function installedPackagePath(dir: string): string {
   return join(dir, "node_modules", "@aeon-memory", "opencode")
 }
 
-function installLocalPackage(dir: string, dryRun: boolean): void {
+function packageVersion(): string {
+  const parsed = JSON.parse(readFileSync(join(packageRoot, "package.json"), "utf8")) as { version?: unknown }
+  if (typeof parsed.version !== "string") throw new Error(`Package version is missing: ${packageRoot}`)
+  return parsed.version
+}
+
+function installPackage(dir: string, local: boolean, dryRun: boolean): void {
   const npm = process.platform === "win32" ? "npm.cmd" : "npm"
+  const spec = local ? packageRoot : `${PACKAGE_NAME}@${packageVersion()}`
   if (dryRun) {
-    console.log(`Would run npm install from local package: ${packageRoot}`)
+    console.log(`Would run npm install: ${spec}`)
     return
   }
   mkdirSync(dir, { recursive: true })
-  execFileSync(npm, ["install", "--save-exact", "--ignore-scripts", packageRoot], { cwd: dir, stdio: "inherit" })
+  execFileSync(npm, ["install", "--save-exact", "--ignore-scripts", spec], { cwd: dir, stdio: "inherit" })
 }
 
 function localDependency(dir: string): string | undefined {
   const path = packageJsonPath(dir)
   if (!existsSync(path)) return undefined
-  const pkg = readConfig(path)
+  const pkg = JSON.parse(readFileSync(path, "utf8")) as { dependencies?: unknown }
   const dependencies = pkg.dependencies
   if (!dependencies || typeof dependencies !== "object" || Array.isArray(dependencies)) return undefined
   const value = (dependencies as Record<string, unknown>)[PACKAGE_NAME]
   return typeof value === "string" ? value : undefined
 }
 
-function uninstallLocalPackage(dir: string, dryRun: boolean): void {
+function uninstallPackage(dir: string, dryRun: boolean): void {
   const dependency = localDependency(dir)
-  if (!dependency?.startsWith("file:")) return
+  if (!dependency) return
   if (dryRun) {
     console.log(`Would run npm uninstall: ${PACKAGE_NAME}`)
     return
@@ -238,21 +284,21 @@ function main(): void {
     return
   }
 
-  const dir = configDir(options.target)
+  const dir = options.config ? dirname(resolve(options.config)) : configDir(options.target)
   const oldBundle = join(dir, "aeon-memory", "aeon-memory.js")
   const legacy = join(dir, "plugins", "aeon-memory.js")
-  const configPath = join(dir, "opencode.json")
+  const selectedConfigPath = configPath(dir, options.config)
   const installedPackage = installedPackagePath(dir)
   const detected = detectOpenCode()
 
   if (options.command === "status") {
     console.log(compatibilityText(detected))
-    const config = readConfig(configPath)
-    const entries = Array.isArray(config.plugin) ? config.plugin : []
-    const configured = entries.some((entry) => pluginSpec(entry) === PACKAGE_NAME)
+    const config = readConfig(selectedConfigPath)
+    const entries = Array.isArray(config.value.plugin) ? config.value.plugin : []
+    const configured = entries.some((entry) => isKnownPluginSpec(pluginSpec(entry), oldBundle, legacy))
     console.log(`${existsSync(installedPackage) && configured ? "Installed and configured" : "Not fully installed"}: ${PACKAGE_NAME}`)
     console.log(`Package: ${installedPackage}`)
-    console.log(`Config: ${configPath}`)
+    console.log(`Config: ${selectedConfigPath}`)
     return
   }
 
@@ -263,16 +309,16 @@ function main(): void {
     console.log(compatibilityText(detected))
     ensureBuilt(options.dryRun)
     if (options.dryRun) {
-      installLocalPackage(dir, true)
-      console.log(`Would configure: ${configPath}`)
+      installPackage(dir, options.local, true)
+      console.log(`Would configure: ${selectedConfigPath}`)
       return
     }
-    installLocalPackage(dir, false)
-    writePluginConfig(configPath, oldBundle, legacy, false)
+    installPackage(dir, options.local, false)
+    writePluginConfig(selectedConfigPath, oldBundle, legacy, false)
     if (recognized(oldBundle) || !existsSync(oldBundle)) removeLegacyBundle(oldBundle, true)
     if (recognized(legacy)) removeLegacyBundle(legacy)
-    console.log(`Installed npm package: ${PACKAGE_NAME} from ${packageRoot}`)
-    console.log(`Configured: ${configPath}`)
+    console.log(`Installed ${options.local ? "local" : "registry"} npm package: ${PACKAGE_NAME}`)
+    console.log(`Configured: ${selectedConfigPath}`)
     console.log("Restart OpenCode to load the configured plugin instance.")
     return
   }
@@ -282,17 +328,17 @@ function main(): void {
       if (existsSync(path) && !recognized(path)) throw new Error(`Refusing to remove an unrecognized file: ${path}`)
     }
     if (options.dryRun) {
-      uninstallLocalPackage(dir, true)
+      uninstallPackage(dir, true)
       console.log(`Would remove legacy bundles: ${oldBundle}, ${legacy}`)
-      console.log(`Would update: ${configPath}`)
+      console.log(`Would update: ${selectedConfigPath}`)
       return
     }
-    uninstallLocalPackage(dir, false)
+    uninstallPackage(dir, false)
     removeLegacyBundle(oldBundle, true)
     removeLegacyBundle(legacy)
-    writePluginConfig(configPath, oldBundle, legacy, true)
+    writePluginConfig(selectedConfigPath, oldBundle, legacy, true)
     console.log(`Removed npm package: ${PACKAGE_NAME}`)
-    console.log(`Updated: ${configPath}`)
+    console.log(`Updated: ${selectedConfigPath}`)
     return
   }
 
