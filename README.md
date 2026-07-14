@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="assets/images/logo.png" alt="Aeon Memory" width="180" />
   <h1>Aeon Memory</h1>
   <p><strong>让每个 Agent 都拥有可追溯、可迁移、真正属于用户的长期记忆。</strong></p>
 Rust、SQLite、OpenCode 及所有依赖项目的维护者。
