@@ -10,6 +10,9 @@ type LogLevel = "debug" | "info" | "warn" | "error"
 
 interface Config {
   enabled: boolean
+  recallEnabled: boolean
+  captureEnabled: boolean
+  toolsEnabled: boolean
   gatewayUrl: string
   apiKey: string
   userId?: string
@@ -88,6 +91,9 @@ const INJECT_RE = /<aeon-memory-context\b[^>]*>[\s\S]*?<\/aeon-memory-context>/g
 
 const DEFAULT_CONFIG: Config = {
   enabled: true,
+  recallEnabled: true,
+  captureEnabled: true,
+  toolsEnabled: true,
   gatewayUrl: "http://127.0.0.1:8420",
   apiKey: "",
   recallTimeoutMs: 5000,
@@ -101,7 +107,7 @@ const DEFAULT_CONFIG: Config = {
 }
 
 const CONFIG_KEYS = new Set<keyof Config>([
-  "enabled", "gatewayUrl", "apiKey", "userId", "recallTimeoutMs",
+  "enabled", "recallEnabled", "captureEnabled", "toolsEnabled", "gatewayUrl", "apiKey", "userId", "recallTimeoutMs",
   "captureTimeoutMs", "sessionEndTimeoutMs", "offloadTimeoutMs",
   "recallMaxChars", "captureMaxChars", "offloadEnabled", "contextWindow",
 ])
@@ -120,18 +126,18 @@ function optionalString(value: unknown, name: string): string | undefined {
   return value
 }
 
+function booleanOption(value: unknown, fallback: boolean, name: string): boolean {
+  if (value === undefined) return fallback
+  if (typeof value !== "boolean") throw new Error(`aeon-memory option ${name} must be a boolean`)
+  return value
+}
+
 function configFromOptions(options: PluginOptions = {}): Config {
   if (!options || typeof options !== "object" || Array.isArray(options)) {
     throw new Error("aeon-memory plugin options must be an object")
   }
   for (const key of Object.keys(options)) {
     if (!CONFIG_KEYS.has(key as keyof Config)) throw new Error(`Unknown aeon-memory option: ${key}`)
-  }
-  if (options.enabled !== undefined && typeof options.enabled !== "boolean") {
-    throw new Error("aeon-memory option enabled must be a boolean")
-  }
-  if (options.offloadEnabled !== undefined && typeof options.offloadEnabled !== "boolean") {
-    throw new Error("aeon-memory option offloadEnabled must be a boolean")
   }
   const gatewayUrl = options.gatewayUrl ?? DEFAULT_CONFIG.gatewayUrl
   if (typeof gatewayUrl !== "string" || !/^https?:\/\//i.test(gatewayUrl)) {
@@ -140,7 +146,10 @@ function configFromOptions(options: PluginOptions = {}): Config {
   const apiKey = options.apiKey ?? DEFAULT_CONFIG.apiKey
   if (typeof apiKey !== "string") throw new Error("aeon-memory option apiKey must be a string")
   return {
-    enabled: options.enabled ?? DEFAULT_CONFIG.enabled,
+    enabled: booleanOption(options.enabled, DEFAULT_CONFIG.enabled, "enabled"),
+    recallEnabled: booleanOption(options.recallEnabled, DEFAULT_CONFIG.recallEnabled, "recallEnabled"),
+    captureEnabled: booleanOption(options.captureEnabled, DEFAULT_CONFIG.captureEnabled, "captureEnabled"),
+    toolsEnabled: booleanOption(options.toolsEnabled, DEFAULT_CONFIG.toolsEnabled, "toolsEnabled"),
     gatewayUrl: gatewayUrl.replace(/\/+$/, ""),
     apiKey,
     userId: optionalString(options.userId, "userId"),
@@ -150,7 +159,7 @@ function configFromOptions(options: PluginOptions = {}): Config {
     offloadTimeoutMs: boundedInteger(options.offloadTimeoutMs, DEFAULT_CONFIG.offloadTimeoutMs, "offloadTimeoutMs", 100, 600000),
     recallMaxChars: boundedInteger(options.recallMaxChars, DEFAULT_CONFIG.recallMaxChars, "recallMaxChars", 256, 100000),
     captureMaxChars: boundedInteger(options.captureMaxChars, DEFAULT_CONFIG.captureMaxChars, "captureMaxChars", 256, 200000),
-    offloadEnabled: options.offloadEnabled ?? DEFAULT_CONFIG.offloadEnabled,
+    offloadEnabled: booleanOption(options.offloadEnabled, DEFAULT_CONFIG.offloadEnabled, "offloadEnabled"),
     contextWindow: boundedInteger(options.contextWindow, DEFAULT_CONFIG.contextWindow, "contextWindow", 1024, 2000000),
   }
 }
@@ -212,7 +221,7 @@ function isMessageWithParts(value: unknown): value is MessageWithParts {
     "parts" in value && Array.isArray(value.parts))
 }
 
-function latestCompletedPair(messages: unknown, maxChars: number): CompletedPair | undefined {
+function completedPair(messages: unknown, maxChars: number, assistantMessageID?: string): CompletedPair | undefined {
   if (!Array.isArray(messages)) return undefined
   const validMessages = messages.filter(isMessageWithParts)
   const byID = new Map(validMessages.map((message) => [message.info.id, message]))
@@ -221,6 +230,7 @@ function latestCompletedPair(messages: unknown, maxChars: number): CompletedPair
       message.info.role === "assistant" && !message.info.error &&
       !isInternalAssistant(message.info) && Boolean(message.info.time.completed || message.info.finish),
     )
+    .filter((message) => !assistantMessageID || message.info.id === assistantMessageID)
     .sort((a, b) => (b.info.time?.completed || b.info.time?.created || 0) - (a.info.time?.completed || a.info.time?.created || 0))
 
   for (const assistant of assistants) {
@@ -240,6 +250,10 @@ function latestCompletedPair(messages: unknown, maxChars: number): CompletedPair
   return undefined
 }
 
+function latestCompletedPair(messages: unknown, maxChars: number): CompletedPair | undefined {
+  return completedPair(messages, maxChars)
+}
+
 function boundedAdd(set: Set<string>, value: string, max = 2048): void {
   set.add(value)
   while (set.size > max) {
@@ -255,18 +269,24 @@ function memoryContextText(context: string): string {
     `</aeon-memory-context>`
 }
 
+function adaptOpenCodeContext(context: string): string {
+  // The upstream core emits host-neutral/OpenClaw-oriented navigation text.
+  // OpenCode exposes the equivalent built-in file reader as `read`.
+  return context.replace(/\bread_file\b/g, "read")
+}
+
 function recallContexts(value: unknown, maxChars: number): Pick<RecallState, "prependContext" | "appendSystemContext"> {
   if (!value || typeof value !== "object") return { prependContext: "", appendSystemContext: "" }
-  const prepend = "prependContext" in value ? value.prependContext : undefined
-  const append = "appendSystemContext" in value ? value.appendSystemContext : undefined
+  const prepend = "prepend_context" in value ? value.prepend_context : "prependContext" in value ? value.prependContext : undefined
+  const append = "append_system_context" in value ? value.append_system_context : "appendSystemContext" in value ? value.appendSystemContext : undefined
   const legacy = "context" in value ? value.context : undefined
   const officialGatewayBody = "memory_count" in value
   return {
     // The official gateway's `context` is appendSystemContext. Older aeon-memory
     // builds omitted memory_count and exposed their combined context here;
     // retain that compatibility without misclassifying the official body.
-    prependContext: redactSensitive(typeof prepend === "string" ? prepend : officialGatewayBody ? undefined : legacy, maxChars),
-    appendSystemContext: redactSensitive(typeof append === "string" ? append : officialGatewayBody ? legacy : undefined, maxChars),
+    prependContext: adaptOpenCodeContext(redactSensitive(typeof prepend === "string" ? prepend : officialGatewayBody ? undefined : legacy, maxChars)),
+    appendSystemContext: adaptOpenCodeContext(redactSensitive(typeof append === "string" ? append : officialGatewayBody ? legacy : undefined, maxChars)),
   }
 }
 
@@ -549,7 +569,8 @@ function createAeonMemoryPlugin({
       })
     }
 
-    const captureLatestCore = async (sessionID: string): Promise<{ state: string; fingerprint?: string }> => {
+    const captureLatestCore = async (sessionID: string, assistantMessageID?: string): Promise<{ state: string; fingerprint?: string }> => {
+      if (!config.enabled || !config.captureEnabled) return { state: "disabled" }
       if (!sessionID || endedSessions.has(sessionID)) return { state: "ended" }
       activeSessions.add(sessionID)
       let result
@@ -559,7 +580,7 @@ function createAeonMemoryPlugin({
         await log("warn", "OpenCode SDK message lookup failed")
         return { state: "failed" }
       }
-      const pair = latestCompletedPair(responseData(result), config.captureMaxChars)
+      const pair = completedPair(responseData(result), config.captureMaxChars, assistantMessageID)
       if (!pair) return { state: "no-pair" }
       const fingerprint = createHash("sha256")
         .update(`${sessionID}\0${pair.userMessageID}\0${pair.assistantMessageID}`)
@@ -577,7 +598,8 @@ function createAeonMemoryPlugin({
       return { state: "captured", fingerprint }
     }
 
-    const captureLatest = (sessionID: string) => enqueue(sessionID, () => captureLatestCore(sessionID))
+    const captureLatest = (sessionID: string, assistantMessageID?: string) =>
+      enqueue(sessionID, () => captureLatestCore(sessionID, assistantMessageID))
 
     const sessionMessages = async (sessionID: string): Promise<MessageWithParts[]> => {
       try {
@@ -623,8 +645,10 @@ function createAeonMemoryPlugin({
     const finalizeSession = (sessionID: string) => enqueue(sessionID, async () => {
       // Lifecycle events can race the final message.updated event. Make one last
       // deduplicated capture attempt before flushing previously persisted turns.
-      await captureLatestCore(sessionID)
-      await endSessionCore(sessionID)
+      if (config.captureEnabled) {
+        await captureLatestCore(sessionID)
+        await endSessionCore(sessionID)
+      } else clearSessionState(sessionID)
     })
 
     const searchAllowed = (sessionID: string): boolean => {
@@ -637,7 +661,7 @@ function createAeonMemoryPlugin({
     const searchLimitMessage = "Memory search limit reached for this turn (3 combined calls). Answer using the information already available."
 
     return {
-      tool: {
+      tool: config.enabled && config.toolsEnabled ? {
         aeon_memory_search: tool({
           description: "Search the user's structured long-term memories (L1) for preferences, past events, instructions, or prior context. Combined with aeon_conversation_search, this tool is limited to 3 calls per user turn.",
           args: {
@@ -674,7 +698,7 @@ function createAeonMemoryPlugin({
             return responseResults(response, "Conversation search is currently unavailable.")
           },
         }),
-      },
+      } : {},
 
       "chat.message": async (input, output) => {
         if (!config.enabled || !input.sessionID) return
@@ -686,6 +710,7 @@ function createAeonMemoryPlugin({
         mainSystemGates.delete(input.sessionID)
         pendingOffloads.delete(input.sessionID)
         searchCounts.set(input.sessionID, 0)
+        if (!config.recallEnabled) return
         const generation = (recallGenerations.get(input.sessionID) || 0) + 1
         recallGenerations.set(input.sessionID, generation)
         const query = textFromParts(output.parts, config.recallMaxChars)
@@ -696,9 +721,8 @@ function createAeonMemoryPlugin({
           ...(config.userId ? { user_id: config.userId } : {}),
         }, config.recallTimeoutMs)
         const contexts = recallContexts(recalled, config.recallMaxChars)
-        // The pinned gateway intentionally does not expose dynamic L1 text on
-        // /recall. Retrieve it through the existing memory-search boundary
-        // instead of depending on Rust-only response fields.
+        // Compatibility fallback for gateways before v0.7.0. New gateways
+        // return the exact strategy-selected payload as `prepend_context`.
         if (!contexts.prependContext && recalled && typeof recalled === "object" &&
           "memory_count" in recalled && typeof recalled.memory_count === "number" && recalled.memory_count > 0) {
           const searched = await request("/search/memories", {
@@ -735,6 +759,7 @@ function createAeonMemoryPlugin({
       },
 
       "experimental.chat.messages.transform": async (_input, output) => {
+        if (!config.enabled) return
         const messages = Array.isArray(output.messages) ? output.messages : []
         // Hook outputs are ephemeral model-input clones. Removing our previous
         // synthetic part makes repeated agent steps idempotent without touching
@@ -810,6 +835,7 @@ function createAeonMemoryPlugin({
       },
 
       "experimental.chat.system.transform": async (input, output) => {
+        if (!config.enabled) return
         const sessionID = input.sessionID
         // Official v1.17.18 invokes title system transform before the main-loop
         // messages transform. Only a non-compaction messages transform arms
@@ -838,6 +864,7 @@ function createAeonMemoryPlugin({
       },
 
       event: async ({ event }) => {
+        if (!config.enabled) return
         if (event.type === "session.compacted") {
           const sessionID = event.properties.sessionID
           const state = compactions.get(sessionID)
@@ -872,12 +899,12 @@ function createAeonMemoryPlugin({
                 ...(info.finish ? { finish_reason: info.finish } : {}),
               }, config.offloadTimeoutMs)
             }
-            await captureLatest(info.sessionID)
+            await captureLatest(info.sessionID, info.id)
           }
           return
         }
         if (event.type === "session.idle") {
-          await captureLatest(event.properties.sessionID)
+          if (config.captureEnabled) await captureLatest(event.properties.sessionID)
           return
         }
         if (event.type === "session.deleted") {
@@ -897,7 +924,7 @@ function createAeonMemoryPlugin({
       },
 
       "tool.execute.after": async (input, output) => {
-        if (!config.offloadEnabled) return
+        if (!config.enabled || !config.offloadEnabled) return
         const messages = await sessionMessages(input.sessionID)
         const canonicalMessages = toCanonicalMessages(messages)
         const response = await request("/offload/after-tool", {

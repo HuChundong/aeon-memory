@@ -192,6 +192,9 @@ npx @aeon-memory/opencode@latest status
       "@aeon-memory/opencode",
       {
         "enabled": true,
+        "recallEnabled": true,
+        "captureEnabled": true,
+        "toolsEnabled": true,
         "gatewayUrl": "http://127.0.0.1:8420",
         "apiKey": "与 server.apiKey 相同",
         "recallTimeoutMs": 5000,

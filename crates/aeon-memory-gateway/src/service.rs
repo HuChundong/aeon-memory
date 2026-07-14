@@ -28,6 +28,8 @@ pub struct RecallRequest {
 pub struct RecallResponse {
     pub context: String,
     #[serde(skip_serializing_if = "Option::is_none")]
+    pub prepend_context: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub strategy: Option<String>,
     pub memory_count: usize,
 }

@@ -114,7 +114,7 @@ The application surface is intentionally limited to:
 | Method | Path | Purpose |
 |---|---|---|
 | GET | `/health` | Local core health |
-| POST | `/recall` | Stable turn context |
+| POST | `/recall` | Stable context plus strategy-selected dynamic L1 context |
 | POST | `/capture` | Commit an L0 turn |
 | POST | `/search/memories` | Search L1 atoms |
 | POST | `/search/conversations` | Search L0 conversations |

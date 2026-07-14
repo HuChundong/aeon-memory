@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url"
 import { applyEdits, modify, parse as parseJsonc, type ParseError } from "jsonc-parser/lib/esm/main.js"
 
 const MIN_OPENCODE = "1.17.18"
+const TESTED_OPENCODE = "1.17.20"
 const PACKAGE_NAME = "@aeon-memory/opencode"
 const LEGACY_PACKAGE_NAME = "@tencentdb-agent-memory/opencode"
 const MARKER = 'PLUGIN_NAME = "aeon-memory"'
@@ -81,6 +82,9 @@ function configPath(dir: string, option?: string): string {
 
 const DEFAULT_OPTIONS = {
   enabled: true,
+  recallEnabled: true,
+  captureEnabled: true,
+  toolsEnabled: true,
   gatewayUrl: "http://127.0.0.1:8420",
   recallTimeoutMs: 5000,
   captureTimeoutMs: 10000,
@@ -209,6 +213,12 @@ function versionAtLeast(actual: string, minimum: string): boolean {
   return true
 }
 
+function versionEqual(left: string, right: string): boolean {
+  const a = versionParts(left)
+  const b = versionParts(right)
+  return [0, 1, 2].every((index) => (a[index] ?? 0) === (b[index] ?? 0))
+}
+
 function detectOpenCode(): Detection {
   const binary = "opencode"
   try {
@@ -236,7 +246,11 @@ function removeLegacyBundle(path: string, pruneParent = false): void {
 
 function compatibilityText(detected: Detection): string {
   if (!detected.version) return `OpenCode not detected via ${detected.binary}; requires >= ${MIN_OPENCODE}`
-  return `OpenCode ${detected.version}: ${detected.compatible ? "compatible" : `requires >= ${MIN_OPENCODE}`}`
+  if (!detected.compatible) return `OpenCode ${detected.version}: requires >= ${MIN_OPENCODE}`
+  if (versionAtLeast(detected.version, TESTED_OPENCODE) && !versionEqual(detected.version, TESTED_OPENCODE)) {
+    return `OpenCode ${detected.version}: compatible minimum, newer than tested ${TESTED_OPENCODE}; experimental hooks require validation`
+  }
+  return `OpenCode ${detected.version}: compatible, tested through ${TESTED_OPENCODE}`
 }
 
 function buildNeeded(): boolean {

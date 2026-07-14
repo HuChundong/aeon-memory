@@ -243,8 +243,9 @@ curl -sS http://127.0.0.1:8420/recall \
 不存在 `/stats`、`/memories`、`/reindex` 等额外 HTTP 应用接口；`OPTIONS` 仅为
 CORS 协议处理。
 
-`/recall` 的 `context` 只包含稳定的 persona/scene 上下文，并返回 `memory_count`；
-当其大于 0 时，动态 L1 记忆应通过 `/search/memories` 获取。`/capture` 同步提交 L0
+`/recall` 的 `context` 只包含稳定的 persona/scene 上下文，`prepend_context` 包含同一次
+召回按策略、阈值与预算选定的动态 L1，并同时返回 `memory_count`。`/search/memories` 保留给
+Agent 主动下钻或兼容旧服务端使用。`/capture` 同步提交 L0
 后调度后台管线，真正结束会话时用 `/session/end` 排空。配置中的
 `memory.capture.enabled` 与 `memory.recall.enabled` 是宿主自动 hook 开关，不会禁用
 显式 HTTP 或 CLI 调用。

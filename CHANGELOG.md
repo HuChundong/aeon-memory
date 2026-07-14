@@ -6,6 +6,20 @@ Aeon Memory 的所有重要公开变更记录在此。格式遵循
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-07-14
+
+### 新增
+
+- `/recall` 以向后兼容的 `prepend_context` 字段返回同一次召回按策略、阈值和预算选定的动态 L1 上下文。
+- OpenCode 插件新增独立的 `recallEnabled`、`captureEnabled` 与 `toolsEnabled` 开关，并报告 experimental hook 的已测试版本范围。
+
+### 修复
+
+- OpenCode 不再用语义不同的 `/search/memories` 二次查询替代动态自动召回；连接旧服务端时仍保留兼容回退。
+- assistant 完成事件按事件中的 message ID 精确捕获对应轮次，避免快速连续完成时错过较早回复。
+- OpenCode 注入的场景导航与记忆工具指引使用宿主实际的 `read` 工具名。
+- 明确 `userId` 当前仅为兼容元数据，不构成存储隔离边界。
+
 ## [0.6.3] - 2026-07-14
 
 ### 修复
@@ -42,7 +56,8 @@ Aeon Memory 的所有重要公开变更记录在此。格式遵循
 - OpenCode 自动记忆插件 `@aeon-memory/opencode` 首次公开发布。
 - 行为回归测试与跨平台原生打包流程。
 
-[Unreleased]: https://github.com/HuChundong/aeon-memory/compare/v0.6.3...HEAD
+[Unreleased]: https://github.com/HuChundong/aeon-memory/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/HuChundong/aeon-memory/compare/v0.6.3...v0.7.0
 [0.6.3]: https://github.com/HuChundong/aeon-memory/compare/v0.6.2...v0.6.3
 [0.6.2]: https://github.com/HuChundong/aeon-memory/compare/v0.6.1...v0.6.2
 [0.6.1]: https://github.com/HuChundong/aeon-memory/compare/v0.6.0...v0.6.1

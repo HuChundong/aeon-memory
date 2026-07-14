@@ -220,7 +220,7 @@ test("structured recall splits dynamic user context from stable main-loop system
   const h = harness({ recallResponses: [{
     context: "legacy fallback must not win",
     prependContext: "dynamic recalled memory",
-    appendSystemContext: "stable memory tools guide",
+    appendSystemContext: "stable memory tools guide; use read_file for details",
   }] })
   const hooks = await h.factory({ client: h.client, directory: "/repo/a" })
   await hooks["chat.message"]({ sessionID: "s1" }, { message: { id: "u1" }, parts: [{ type: "text", text: "remember" }] })
@@ -236,26 +236,39 @@ test("structured recall splits dynamic user context from stable main-loop system
 
   const mainSystem = { system: ["main"] }
   await hooks["experimental.chat.system.transform"]?.({ sessionID: "s1" }, mainSystem)
-  assert.deepEqual(mainSystem.system, ["main", "stable memory tools guide"])
+  assert.deepEqual(mainSystem.system, ["main", "stable memory tools guide; use read for details"])
   const repeatedWithoutMessages = { system: ["title-or-other"] }
   await hooks["experimental.chat.system.transform"]?.({ sessionID: "s1" }, repeatedWithoutMessages)
   assert.deepEqual(repeatedWithoutMessages.system, ["title-or-other"])
 })
 
-test("official gateway recall keeps stable context on system and retrieves dynamic L1 through search", async () => {
-  const h = harness({ recallResponses: [{ context: "stable official context", strategy: "hybrid", memory_count: 1 }] })
+test("v0.7 gateway recall preserves the exact dynamic payload without a second search", async () => {
+  const h = harness({ recallResponses: [{
+    context: "stable official context",
+    prepend_context: "budgeted dynamic context; use read_file for scene details",
+    strategy: "hybrid",
+    memory_count: 1,
+  }] })
   const hooks = await h.factory({ client: h.client, directory: "/repo/a" })
   await hooks["chat.message"]({ sessionID: "s1" }, { message: { id: "u1" }, parts: [{ type: "text", text: "remember" }] })
 
-  assert.deepEqual(h.requests.map((request) => request.path), ["/recall", "/search/memories"])
+  assert.deepEqual(h.requests.map((request) => request.path), ["/recall"])
   const mainMessages = messageHistory("u1", "s1", 1)
   await hooks["experimental.chat.messages.transform"]({}, mainMessages)
-  assert.match(injectedPart(mainMessages).text ?? "", /memory-results/)
+  assert.match(injectedPart(mainMessages).text ?? "", /budgeted dynamic context; use read for scene details/)
+  assert.doesNotMatch(injectedPart(mainMessages).text ?? "", /read_file/)
   assert.doesNotMatch(injectedPart(mainMessages).text ?? "", /stable official context/)
 
   const mainSystem = { system: ["main"] }
   await hooks["experimental.chat.system.transform"]?.({ sessionID: "s1" }, mainSystem)
   assert.deepEqual(mainSystem.system, ["main", "stable official context"])
+})
+
+test("pre-v0.7 gateway recall keeps the compatibility search fallback", async () => {
+  const h = harness({ recallResponses: [{ context: "stable official context", strategy: "hybrid", memory_count: 1 }] })
+  const hooks = await h.factory({ client: h.client, directory: "/repo/a" })
+  await hooks["chat.message"]({ sessionID: "s1" }, { message: { id: "u1" }, parts: [{ type: "text", text: "remember" }] })
+  assert.deepEqual(h.requests.map((request) => request.path), ["/recall", "/search/memories"])
 })
 
 test("recall binds to the canonical output message ID rather than optional hook input ID", async () => {
@@ -478,6 +491,24 @@ test("completed is the primary capture trigger and duplicate idle is capture-onl
   assert.equal(h.requests.filter((r) => r.path === "/session/end").length, 0)
 })
 
+test("completed events capture their exact assistant instead of the newest visible turn", async () => {
+  const messages = structuredClone(fixture)
+  messages.push(
+    { info: { id: "u2", sessionID: "s1", role: "user", time: { created: 4 } }, parts: [{ type: "text", text: "second preference" }] },
+    { info: { id: "a2", sessionID: "s1", role: "assistant", parentID: "u2", time: { created: 5, completed: 6 }, finish: "stop" }, parts: [{ type: "text", text: "second response" }] },
+  )
+  const h = harness({ messages })
+  const hooks = await h.factory({ client: h.client, directory: "/repo/exact-event" })
+
+  await hooks.event({ event: { type: "message.updated", properties: { info: messages[1].info } } })
+  await hooks.event({ event: { type: "message.updated", properties: { info: messages[3].info } } })
+
+  const captures = h.requests.filter((request) => request.path === "/capture")
+  assert.equal(captures.length, 2)
+  assert.equal(captures[0]?.body.assistant_content, "I will remember that preference.")
+  assert.equal(captures[1]?.body.assistant_content, "second response")
+})
+
 test("latest completed pair ignores title and compaction summary assistants", () => {
   const messages = structuredClone(fixture)
   messages.push(
@@ -582,6 +613,38 @@ test("plugin options override individual defaults", () => {
   assert.equal(config.offloadTimeoutMs, 30000)
 })
 
+test("recall, capture, and tools can be disabled independently", async () => {
+  const recallOff = harness({ config: { recallEnabled: false } })
+  const recallOffHooks = await recallOff.factory({ client: recallOff.client, directory: "/repo/no-recall" })
+  await recallOffHooks["chat.message"]({ sessionID: "s1" }, { message: { id: "u1" }, parts: [{ type: "text", text: "hello" }] })
+  await recallOffHooks.event({ event: { type: "message.updated", properties: { info: fixture[1].info } } })
+  assert.deepEqual(recallOff.requests.map((request) => request.path), ["/capture"])
+  assert.equal(Object.keys(recallOffHooks.tool).length, 2)
+
+  const captureOff = harness({ config: { captureEnabled: false } })
+  const captureOffHooks = await captureOff.factory({ client: captureOff.client, directory: "/repo/no-capture" })
+  await captureOffHooks["chat.message"]({ sessionID: "s1" }, { message: { id: "u1" }, parts: [{ type: "text", text: "hello" }] })
+  await captureOffHooks.event({ event: { type: "message.updated", properties: { info: fixture[1].info } } })
+  await captureOffHooks.event({ event: { type: "session.deleted", properties: { info: { id: "s1" } } } })
+  assert.deepEqual(captureOff.requests.map((request) => request.path), ["/recall"])
+  assert.equal(Object.keys(captureOffHooks.tool).length, 2)
+
+  const toolsOff = harness({ config: { toolsEnabled: false } })
+  const toolsOffHooks = await toolsOff.factory({ client: toolsOff.client, directory: "/repo/no-tools" })
+  await toolsOffHooks["chat.message"]({ sessionID: "s1" }, { message: { id: "u1" }, parts: [{ type: "text", text: "hello" }] })
+  await toolsOffHooks.event({ event: { type: "message.updated", properties: { info: fixture[1].info } } })
+  assert.deepEqual(toolsOff.requests.map((request) => request.path), ["/recall", "/capture"])
+  assert.deepEqual(Object.keys(toolsOffHooks.tool), [])
+
+  const disabled = harness({ config: { enabled: false, offloadEnabled: true } })
+  const disabledHooks = await disabled.factory({ client: disabled.client, directory: "/repo/disabled" })
+  await disabledHooks["chat.message"]({ sessionID: "s1" }, { message: { id: "u1" }, parts: [{ type: "text", text: "hello" }] })
+  await disabledHooks.event({ event: { type: "message.updated", properties: { info: fixture[1].info } } })
+  await disabledHooks["tool.execute.after"]({ tool: "read", sessionID: "s1", callID: "c1", args: {} }, { output: "x" })
+  assert.deepEqual(disabled.requests, [])
+  assert.deepEqual(Object.keys(disabledHooks.tool), [])
+})
+
 test("default recall, capture, and lifecycle timeouts match host semantics", () => {
   const config = AeonMemoryPlugin.test.configFromOptions({})
   assert.equal(config.recallTimeoutMs, 5000)
@@ -594,6 +657,7 @@ test("plugin options reject environment-shaped, unknown, and out-of-range values
   assert.throws(() => AeonMemoryPlugin.test.configFromOptions({ recallTimeoutMs: "5000" }), /must be an integer/)
   assert.throws(() => AeonMemoryPlugin.test.configFromOptions({ recallTimeoutMs: 50 }), /between 100 and 600000/)
   assert.throws(() => AeonMemoryPlugin.test.configFromOptions({ gatewayUrl: "memory.test" }), /HTTP\(S\) URL/)
+  assert.throws(() => AeonMemoryPlugin.test.configFromOptions({ captureEnabled: "yes" }), /must be a boolean/)
 })
 
 test("idle captures when completed event arrived before messages became visible", async () => {
@@ -864,7 +928,7 @@ test("installer defaults to the published registry package and requires an expli
   const cli = join(here, "..", "dist", "cli.js")
   try {
     const dryRun = await execFileAsync(cli, ["install", "--target", root, "--dry-run"])
-    assert.match(dryRun.stdout, /Would run npm install: @aeon-memory\/opencode@0\.6\.3/)
+    assert.match(dryRun.stdout, /Would run npm install: @aeon-memory\/opencode@0\.7\.0/)
     assert.match(dryRun.stdout, /Would configure: .*opencode\.jsonc/)
     await writeFile(join(root, "opencode.json"), "{}\n")
     await writeFile(join(root, "opencode.jsonc"), "{}\n")
@@ -897,6 +961,22 @@ test("installer rejects an incompatible OpenCode version before writing", async 
       ),
     )
     await assert.rejects(readFile(join(root, "node_modules", "@aeon-memory", "opencode", "dist", "aeon-memory.js")))
+  } finally {
+    await rm(root, { recursive: true, force: true })
+  }
+})
+
+test("installer reports when OpenCode is newer than the tested experimental-hook range", async () => {
+  const root = await mkdtemp(join(tmpdir(), "aeon-memory-opencode-newer-"))
+  const cli = join(here, "..", "dist", "cli.js")
+  try {
+    const binDir = join(root, "bin")
+    await mkdir(binDir)
+    await writeFile(join(binDir, "opencode"), "#!/bin/sh\necho 1.18.0\n", { mode: 0o755 })
+    const result = await execFileAsync(cli, ["status", "--target", root], {
+      env: { ...process.env, PATH: `${binDir}:${process.env.PATH ?? ""}` },
+    })
+    assert.match(result.stdout, /newer than tested 1\.17\.20; experimental hooks require validation/)
   } finally {
     await rm(root, { recursive: true, force: true })
   }
