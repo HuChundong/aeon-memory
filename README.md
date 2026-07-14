@@ -1,4 +1,5 @@
 <div align="center">
+  <img src="assets/images/aeon-memory-banner.png" alt="Aeon Memory：跨越时间的分层记忆" width="100%" />
   <h1>Aeon Memory</h1>
   <p><strong>让每个 Agent 都拥有可追溯、可迁移、真正属于用户的长期记忆。</strong></p>
 Rust、SQLite、OpenCode 及所有依赖项目的维护者。
@@ -11,19 +12,13 @@ Rust、SQLite、OpenCode 及所有依赖项目的维护者。
 [![Rust](https://img.shields.io/badge/Rust-1.85%2B-orange.svg)](https://www.rust-lang.org/)
 [![OpenCode](https://img.shields.io/badge/OpenCode-1.17.18%2B-6C47FF.svg)](https://opencode.ai/)
 
-[简体中文](README.md) · [English](README_EN.md) · [上游项目](https://github.com/TencentCloud/TencentDB-Agent-Memory)
+[简体中文](README.md) · [English](README_EN.md)
 </div>
 
-Aeon Memory 是一个独立、轻量、跨平台的 Agent 记忆服务。它使用 Rust 重实现
-[TencentDB Agent Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory) 的核心
-L0 → L1 → L2 → L3 分层记忆与上下文卸载逻辑，提供原生 CLI、严格限制为 10 个应用
-接口的 HTTP 服务，以及可通过 npm 一键安装的 OpenCode 插件。运行服务不需要 Node.js、
-OpenClaw 或 Docker。
-
-> [!IMPORTANT]
-> Aeon Memory 是社区独立维护的兼容实现，并非腾讯或腾讯云官方产品。我们衷心感谢
-> TencentDB Agent Memory 的维护者与贡献者创造并开源分层记忆体系。完整归属与第三方
-> 声明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+Aeon Memory 是一个独立、轻量、跨平台的 Agent 记忆服务。它把连续对话逐层沉淀为事实、
+场景与用户画像，在保留原始证据的同时为不同 Agent 提供稳定的跨会话记忆。项目提供原生
+CLI、严格限制为 10 个应用接口的 HTTP 服务，以及可通过 npm 一键安装的 OpenCode 插件；
+运行服务不需要 Node.js 或 Docker。
 
 ## 为什么是 Aeon Memory
 
@@ -35,7 +30,7 @@ OpenClaw 或 Docker。
   均运行在本机；仅 LLM 和可选 Embedding 调用所配置的兼容端点。
 - **跨平台单服务**：Linux、macOS、Windows 原生构建；Docker 只是可选部署方式。
 - **宿主无关**：HTTP API 不绑定特定 Agent；目前提供经过测试的 OpenCode 自动集成。
-- **可验证兼容**：保留 TypeScript 上游基线、差分测试矩阵与经批准差异清单。
+- **可回归验证**：核心状态机、存储、检索和宿主生命周期均有自动化测试覆盖。
 
 ## 记忆架构
 
@@ -260,12 +255,11 @@ AEON_MEMORY_DATA_DIR > data.baseDir > ~/.aeon-memory/data
 `server.apiKey`，并配置防火墙、TLS 反向代理和最小 CORS 白名单。配置文件与记忆数据均
 可能含敏感信息，不应提交 Git。安全问题请按 [SECURITY.md](SECURITY.md) 私密报告。
 
-## 兼容性与已知边界
+## 质量与已知边界
 
-本项目目标是保持上游核心记忆语义，而不是继续依赖上游的 OpenClaw/Node.js 宿主实现。
-仓库内保留可执行的 TypeScript fixture、Rust oracle 与真实 SQLite 集成测试作为兼容性
-证据。不可避免的语言或宿主差异必须通过测试和 PR 说明公开审查。Aeon Memory 不会使用
-腾讯商标暗示官方关系，也不复制上游的 Benchmark 成绩作为本实现成绩。
+仓库内保留可执行 fixture、行为 oracle 与真实 SQLite 集成测试，覆盖记忆管线、持久化、
+检索、CLI、HTTP 和 OpenCode 生命周期。公开接口或行为变化必须补充回归测试并通过 PR
+审查。当前项目不宣称未经独立复现的 Benchmark 成绩。
 
 ## 开发与验证
 
@@ -296,12 +290,13 @@ Aeon Memory 当前处于早期公开版本。核心服务、CLI、HTTP API 和 O
 测试，但在生产使用前仍应进行备份、容量评估、模型兼容验证和故障恢复演练。版本遵循
 [Semantic Versioning](https://semver.org/)，变更见 [CHANGELOG.md](CHANGELOG.md)。
 
-## 许可证与致谢
+## 代码来源、许可证与致谢
 
-Aeon Memory 采用 [MIT License](LICENSE)。衍生部分保留 TencentDB Agent Memory 的原始
-版权与许可声明；sqlite-vec 等组件仍遵循各自许可证，详见
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+Aeon Memory 的分层记忆与上下文卸载核心逻辑源自开源项目
+[TencentDB Agent Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory)，并在其
+MIT 许可基础上持续演进。衷心感谢原项目维护者与所有贡献者创造并开放这些设计与代码。
+Aeon Memory 由社区独立维护，不代表原项目或其所属公司的官方发行。
 
-再次感谢 [TencentDB Agent Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory)
-团队和贡献者对 Agent 分层记忆与符号化上下文卸载的开创性实现，也感谢 sqlite-vec、
+本项目采用 [MIT License](LICENSE)。sqlite-vec 等组件仍遵循各自许可证，完整版权与
+第三方声明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。同时感谢 sqlite-vec、
 Rust、SQLite、OpenCode 及所有依赖项目的维护者。

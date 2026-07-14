@@ -8,7 +8,7 @@ channel described by [SECURITY.md](SECURITY.md), not in public issues.
 
 1. Search existing issues and pull requests.
 2. Open an issue before a large feature, new public interface, storage format
-   change, or intentional upstream behavior difference.
+   change, or intentional compatibility break.
 3. Keep changes focused. Do not mix unrelated cleanup with behavior changes.
 4. Never include API keys, `.env` files, production memory, or user data.
 
@@ -18,7 +18,7 @@ channel described by [SECURITY.md](SECURITY.md), not in public issues.
 - `crates/aeon-memory-store-sqlite`: SQLite, FTS5, and sqlite-vec persistence.
 - `crates/aeon-memory-gateway`: shared CLI/HTTP service and both native binaries.
 - `integrations/opencode`: the official Aeon Memory OpenCode npm integration.
-- `scripts/`: offline migration, parity, and release helpers only; never a second runtime.
+- `scripts/`: offline data, regression, and release helpers only; never a second runtime.
 
 The HTTP application surface must remain at ten routes or fewer. CLI and HTTP
 features must share the same service implementation. Production code must not
@@ -64,7 +64,7 @@ developer's real `~/.aeon-memory` or OpenCode configuration.
 
 ---
 
-感谢参与 Aeon Memory。开始较大的功能、公开接口、存储格式或上游语义差异前，请先提交
+感谢参与 Aeon Memory。开始较大的功能、公开接口、存储格式或兼容性变更前，请先提交
 Issue 讨论。修改必须保持聚焦，不得包含密钥、生产记忆或用户数据。核心语义修改必须补充
 TypeScript 基线差分证据与真实 SQLite 测试；不可避免的差异必须在 PR 中明确说明并由回归
 测试覆盖。提交 PR 时请说明用户可见结果、兼容性影响和实际执行的验证，

@@ -80,7 +80,7 @@ the current implementation must not claim provider-token tracking from this rout
   15 MMD files per agent, and only removes aged orphan refs. Production schedules the first pass
   five minutes after startup and repeats every 24 hours; shutdown cancels the scheduler safely.
 
-## Migration coverage and explicit remaining work
+## Implementation coverage and explicit remaining work
 
 Implemented in `aeon_memory_core::offload`:
 

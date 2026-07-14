@@ -2,7 +2,7 @@
   "name": "@aeon-memory/data-tools",
   "version": "0.6.1",
   "private": true,
-  "description": "Private migration and export tools for Aeon Memory",
+  "description": "Private offline data inspection and export tools for Aeon Memory",
   "type": "module",
   "bin": {
     "export-tencent-vdb": "./bin/export-tencent-vdb.mjs",

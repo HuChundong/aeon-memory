@@ -1,4 +1,4 @@
-# Standalone Rust gateway configuration.
+# Aeon Memory service configuration.
 # Copy to aeon-memory.yaml and replace every CHANGE_ME value.
 server:
   host: "127.0.0.1"

@@ -126,6 +126,4 @@ cd ../..
 问题反馈请前往 <https://github.com/HuChundong/aeon-memory/issues>；安全问题请勿公开提交，
 请遵循主仓库的 [安全策略](https://github.com/HuChundong/aeon-memory/security/policy)。
 
-本插件和 Aeon Memory 采用 MIT 许可证。Aeon Memory 是独立社区项目，不是腾讯官方产品；
-核心设计源自 TencentDB Agent Memory，我们向上游维护者与贡献者表示感谢。
-
+本插件和 Aeon Memory 采用 MIT 许可证。项目代码来源与完整致谢见主仓库 README。

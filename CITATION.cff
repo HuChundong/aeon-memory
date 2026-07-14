@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use Aeon Memory, please cite this repository and the upstream TencentDB Agent Memory project."
+message: "If you use Aeon Memory, please cite this repository."
 title: "Aeon Memory"
 type: software
 version: 0.6.1
@@ -10,7 +10,3 @@ url: "https://github.com/HuChundong/aeon-memory"
 authors:
   - family-names: "Hu"
     given-names: "Chundong"
-references:
-  - type: software
-    title: "TencentDB Agent Memory"
-    repository-code: "https://github.com/TencentCloud/TencentDB-Agent-Memory"

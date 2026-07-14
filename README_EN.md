@@ -8,17 +8,11 @@
 [简体中文](README.md) · **English**
 
 Aeon Memory is an independent, lightweight, cross-platform memory service for
-AI agents. It reimplements the core L0 -> L1 -> L2 -> L3 hierarchy and context
-offload behavior of
-[TencentDB Agent Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory)
-in Rust. It provides a native CLI, a standalone HTTP server with exactly ten
-application routes, and an npm-installable OpenCode integration. The runtime
-does not require Node.js, OpenClaw, or Docker.
-
-> Aeon Memory is independently maintained and is not an official Tencent or
-> Tencent Cloud product. We are deeply grateful to the upstream maintainers
-> and contributors for creating and open-sourcing the layered memory design.
-> See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+AI agents. It turns ongoing conversations into layered facts, scenarios, and
+user profiles while preserving raw evidence for drill-down. It provides a
+native CLI, a standalone HTTP server with exactly ten application routes, and
+an npm-installable OpenCode integration. The runtime does not require Node.js
+or Docker.
 
 ## Highlights
 
@@ -30,7 +24,8 @@ does not require Node.js, OpenClaw, or Docker.
 - Native Linux, macOS, and Windows release artifacts; Docker is optional.
 - Keyword retrieval without embeddings, and hybrid/vector retrieval when an
   OpenAI-compatible embedding endpoint is configured.
-- Differential tests against preserved TypeScript upstream baselines.
+- Automated regression coverage for the core state machine, storage,
+  retrieval, HTTP API, CLI, and host lifecycle.
 
 ## Quick start
 
@@ -141,11 +136,11 @@ non-loopback binding, use a strong API key, firewall rules, TLS termination,
 and a minimal CORS allowlist. Never commit credentials or production memory.
 Report vulnerabilities privately according to [SECURITY.md](SECURITY.md).
 
-## Compatibility and development
+## Quality and development
 
-Executable TypeScript fixtures, Rust oracles, and real SQLite integration tests
-are retained in the repository as compatibility evidence. Any unavoidable
-language or host difference must be documented and reviewed in its pull request.
+Executable fixtures, behavior oracles, and real SQLite integration tests cover
+the memory pipeline, persistence, retrieval, CLI, HTTP API, and OpenCode
+lifecycle. Public behavior changes must include regression tests and review.
 
 ```bash
 cargo fmt --all -- --check
@@ -167,9 +162,17 @@ Trusted Publishing.
 See [CONTRIBUTING.md](CONTRIBUTING.md), [RELEASING.md](RELEASING.md), and
 [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) before contributing.
 
-## License and acknowledgements
+## Source, license, and acknowledgements
 
-Aeon Memory is available under the [MIT License](LICENSE). Original upstream
-copyright and license notices are preserved. Our sincere thanks go to the
-TencentDB Agent Memory, sqlite-vec, SQLite, Rust, OpenCode, and dependency
+Aeon Memory's layered-memory and context-offload core is derived from the
+open-source
+[TencentDB Agent Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory)
+project and continues under its MIT license. We sincerely thank its maintainers
+and contributors for creating and sharing the original design and code. Aeon
+Memory is independently maintained and is not an official distribution of the
+original project or its affiliated company.
+
+Aeon Memory is available under the [MIT License](LICENSE). See
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for complete notices. Our
+thanks also go to the sqlite-vec, SQLite, Rust, OpenCode, and dependency
 communities.
