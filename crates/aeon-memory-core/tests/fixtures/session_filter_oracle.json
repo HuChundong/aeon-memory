@@ -1,0 +1,123 @@
+{
+  "patterns": [
+    " bench-* ",
+    "literal.+",
+    "x*y*z",
+    ""
+  ],
+  "keys": [
+    {
+      "key": "agent:a:normal",
+      "skip": false
+    },
+    {
+      "key": "agent:a:memory-scene-extract-1",
+      "skip": true
+    },
+    {
+      "key": "agent:a:subagent:x",
+      "skip": true
+    },
+    {
+      "key": "temp:slug",
+      "skip": true
+    },
+    {
+      "key": "agent:a:bench-judge-3",
+      "skip": true
+    },
+    {
+      "key": "preliteral.+post",
+      "skip": true
+    },
+    {
+      "key": "x12y34z",
+      "skip": true
+    },
+    {
+      "key": "xzy",
+      "skip": false
+    },
+    {
+      "key": "",
+      "skip": false
+    }
+  ],
+  "triggers": [
+    {
+      "trigger": null,
+      "skip": false
+    },
+    {
+      "trigger": "cron",
+      "skip": true
+    },
+    {
+      "trigger": "CRON",
+      "skip": true
+    },
+    {
+      "trigger": "heartbeat",
+      "skip": true
+    },
+    {
+      "trigger": "automation",
+      "skip": true
+    },
+    {
+      "trigger": "schedule",
+      "skip": true
+    },
+    {
+      "trigger": "manual",
+      "skip": false
+    }
+  ],
+  "keyTriggers": [
+    {
+      "key": "agent:a:cron:x",
+      "skip": true
+    },
+    {
+      "key": "agent:a:HEARTBEAT:x",
+      "skip": true
+    },
+    {
+      "key": "agent:a:normal",
+      "skip": false
+    }
+  ],
+  "contexts": [
+    {
+      "ctx": {},
+      "skip": true
+    },
+    {
+      "ctx": {
+        "sessionKey": "agent:a:normal"
+      },
+      "skip": false
+    },
+    {
+      "ctx": {
+        "sessionKey": "agent:a:normal",
+        "sessionId": "memory-x"
+      },
+      "skip": true
+    },
+    {
+      "ctx": {
+        "sessionKey": "agent:a:normal",
+        "trigger": "cron"
+      },
+      "skip": true
+    },
+    {
+      "ctx": {
+        "sessionKey": "agent:a:bench-judge-3",
+        "trigger": "manual"
+      },
+      "skip": true
+    }
+  ]
+}

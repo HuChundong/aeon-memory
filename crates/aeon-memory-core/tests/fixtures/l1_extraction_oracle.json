@@ -1,0 +1,143 @@
+{
+  "cases": [
+    {
+      "name": "quality_gate",
+      "success": true,
+      "extractedCount": 0,
+      "storedCount": 0,
+      "lastSceneName": null,
+      "records": [],
+      "calls": [
+        {
+          "prompt": "**All timestamps below are in UTC (UTC+00:00). When reasoning about \"yesterday\", \"last week\", or time differences, use this timezone.**\n\n**输出语言**：根据下方\"待提取的新消息\"中 user 发言的主导语言书写 `scene_name` 和 memory `content`。\n\n【上一个情境】：无\n\n【背景对话】（仅供理解上下文推断关系/时间，严禁从中提取记忆）：\n无\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n【待提取的新消息】（务必结合 timestamp 推算时间，只从这里提取记忆！）：\n[q3] [user] [1970-01-01T00:00:00+00:00]: keep this qualified message",
+          "taskId": "l1-extraction",
+          "timeoutMs": 180000,
+          "maxTokens": null
+        }
+      ]
+    },
+    {
+      "name": "window",
+      "success": true,
+      "extractedCount": 0,
+      "storedCount": 0,
+      "lastSceneName": null,
+      "records": [],
+      "calls": [
+        {
+          "prompt": "**All timestamps below are in UTC (UTC+00:00). When reasoning about \"yesterday\", \"last week\", or time differences, use this timezone.**\n\n**输出语言**：根据下方\"待提取的新消息\"中 user 发言的主导语言书写 `scene_name` 和 memory `content`。\n\n【上一个情境】：无\n\n【背景对话】（仅供理解上下文推断关系/时间，严禁从中提取记忆）：\n[m2] [assistant] [1970-01-01T00:00:01+00:00]: qualified-message-2\n\n[m3] [user] [1970-01-01T00:00:01+00:00]: qualified-message-3\n\n[m4] [assistant] [1970-01-01T00:00:01+00:00]: qualified-message-4\n\n[m5] [user] [1970-01-01T00:00:01+00:00]: qualified-message-5\n\n[m6] [assistant] [1970-01-01T00:00:01+00:00]: qualified-message-6\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n【待提取的新消息】（务必结合 timestamp 推算时间，只从这里提取记忆！）：\n[m7] [user] [1970-01-01T00:00:01+00:00]: qualified-message-7\n\n[m8] [assistant] [1970-01-01T00:00:01+00:00]: qualified-message-8\n\n[m9] [user] [1970-01-01T00:00:01+00:00]: qualified-message-9\n\n[m10] [assistant] [1970-01-01T00:00:01+00:00]: qualified-message-10\n\n[m11] [user] [1970-01-01T00:00:01+00:00]: qualified-message-11\n\n[m12] [assistant] [1970-01-01T00:00:01+00:00]: qualified-message-12\n\n[m13] [user] [1970-01-01T00:00:01+00:00]: qualified-message-13\n\n[m14] [assistant] [1970-01-01T00:00:01+00:00]: qualified-message-14\n\n[m15] [user] [1970-01-01T00:00:01+00:00]: qualified-message-15\n\n[m16] [assistant] [1970-01-01T00:00:01+00:00]: qualified-message-16",
+          "taskId": "l1-extraction",
+          "timeoutMs": 180000,
+          "maxTokens": null
+        }
+      ]
+    },
+    {
+      "name": "wrapped_defaults_and_limit",
+      "success": true,
+      "extractedCount": 3,
+      "storedCount": 3,
+      "lastSceneName": "未知情境",
+      "records": [
+        {
+          "content": "memory-1",
+          "type": "episodic",
+          "priority": 40,
+          "sceneName": "未知情境",
+          "sourceMessageIds": [],
+          "metadata": {}
+        },
+        {
+          "content": "memory-2",
+          "type": "episodic",
+          "priority": 41,
+          "sceneName": "未知情境",
+          "sourceMessageIds": [],
+          "metadata": {}
+        },
+        {
+          "content": "memory-3",
+          "type": "episodic",
+          "priority": 42,
+          "sceneName": "未知情境",
+          "sourceMessageIds": [],
+          "metadata": {}
+        }
+      ],
+      "calls": [
+        {
+          "prompt": "**All timestamps below are in UTC (UTC+00:00). When reasoning about \"yesterday\", \"last week\", or time differences, use this timezone.**\n\n**输出语言**：根据下方\"待提取的新消息\"中 user 发言的主导语言书写 `scene_name` 和 memory `content`。\n\n【上一个情境】：无\n\n【背景对话】（仅供理解上下文推断关系/时间，严禁从中提取记忆）：\n无\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n【待提取的新消息】（务必结合 timestamp 推算时间，只从这里提取记忆！）：\n[m1] [user] [1970-01-01T00:00:01+00:00]: qualified-message-1",
+          "taskId": "l1-extraction",
+          "timeoutMs": 180000,
+          "maxTokens": null
+        }
+      ]
+    },
+    {
+      "name": "coercion_and_persistence",
+      "success": true,
+      "extractedCount": 1,
+      "storedCount": 1,
+      "lastSceneName": "edge",
+      "records": [
+        {
+          "content": "  preserve me  ",
+          "type": "episodic",
+          "priority": 70.5,
+          "sceneName": "edge",
+          "sourceMessageIds": [
+            "7",
+            "true",
+            "null",
+            "[object Object]",
+            "a,2"
+          ],
+          "metadata": {}
+        }
+      ],
+      "calls": [
+        {
+          "prompt": "**All timestamps below are in UTC (UTC+00:00). When reasoning about \"yesterday\", \"last week\", or time differences, use this timezone.**\n\n**输出语言**：根据下方\"待提取的新消息\"中 user 发言的主导语言书写 `scene_name` 和 memory `content`。\n\n【上一个情境】：无\n\n【背景对话】（仅供理解上下文推断关系/时间，严禁从中提取记忆）：\n无\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n【待提取的新消息】（务必结合 timestamp 推算时间，只从这里提取记忆！）：\n[m1] [user] [1970-01-01T00:00:01+00:00]: qualified-message-1",
+          "taskId": "l1-extraction",
+          "timeoutMs": 180000,
+          "maxTokens": null
+        }
+      ]
+    },
+    {
+      "name": "malformed",
+      "success": true,
+      "extractedCount": 0,
+      "storedCount": 0,
+      "lastSceneName": null,
+      "records": [],
+      "calls": [
+        {
+          "prompt": "**All timestamps below are in UTC (UTC+00:00). When reasoning about \"yesterday\", \"last week\", or time differences, use this timezone.**\n\n**输出语言**：根据下方\"待提取的新消息\"中 user 发言的主导语言书写 `scene_name` 和 memory `content`。\n\n【上一个情境】：无\n\n【背景对话】（仅供理解上下文推断关系/时间，严禁从中提取记忆）：\n无\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n【待提取的新消息】（务必结合 timestamp 推算时间，只从这里提取记忆！）：\n[m1] [user] [1970-01-01T00:00:01+00:00]: qualified-message-1",
+          "taskId": "l1-extraction",
+          "timeoutMs": 180000,
+          "maxTokens": null
+        }
+      ]
+    },
+    {
+      "name": "llm_error",
+      "success": false,
+      "extractedCount": 0,
+      "storedCount": 0,
+      "lastSceneName": null,
+      "records": [],
+      "calls": [
+        {
+          "prompt": "**All timestamps below are in UTC (UTC+00:00). When reasoning about \"yesterday\", \"last week\", or time differences, use this timezone.**\n\n**输出语言**：根据下方\"待提取的新消息\"中 user 发言的主导语言书写 `scene_name` 和 memory `content`。\n\n【上一个情境】：无\n\n【背景对话】（仅供理解上下文推断关系/时间，严禁从中提取记忆）：\n无\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n【待提取的新消息】（务必结合 timestamp 推算时间，只从这里提取记忆！）：\n[m1] [user] [1970-01-01T00:00:01+00:00]: qualified-message-1",
+          "taskId": "l1-extraction",
+          "timeoutMs": 180000,
+          "maxTokens": null
+        }
+      ]
+    }
+  ],
+  "topKCalls": [
+    8
+  ]
+}

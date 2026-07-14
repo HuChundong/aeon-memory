@@ -1,0 +1,18 @@
+[package]
+name = "aeon-memory-store-sqlite"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+aeon-memory-core.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+chrono.workspace = true
+async-trait.workspace = true
+tokio = { workspace = true, features = ["sync"] }
+rusqlite = { version = "0.32", features = ["bundled", "load_extension"] }
+
+[lib]
+name = "aeon_memory_store_sqlite"

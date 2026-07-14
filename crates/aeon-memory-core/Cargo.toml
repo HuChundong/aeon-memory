@@ -1,0 +1,23 @@
+[package]
+name = "aeon-memory-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+serde_yaml.workspace = true
+thiserror.workspace = true
+chrono.workspace = true
+ureq.workspace = true
+async-trait = "0.1"
+tokio = { version = "1", features = ["rt", "macros", "time"] }
+sha2.workspace = true
+md-5.workspace = true
+chrono-tz.workspace = true
+jieba-rs.workspace = true
+tiktoken-rs = "0.9"
+
+[dev-dependencies]
+filetime = "0.2"

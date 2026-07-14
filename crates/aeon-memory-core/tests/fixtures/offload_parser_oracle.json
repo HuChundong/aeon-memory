@@ -1,0 +1,180 @@
+[
+  {
+    "raw": "",
+    "json": null,
+    "mermaid": null,
+    "l1": [],
+    "l15": null,
+    "l2": null
+  },
+  {
+    "raw": "not json",
+    "json": null,
+    "mermaid": null,
+    "l1": [],
+    "l15": null,
+    "l2": null
+  },
+  {
+    "raw": "prefix {\"a\":1,} suffix",
+    "json": {
+      "a": 1
+    },
+    "mermaid": null,
+    "l1": [],
+    "l15": null,
+    "l2": {
+      "fileAction": "write",
+      "nodeMapping": {}
+    }
+  },
+  {
+    "raw": "```json\n[1,2,]\n```",
+    "json": null,
+    "mermaid": null,
+    "l1": [],
+    "l15": null,
+    "l2": null
+  },
+  {
+    "raw": "```mermaid\nflowchart TD\n A-->B\n```",
+    "json": null,
+    "mermaid": "flowchart TD\n A-->B",
+    "l1": [],
+    "l15": null,
+    "l2": {
+      "fileAction": "write",
+      "mmdContent": "flowchart TD\n A-->B",
+      "nodeMapping": {}
+    }
+  },
+  {
+    "raw": "[{\"tool_call_id\":\"x\",\"timestamp\":\"t\",\"tool_call\":\"shell\",\"summary\":\"done\",\"score\":9},{\"tool_call_id\":\"\",\"summary\":\"drop\"},{\"tool_call_id\":\"y\"}]",
+    "json": [
+      {
+        "tool_call_id": "x",
+        "timestamp": "t",
+        "tool_call": "shell",
+        "summary": "done",
+        "score": 9
+      },
+      {
+        "tool_call_id": "",
+        "summary": "drop"
+      },
+      {
+        "tool_call_id": "y"
+      }
+    ],
+    "mermaid": null,
+    "l1": [
+      {
+        "tool_call_id": "x",
+        "tool_call": "shell",
+        "summary": "done",
+        "timestamp": "t",
+        "score": 9,
+        "node_id": null
+      },
+      {
+        "tool_call_id": "y",
+        "tool_call": "",
+        "summary": "",
+        "timestamp": "",
+        "score": 5,
+        "node_id": null
+      }
+    ],
+    "l15": null,
+    "l2": {
+      "fileAction": "write",
+      "nodeMapping": {}
+    }
+  },
+  {
+    "raw": "{\"taskCompleted\":true,\"isContinuation\":false,\"isLongTask\":true,\"continuationMmdFile\":\"a.mmd\",\"newTaskLabel\":\"task\"}",
+    "json": {
+      "taskCompleted": true,
+      "isContinuation": false,
+      "isLongTask": true,
+      "continuationMmdFile": "a.mmd",
+      "newTaskLabel": "task"
+    },
+    "mermaid": null,
+    "l1": [],
+    "l15": {
+      "taskCompleted": true,
+      "isContinuation": false,
+      "isLongTask": true,
+      "continuationMmdFile": "a.mmd",
+      "newTaskLabel": "task"
+    },
+    "l2": {
+      "fileAction": "write",
+      "nodeMapping": {}
+    }
+  },
+  {
+    "raw": "{\"taskCompleted\":null,\"isContinuation\":null,\"isLongTask\":null}",
+    "json": {
+      "taskCompleted": null,
+      "isContinuation": null,
+      "isLongTask": null
+    },
+    "mermaid": null,
+    "l1": [],
+    "l15": null,
+    "l2": {
+      "fileAction": "write",
+      "nodeMapping": {}
+    }
+  },
+  {
+    "raw": "{\"file_action\":\"replace\",\"replace_blocks\":[{\"start_line\":\"2\",\"end_line\":4,\"content\":\"```mermaid\\ngraph TD\\n A-->B\\n```\"}],\"node_mapping\":{\"a\":\"b\",\"bad\":3}}",
+    "json": {
+      "file_action": "replace",
+      "replace_blocks": [
+        {
+          "start_line": "2",
+          "end_line": 4,
+          "content": "```mermaid\ngraph TD\n A-->B\n```"
+        }
+      ],
+      "node_mapping": {
+        "a": "b",
+        "bad": 3
+      }
+    },
+    "mermaid": "\\ngraph TD\\n A-->B\\n",
+    "l1": [],
+    "l15": null,
+    "l2": {
+      "fileAction": "replace",
+      "replaceBlocks": [
+        {
+          "startLine": 2,
+          "endLine": 4,
+          "content": "graph TD\n A-->B"
+        }
+      ],
+      "nodeMapping": {
+        "a": "b"
+      }
+    }
+  },
+  {
+    "raw": "{\"file_action\":\"create\",\"mmd_content\":\"flowchart TD\\n A-->B\"}",
+    "json": {
+      "file_action": "create",
+      "mmd_content": "flowchart TD\n A-->B"
+    },
+    "mermaid": "{\"file_action\":\"create\",\"mmd_content\":\"flowchart TD\\n A-->B\"}",
+    "l1": [],
+    "l15": null,
+    "l2": {
+      "fileAction": "write",
+      "mmdContent": "flowchart TD\n A-->B",
+      "nodeMapping": {}
+    }
+  }
+]

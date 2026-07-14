@@ -1,0 +1,23 @@
+{
+  "source": "TencentDB-Agent-Memory pinned TypeScript baseline",
+  "config": {
+    "invalidRecallStrategy": "hybrid",
+    "providerNoneEnabled": false
+  },
+  "providerIdentity": {
+    "openai": "openai",
+    "deepseek": "deepseek",
+    "qclaw": "qclaw"
+  },
+  "health": {
+    "vectorStoreDuringReindex": true
+  },
+  "timeouts": {
+    "recall": "recallTimeoutMs ?? timeoutMs",
+    "capture": "captureTimeoutMs ?? timeoutMs"
+  },
+  "qclaw": {
+    "requestUrl": "proxyUrl",
+    "remoteUrlHeader": "${baseUrl}/embeddings"
+  }
+}

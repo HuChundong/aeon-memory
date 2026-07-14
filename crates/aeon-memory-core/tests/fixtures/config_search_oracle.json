@@ -1,0 +1,8987 @@
+{
+  "configCases": [
+    {
+      "input": {},
+      "expected": {
+        "timezone": "system",
+        "capture": {
+          "enabled": true,
+          "excludeAgents": [],
+          "l0l1RetentionDays": 0,
+          "allowAggressiveCleanup": false
+        },
+        "recall": {
+          "enabled": true,
+          "maxResults": 5,
+          "maxCharsPerMemory": 0,
+          "maxTotalRecallChars": 0,
+          "scoreThreshold": 0.3,
+          "strategy": "hybrid",
+          "timeoutMs": 5000
+        },
+        "embedding": {
+          "enabled": false,
+          "provider": "none",
+          "baseUrl": "",
+          "model": "",
+          "dimensions": 0,
+          "configError": null
+        },
+        "storeBackend": "sqlite",
+        "memoryCleanup": {
+          "enabled": false,
+          "cleanTime": "03:00"
+        },
+        "offload": {
+          "enabled": false,
+          "mode": "local",
+          "backendTimeoutMs": 120000,
+          "offloadRetentionDays": 0
+        }
+      }
+    },
+    {
+      "input": {
+        "storeBackend": "unknown",
+        "recall": {
+          "strategy": "bogus"
+        }
+      },
+      "expected": {
+        "timezone": "system",
+        "capture": {
+          "enabled": true,
+          "excludeAgents": [],
+          "l0l1RetentionDays": 0,
+          "allowAggressiveCleanup": false
+        },
+        "recall": {
+          "enabled": true,
+          "maxResults": 5,
+          "maxCharsPerMemory": 0,
+          "maxTotalRecallChars": 0,
+          "scoreThreshold": 0.3,
+          "strategy": "hybrid",
+          "timeoutMs": 5000
+        },
+        "embedding": {
+          "enabled": false,
+          "provider": "none",
+          "baseUrl": "",
+          "model": "",
+          "dimensions": 0,
+          "configError": null
+        },
+        "storeBackend": "sqlite",
+        "memoryCleanup": {
+          "enabled": false,
+          "cleanTime": "03:00"
+        },
+        "offload": {
+          "enabled": false,
+          "mode": "local",
+          "backendTimeoutMs": 120000,
+          "offloadRetentionDays": 0
+        }
+      }
+    },
+    {
+      "input": {
+        "capture": {
+          "l0l1RetentionDays": 2,
+          "allowAggressiveCleanup": false,
+          "cleanTime": "25:99"
+        }
+      },
+      "expected": {
+        "timezone": "system",
+        "capture": {
+          "enabled": true,
+          "excludeAgents": [],
+          "l0l1RetentionDays": 0,
+          "allowAggressiveCleanup": false
+        },
+        "recall": {
+          "enabled": true,
+          "maxResults": 5,
+          "maxCharsPerMemory": 0,
+          "maxTotalRecallChars": 0,
+          "scoreThreshold": 0.3,
+          "strategy": "hybrid",
+          "timeoutMs": 5000
+        },
+        "embedding": {
+          "enabled": false,
+          "provider": "none",
+          "baseUrl": "",
+          "model": "",
+          "dimensions": 0,
+          "configError": null
+        },
+        "storeBackend": "sqlite",
+        "memoryCleanup": {
+          "enabled": false,
+          "cleanTime": "03:00"
+        },
+        "offload": {
+          "enabled": false,
+          "mode": "local",
+          "backendTimeoutMs": 120000,
+          "offloadRetentionDays": 0
+        }
+      }
+    },
+    {
+      "input": {
+        "capture": {
+          "l0l1RetentionDays": 2,
+          "allowAggressiveCleanup": true,
+          "cleanTime": "7:05"
+        }
+      },
+      "expected": {
+        "timezone": "system",
+        "capture": {
+          "enabled": true,
+          "excludeAgents": [],
+          "l0l1RetentionDays": 2,
+          "allowAggressiveCleanup": true
+        },
+        "recall": {
+          "enabled": true,
+          "maxResults": 5,
+          "maxCharsPerMemory": 0,
+          "maxTotalRecallChars": 0,
+          "scoreThreshold": 0.3,
+          "strategy": "hybrid",
+          "timeoutMs": 5000
+        },
+        "embedding": {
+          "enabled": false,
+          "provider": "none",
+          "baseUrl": "",
+          "model": "",
+          "dimensions": 0,
+          "configError": null
+        },
+        "storeBackend": "sqlite",
+        "memoryCleanup": {
+          "retentionDays": 2,
+          "enabled": true,
+          "cleanTime": "07:05"
+        },
+        "offload": {
+          "enabled": false,
+          "mode": "local",
+          "backendTimeoutMs": 120000,
+          "offloadRetentionDays": 0
+        }
+      }
+    },
+    {
+      "input": {
+        "embedding": {
+          "enabled": true,
+          "provider": "none",
+          "dimensions": 1536,
+          "model": "ignored"
+        }
+      },
+      "expected": {
+        "timezone": "system",
+        "capture": {
+          "enabled": true,
+          "excludeAgents": [],
+          "l0l1RetentionDays": 0,
+          "allowAggressiveCleanup": false
+        },
+        "recall": {
+          "enabled": true,
+          "maxResults": 5,
+          "maxCharsPerMemory": 0,
+          "maxTotalRecallChars": 0,
+          "scoreThreshold": 0.3,
+          "strategy": "hybrid",
+          "timeoutMs": 5000
+        },
+        "embedding": {
+          "enabled": false,
+          "provider": "none",
+          "baseUrl": "",
+          "model": "ignored",
+          "dimensions": 1536,
+          "configError": null
+        },
+        "storeBackend": "sqlite",
+        "memoryCleanup": {
+          "enabled": false,
+          "cleanTime": "03:00"
+        },
+        "offload": {
+          "enabled": false,
+          "mode": "local",
+          "backendTimeoutMs": 120000,
+          "offloadRetentionDays": 0
+        }
+      }
+    },
+    {
+      "input": {
+        "embedding": {
+          "enabled": true,
+          "provider": "local"
+        }
+      },
+      "expected": {
+        "timezone": "system",
+        "capture": {
+          "enabled": true,
+          "excludeAgents": [],
+          "l0l1RetentionDays": 0,
+          "allowAggressiveCleanup": false
+        },
+        "recall": {
+          "enabled": true,
+          "maxResults": 5,
+          "maxCharsPerMemory": 0,
+          "maxTotalRecallChars": 0,
+          "scoreThreshold": 0.3,
+          "strategy": "hybrid",
+          "timeoutMs": 5000
+        },
+        "embedding": {
+          "enabled": false,
+          "provider": "none",
+          "baseUrl": "",
+          "model": "",
+          "dimensions": 0,
+          "configError": "Local embedding provider is not available in user config. Please configure a remote embedding provider (e.g. openai, deepseek). Embedding has been disabled."
+        },
+        "storeBackend": "sqlite",
+        "memoryCleanup": {
+          "enabled": false,
+          "cleanTime": "03:00"
+        },
+        "offload": {
+          "enabled": false,
+          "mode": "local",
+          "backendTimeoutMs": 120000,
+          "offloadRetentionDays": 0
+        }
+      }
+    },
+    {
+      "input": {
+        "embedding": {
+          "enabled": true,
+          "provider": "openai",
+          "apiKey": "",
+          "baseUrl": "",
+          "model": "",
+          "dimensions": 0
+        }
+      },
+      "expected": {
+        "timezone": "system",
+        "capture": {
+          "enabled": true,
+          "excludeAgents": [],
+          "l0l1RetentionDays": 0,
+          "allowAggressiveCleanup": false
+        },
+        "recall": {
+          "enabled": true,
+          "maxResults": 5,
+          "maxCharsPerMemory": 0,
+          "maxTotalRecallChars": 0,
+          "scoreThreshold": 0.3,
+          "strategy": "hybrid",
+          "timeoutMs": 5000
+        },
+        "embedding": {
+          "enabled": false,
+          "provider": "openai",
+          "baseUrl": "",
+          "model": "",
+          "dimensions": 0,
+          "configError": "Remote embedding provider 'openai' requires 'apiKey', 'baseUrl', 'model', and 'dimensions' to be set. Missing: apiKey, baseUrl, model, dimensions. Embedding has been disabled."
+        },
+        "storeBackend": "sqlite",
+        "memoryCleanup": {
+          "enabled": false,
+          "cleanTime": "03:00"
+        },
+        "offload": {
+          "enabled": false,
+          "mode": "local",
+          "backendTimeoutMs": 120000,
+          "offloadRetentionDays": 0
+        }
+      }
+    },
+    {
+      "input": {
+        "embedding": {
+          "enabled": true,
+          "provider": "qclaw",
+          "proxyUrl": "http://proxy",
+          "baseUrl": "http://embed",
+          "apiKey": "k",
+          "model": "m",
+          "dimensions": 3
+        }
+      },
+      "expected": {
+        "timezone": "system",
+        "capture": {
+          "enabled": true,
+          "excludeAgents": [],
+          "l0l1RetentionDays": 0,
+          "allowAggressiveCleanup": false
+        },
+        "recall": {
+          "enabled": true,
+          "maxResults": 5,
+          "maxCharsPerMemory": 0,
+          "maxTotalRecallChars": 0,
+          "scoreThreshold": 0.3,
+          "strategy": "hybrid",
+          "timeoutMs": 5000
+        },
+        "embedding": {
+          "enabled": true,
+          "provider": "qclaw",
+          "baseUrl": "http://embed",
+          "model": "m",
+          "dimensions": 3,
+          "configError": null
+        },
+        "storeBackend": "sqlite",
+        "memoryCleanup": {
+          "enabled": false,
+          "cleanTime": "03:00"
+        },
+        "offload": {
+          "enabled": false,
+          "mode": "local",
+          "backendTimeoutMs": 120000,
+          "offloadRetentionDays": 0
+        }
+      }
+    },
+    {
+      "input": {
+        "offload": {
+          "backendUrl": "http://backend",
+          "mode": "invalid",
+          "offloadRetentionDays": 2
+        }
+      },
+      "expected": {
+        "timezone": "system",
+        "capture": {
+          "enabled": true,
+          "excludeAgents": [],
+          "l0l1RetentionDays": 0,
+          "allowAggressiveCleanup": false
+        },
+        "recall": {
+          "enabled": true,
+          "maxResults": 5,
+          "maxCharsPerMemory": 0,
+          "maxTotalRecallChars": 0,
+          "scoreThreshold": 0.3,
+          "strategy": "hybrid",
+          "timeoutMs": 5000
+        },
+        "embedding": {
+          "enabled": false,
+          "provider": "none",
+          "baseUrl": "",
+          "model": "",
+          "dimensions": 0,
+          "configError": null
+        },
+        "storeBackend": "sqlite",
+        "memoryCleanup": {
+          "enabled": false,
+          "cleanTime": "03:00"
+        },
+        "offload": {
+          "enabled": false,
+          "mode": "backend",
+          "backendTimeoutMs": 120000,
+          "offloadRetentionDays": 0
+        }
+      }
+    }
+  ],
+  "rrfCases": [
+    {
+      "lists": [
+        [
+          {
+            "id": "e",
+            "payload": 0
+          },
+          {
+            "id": "d",
+            "payload": 1
+          },
+          {
+            "id": "a",
+            "payload": 2
+          },
+          {
+            "id": "d",
+            "payload": 3
+          },
+          {
+            "id": "e",
+            "payload": 4
+          },
+          {
+            "id": "乙",
+            "payload": 5
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 10
+          },
+          {
+            "id": "e",
+            "payload": 11
+          },
+          {
+            "id": "e",
+            "payload": 12
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 20
+          },
+          {
+            "id": "e",
+            "payload": 21
+          },
+          {
+            "id": "b",
+            "payload": 22
+          },
+          {
+            "id": "乙",
+            "payload": 23
+          },
+          {
+            "id": "乙",
+            "payload": 24
+          },
+          {
+            "id": "c",
+            "payload": 25
+          },
+          {
+            "id": "甲",
+            "payload": 26
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 30
+          },
+          {
+            "id": "乙",
+            "payload": 31
+          },
+          {
+            "id": "a",
+            "payload": 32
+          },
+          {
+            "id": "a",
+            "payload": 33
+          },
+          {
+            "id": "甲",
+            "payload": 34
+          },
+          {
+            "id": "e",
+            "payload": 35
+          },
+          {
+            "id": "c",
+            "payload": 36
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "e",
+          "payload": 0,
+          "rrfScore": 0.06807633298731285
+        },
+        {
+          "id": "乙",
+          "payload": 5,
+          "rrfScore": 0.03837707797197253
+        },
+        {
+          "id": "a",
+          "payload": 2,
+          "rrfScore": 0.029032860343539954
+        },
+        {
+          "id": "甲",
+          "payload": 26,
+          "rrfScore": 0.02877059401534279
+        },
+        {
+          "id": "b",
+          "payload": 10,
+          "rrfScore": 0.01960972796308757
+        },
+        {
+          "id": "d",
+          "payload": 1,
+          "rrfScore": 0.019419306184012067
+        },
+        {
+          "id": "c",
+          "payload": 25,
+          "rrfScore": 0.018779756656674307
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "乙",
+            "payload": 100
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 110
+          },
+          {
+            "id": "甲",
+            "payload": 111
+          },
+          {
+            "id": "a",
+            "payload": 112
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 120
+          },
+          {
+            "id": "b",
+            "payload": 121
+          },
+          {
+            "id": "a",
+            "payload": 122
+          },
+          {
+            "id": "e",
+            "payload": 123
+          },
+          {
+            "id": "甲",
+            "payload": 124
+          },
+          {
+            "id": "c",
+            "payload": 125
+          },
+          {
+            "id": "甲",
+            "payload": 126
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 110,
+          "rrfScore": 0.04813947436898257
+        },
+        {
+          "id": "甲",
+          "payload": 111,
+          "rrfScore": 0.04643902077700826
+        },
+        {
+          "id": "c",
+          "payload": 120,
+          "rrfScore": 0.031544957774465976
+        },
+        {
+          "id": "乙",
+          "payload": 100,
+          "rrfScore": 0.01639344262295082
+        },
+        {
+          "id": "b",
+          "payload": 121,
+          "rrfScore": 0.016129032258064516
+        },
+        {
+          "id": "e",
+          "payload": 123,
+          "rrfScore": 0.015625
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "e",
+            "payload": 200
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 210
+          },
+          {
+            "id": "b",
+            "payload": 211
+          },
+          {
+            "id": "乙",
+            "payload": 212
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 220
+          },
+          {
+            "id": "a",
+            "payload": 221
+          },
+          {
+            "id": "b",
+            "payload": 222
+          },
+          {
+            "id": "a",
+            "payload": 223
+          },
+          {
+            "id": "e",
+            "payload": 224
+          },
+          {
+            "id": "d",
+            "payload": 225
+          },
+          {
+            "id": "甲",
+            "payload": 226
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "b",
+          "payload": 211,
+          "rrfScore": 0.029413649531715023
+        },
+        {
+          "id": "乙",
+          "payload": 210,
+          "rrfScore": 0.01960972796308757
+        },
+        {
+          "id": "e",
+          "payload": 200,
+          "rrfScore": 0.019424799622819428
+        },
+        {
+          "id": "a",
+          "payload": 221,
+          "rrfScore": 0.019419306184012067
+        },
+        {
+          "id": "d",
+          "payload": 225,
+          "rrfScore": 0.009433962264150943
+        },
+        {
+          "id": "甲",
+          "payload": 226,
+          "rrfScore": 0.009345794392523364
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "b",
+            "payload": 300
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 310
+          },
+          {
+            "id": "d",
+            "payload": 311
+          },
+          {
+            "id": "a",
+            "payload": 312
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 320
+          },
+          {
+            "id": "a",
+            "payload": 321
+          },
+          {
+            "id": "e",
+            "payload": 322
+          },
+          {
+            "id": "乙",
+            "payload": 323
+          },
+          {
+            "id": "b",
+            "payload": 324
+          },
+          {
+            "id": "a",
+            "payload": 325
+          },
+          {
+            "id": "乙",
+            "payload": 326
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 312,
+          "rrfScore": 0.3136655011655012
+        },
+        {
+          "id": "b",
+          "payload": 300,
+          "rrfScore": 0.1575757575757576
+        },
+        {
+          "id": "乙",
+          "payload": 323,
+          "rrfScore": 0.13025210084033612
+        },
+        {
+          "id": "甲",
+          "payload": 310,
+          "rrfScore": 0.09090909090909091
+        },
+        {
+          "id": "d",
+          "payload": 311,
+          "rrfScore": 0.08333333333333333
+        },
+        {
+          "id": "e",
+          "payload": 322,
+          "rrfScore": 0.07692307692307693
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "a",
+            "payload": 400
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 410
+          },
+          {
+            "id": "a",
+            "payload": 411
+          },
+          {
+            "id": "c",
+            "payload": 412
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 420
+          },
+          {
+            "id": "c",
+            "payload": 421
+          },
+          {
+            "id": "a",
+            "payload": 422
+          },
+          {
+            "id": "b",
+            "payload": 423
+          },
+          {
+            "id": "a",
+            "payload": 424
+          },
+          {
+            "id": "d",
+            "payload": 425
+          },
+          {
+            "id": "a",
+            "payload": 426
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 400,
+          "rrfScore": 0.07870547927297496
+        },
+        {
+          "id": "b",
+          "payload": 410,
+          "rrfScore": 0.032018442622950824
+        },
+        {
+          "id": "c",
+          "payload": 412,
+          "rrfScore": 0.03200204813108039
+        },
+        {
+          "id": "e",
+          "payload": 420,
+          "rrfScore": 0.01639344262295082
+        },
+        {
+          "id": "d",
+          "payload": 425,
+          "rrfScore": 0.015151515151515152
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "c",
+            "payload": 500
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 510
+          },
+          {
+            "id": "a",
+            "payload": 511
+          },
+          {
+            "id": "a",
+            "payload": 512
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 520
+          },
+          {
+            "id": "a",
+            "payload": 521
+          },
+          {
+            "id": "b",
+            "payload": 522
+          },
+          {
+            "id": "b",
+            "payload": 523
+          },
+          {
+            "id": "乙",
+            "payload": 524
+          },
+          {
+            "id": "乙",
+            "payload": 525
+          },
+          {
+            "id": "d",
+            "payload": 526
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 511,
+          "rrfScore": 0.24358974358974356
+        },
+        {
+          "id": "b",
+          "payload": 510,
+          "rrfScore": 0.23926073926073926
+        },
+        {
+          "id": "d",
+          "payload": 520,
+          "rrfScore": 0.1497326203208556
+        },
+        {
+          "id": "乙",
+          "payload": 524,
+          "rrfScore": 0.12916666666666665
+        },
+        {
+          "id": "c",
+          "payload": 500,
+          "rrfScore": 0.09090909090909091
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 600
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 610
+          },
+          {
+            "id": "a",
+            "payload": 611
+          },
+          {
+            "id": "b",
+            "payload": 612
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 620
+          },
+          {
+            "id": "b",
+            "payload": 621
+          },
+          {
+            "id": "e",
+            "payload": 622
+          },
+          {
+            "id": "甲",
+            "payload": 623
+          },
+          {
+            "id": "d",
+            "payload": 624
+          },
+          {
+            "id": "a",
+            "payload": 625
+          },
+          {
+            "id": "乙",
+            "payload": 626
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "b",
+          "payload": 610,
+          "rrfScore": 0.2511655011655012
+        },
+        {
+          "id": "e",
+          "payload": 620,
+          "rrfScore": 0.16783216783216784
+        },
+        {
+          "id": "d",
+          "payload": 600,
+          "rrfScore": 0.1575757575757576
+        },
+        {
+          "id": "a",
+          "payload": 611,
+          "rrfScore": 0.14583333333333331
+        },
+        {
+          "id": "甲",
+          "payload": 623,
+          "rrfScore": 0.07142857142857142
+        },
+        {
+          "id": "乙",
+          "payload": 626,
+          "rrfScore": 0.058823529411764705
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 700
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 710
+          },
+          {
+            "id": "a",
+            "payload": 711
+          },
+          {
+            "id": "c",
+            "payload": 712
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 720
+          },
+          {
+            "id": "c",
+            "payload": 721
+          },
+          {
+            "id": "a",
+            "payload": 722
+          },
+          {
+            "id": "b",
+            "payload": 723
+          },
+          {
+            "id": "d",
+            "payload": 724
+          },
+          {
+            "id": "a",
+            "payload": 725
+          },
+          {
+            "id": "c",
+            "payload": 726
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 711,
+          "rrfScore": 0.03884761179586597
+        },
+        {
+          "id": "c",
+          "payload": 712,
+          "rrfScore": 0.028858453825228482
+        },
+        {
+          "id": "d",
+          "payload": 700,
+          "rrfScore": 0.019424799622819428
+        },
+        {
+          "id": "甲",
+          "payload": 710,
+          "rrfScore": 0.009900990099009901
+        },
+        {
+          "id": "b",
+          "payload": 723,
+          "rrfScore": 0.009615384615384616
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "b",
+            "payload": 800
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 810
+          },
+          {
+            "id": "a",
+            "payload": 811
+          },
+          {
+            "id": "乙",
+            "payload": 812
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 820
+          },
+          {
+            "id": "a",
+            "payload": 821
+          },
+          {
+            "id": "a",
+            "payload": 822
+          },
+          {
+            "id": "a",
+            "payload": 823
+          },
+          {
+            "id": "乙",
+            "payload": 824
+          },
+          {
+            "id": "乙",
+            "payload": 825
+          },
+          {
+            "id": "d",
+            "payload": 826
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 811,
+          "rrfScore": 0.315018315018315
+        },
+        {
+          "id": "乙",
+          "payload": 810,
+          "rrfScore": 0.2969988344988345
+        },
+        {
+          "id": "b",
+          "payload": 800,
+          "rrfScore": 0.09090909090909091
+        },
+        {
+          "id": "e",
+          "payload": 820,
+          "rrfScore": 0.09090909090909091
+        },
+        {
+          "id": "d",
+          "payload": 826,
+          "rrfScore": 0.058823529411764705
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "c",
+            "payload": 900
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 910
+          },
+          {
+            "id": "乙",
+            "payload": 911
+          },
+          {
+            "id": "d",
+            "payload": 912
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 920
+          },
+          {
+            "id": "乙",
+            "payload": 921
+          },
+          {
+            "id": "e",
+            "payload": 922
+          },
+          {
+            "id": "b",
+            "payload": 923
+          },
+          {
+            "id": "a",
+            "payload": 924
+          },
+          {
+            "id": "甲",
+            "payload": 925
+          },
+          {
+            "id": "a",
+            "payload": 926
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "d",
+          "payload": 910,
+          "rrfScore": 0.032266458495966696
+        },
+        {
+          "id": "e",
+          "payload": 920,
+          "rrfScore": 0.032266458495966696
+        },
+        {
+          "id": "乙",
+          "payload": 911,
+          "rrfScore": 0.03225806451612903
+        },
+        {
+          "id": "a",
+          "payload": 924,
+          "rrfScore": 0.030309988518943745
+        },
+        {
+          "id": "c",
+          "payload": 900,
+          "rrfScore": 0.01639344262295082
+        },
+        {
+          "id": "b",
+          "payload": 923,
+          "rrfScore": 0.015625
+        },
+        {
+          "id": "甲",
+          "payload": 925,
+          "rrfScore": 0.015151515151515152
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 1000
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 1010
+          },
+          {
+            "id": "甲",
+            "payload": 1011
+          },
+          {
+            "id": "b",
+            "payload": 1012
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 1020
+          },
+          {
+            "id": "b",
+            "payload": 1021
+          },
+          {
+            "id": "甲",
+            "payload": 1022
+          },
+          {
+            "id": "c",
+            "payload": 1023
+          },
+          {
+            "id": "乙",
+            "payload": 1024
+          },
+          {
+            "id": "甲",
+            "payload": 1025
+          },
+          {
+            "id": "d",
+            "payload": 1026
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "d",
+          "payload": 1000,
+          "rrfScore": 2.142857142857143
+        },
+        {
+          "id": "c",
+          "payload": 1020,
+          "rrfScore": 1.25
+        },
+        {
+          "id": "甲",
+          "payload": 1011,
+          "rrfScore": 0.9999999999999999
+        },
+        {
+          "id": "b",
+          "payload": 1012,
+          "rrfScore": 0.8333333333333333
+        },
+        {
+          "id": "乙",
+          "payload": 1024,
+          "rrfScore": 0.2
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 1100
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 1110
+          },
+          {
+            "id": "a",
+            "payload": 1111
+          },
+          {
+            "id": "e",
+            "payload": 1112
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 1120
+          },
+          {
+            "id": "甲",
+            "payload": 1121
+          },
+          {
+            "id": "c",
+            "payload": 1122
+          },
+          {
+            "id": "d",
+            "payload": 1123
+          },
+          {
+            "id": "a",
+            "payload": 1124
+          },
+          {
+            "id": "e",
+            "payload": 1125
+          },
+          {
+            "id": "乙",
+            "payload": 1126
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "甲",
+          "payload": 1100,
+          "rrfScore": 1.5
+        },
+        {
+          "id": "c",
+          "payload": 1110,
+          "rrfScore": 1.3333333333333333
+        },
+        {
+          "id": "b",
+          "payload": 1120,
+          "rrfScore": 1
+        },
+        {
+          "id": "a",
+          "payload": 1111,
+          "rrfScore": 0.7
+        },
+        {
+          "id": "e",
+          "payload": 1112,
+          "rrfScore": 0.5
+        },
+        {
+          "id": "d",
+          "payload": 1123,
+          "rrfScore": 0.25
+        },
+        {
+          "id": "乙",
+          "payload": 1126,
+          "rrfScore": 0.14285714285714285
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "e",
+            "payload": 1200
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 1210
+          },
+          {
+            "id": "d",
+            "payload": 1211
+          },
+          {
+            "id": "甲",
+            "payload": 1212
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 1220
+          },
+          {
+            "id": "e",
+            "payload": 1221
+          },
+          {
+            "id": "d",
+            "payload": 1222
+          },
+          {
+            "id": "d",
+            "payload": 1223
+          },
+          {
+            "id": "d",
+            "payload": 1224
+          },
+          {
+            "id": "e",
+            "payload": 1225
+          },
+          {
+            "id": "d",
+            "payload": 1226
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "d",
+          "payload": 1211,
+          "rrfScore": 0.04799764796442263
+        },
+        {
+          "id": "e",
+          "payload": 1200,
+          "rrfScore": 0.029138873931788295
+        },
+        {
+          "id": "甲",
+          "payload": 1210,
+          "rrfScore": 0.01960972796308757
+        },
+        {
+          "id": "b",
+          "payload": 1220,
+          "rrfScore": 0.009900990099009901
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "b",
+            "payload": 1300
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 1310
+          },
+          {
+            "id": "e",
+            "payload": 1311
+          },
+          {
+            "id": "c",
+            "payload": 1312
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 1320
+          },
+          {
+            "id": "d",
+            "payload": 1321
+          },
+          {
+            "id": "b",
+            "payload": 1322
+          },
+          {
+            "id": "e",
+            "payload": 1323
+          },
+          {
+            "id": "a",
+            "payload": 1324
+          },
+          {
+            "id": "b",
+            "payload": 1325
+          },
+          {
+            "id": "c",
+            "payload": 1326
+          }
+        ]
+      ],
+      "k": 1,
+      "expected": [
+        {
+          "id": "b",
+          "payload": 1300,
+          "rrfScore": 0.8928571428571428
+        },
+        {
+          "id": "d",
+          "payload": 1310,
+          "rrfScore": 0.8333333333333333
+        },
+        {
+          "id": "e",
+          "payload": 1311,
+          "rrfScore": 0.5333333333333333
+        },
+        {
+          "id": "甲",
+          "payload": 1320,
+          "rrfScore": 0.5
+        },
+        {
+          "id": "c",
+          "payload": 1312,
+          "rrfScore": 0.375
+        },
+        {
+          "id": "a",
+          "payload": 1324,
+          "rrfScore": 0.16666666666666666
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 1400
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 1410
+          },
+          {
+            "id": "e",
+            "payload": 1411
+          },
+          {
+            "id": "甲",
+            "payload": 1412
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 1420
+          },
+          {
+            "id": "甲",
+            "payload": 1421
+          },
+          {
+            "id": "c",
+            "payload": 1422
+          },
+          {
+            "id": "a",
+            "payload": 1423
+          },
+          {
+            "id": "a",
+            "payload": 1424
+          },
+          {
+            "id": "d",
+            "payload": 1425
+          },
+          {
+            "id": "e",
+            "payload": 1426
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "甲",
+          "payload": 1400,
+          "rrfScore": 2.8333333333333335
+        },
+        {
+          "id": "a",
+          "payload": 1420,
+          "rrfScore": 1.45
+        },
+        {
+          "id": "e",
+          "payload": 1411,
+          "rrfScore": 0.6428571428571428
+        },
+        {
+          "id": "c",
+          "payload": 1422,
+          "rrfScore": 0.3333333333333333
+        },
+        {
+          "id": "d",
+          "payload": 1425,
+          "rrfScore": 0.16666666666666666
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 1500
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 1510
+          },
+          {
+            "id": "c",
+            "payload": 1511
+          },
+          {
+            "id": "e",
+            "payload": 1512
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 1520
+          },
+          {
+            "id": "e",
+            "payload": 1521
+          },
+          {
+            "id": "乙",
+            "payload": 1522
+          },
+          {
+            "id": "d",
+            "payload": 1523
+          },
+          {
+            "id": "甲",
+            "payload": 1524
+          },
+          {
+            "id": "甲",
+            "payload": 1525
+          },
+          {
+            "id": "e",
+            "payload": 1526
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "e",
+          "payload": 1510,
+          "rrfScore": 0.3099890305772659
+        },
+        {
+          "id": "甲",
+          "payload": 1500,
+          "rrfScore": 0.2200757575757576
+        },
+        {
+          "id": "乙",
+          "payload": 1520,
+          "rrfScore": 0.16783216783216784
+        },
+        {
+          "id": "c",
+          "payload": 1511,
+          "rrfScore": 0.08333333333333333
+        },
+        {
+          "id": "d",
+          "payload": 1523,
+          "rrfScore": 0.07142857142857142
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "乙",
+            "payload": 1600
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 1610
+          },
+          {
+            "id": "b",
+            "payload": 1611
+          },
+          {
+            "id": "d",
+            "payload": 1612
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 1620
+          },
+          {
+            "id": "d",
+            "payload": 1621
+          },
+          {
+            "id": "c",
+            "payload": 1622
+          },
+          {
+            "id": "d",
+            "payload": 1623
+          },
+          {
+            "id": "甲",
+            "payload": 1624
+          },
+          {
+            "id": "a",
+            "payload": 1625
+          },
+          {
+            "id": "乙",
+            "payload": 1626
+          }
+        ]
+      ],
+      "k": 1,
+      "expected": [
+        {
+          "id": "乙",
+          "payload": 1600,
+          "rrfScore": 1.125
+        },
+        {
+          "id": "d",
+          "payload": 1612,
+          "rrfScore": 0.7833333333333332
+        },
+        {
+          "id": "a",
+          "payload": 1610,
+          "rrfScore": 0.6428571428571428
+        },
+        {
+          "id": "b",
+          "payload": 1611,
+          "rrfScore": 0.3333333333333333
+        },
+        {
+          "id": "c",
+          "payload": 1622,
+          "rrfScore": 0.25
+        },
+        {
+          "id": "甲",
+          "payload": 1624,
+          "rrfScore": 0.16666666666666666
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 1700
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 1710
+          },
+          {
+            "id": "a",
+            "payload": 1711
+          },
+          {
+            "id": "b",
+            "payload": 1712
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 1720
+          },
+          {
+            "id": "e",
+            "payload": 1721
+          },
+          {
+            "id": "甲",
+            "payload": 1722
+          },
+          {
+            "id": "b",
+            "payload": 1723
+          },
+          {
+            "id": "d",
+            "payload": 1724
+          },
+          {
+            "id": "e",
+            "payload": 1725
+          },
+          {
+            "id": "e",
+            "payload": 1726
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "d",
+          "payload": 1700,
+          "rrfScore": 0.029325789721829327
+        },
+        {
+          "id": "b",
+          "payload": 1712,
+          "rrfScore": 0.029225112578472184
+        },
+        {
+          "id": "e",
+          "payload": 1721,
+          "rrfScore": 0.028583678225301758
+        },
+        {
+          "id": "a",
+          "payload": 1711,
+          "rrfScore": 0.00980392156862745
+        },
+        {
+          "id": "甲",
+          "payload": 1722,
+          "rrfScore": 0.009708737864077669
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 1800
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 1810
+          },
+          {
+            "id": "d",
+            "payload": 1811
+          },
+          {
+            "id": "a",
+            "payload": 1812
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 1820
+          },
+          {
+            "id": "b",
+            "payload": 1821
+          },
+          {
+            "id": "b",
+            "payload": 1822
+          },
+          {
+            "id": "乙",
+            "payload": 1823
+          },
+          {
+            "id": "d",
+            "payload": 1824
+          },
+          {
+            "id": "e",
+            "payload": 1825
+          },
+          {
+            "id": "d",
+            "payload": 1826
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "e",
+          "payload": 1810,
+          "rrfScore": 2.1666666666666665
+        },
+        {
+          "id": "甲",
+          "payload": 1800,
+          "rrfScore": 1
+        },
+        {
+          "id": "d",
+          "payload": 1811,
+          "rrfScore": 0.8428571428571427
+        },
+        {
+          "id": "b",
+          "payload": 1821,
+          "rrfScore": 0.8333333333333333
+        },
+        {
+          "id": "a",
+          "payload": 1812,
+          "rrfScore": 0.3333333333333333
+        },
+        {
+          "id": "乙",
+          "payload": 1823,
+          "rrfScore": 0.25
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "b",
+            "payload": 1900
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 1910
+          },
+          {
+            "id": "甲",
+            "payload": 1911
+          },
+          {
+            "id": "乙",
+            "payload": 1912
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 1920
+          },
+          {
+            "id": "e",
+            "payload": 1921
+          },
+          {
+            "id": "e",
+            "payload": 1922
+          },
+          {
+            "id": "乙",
+            "payload": 1923
+          },
+          {
+            "id": "乙",
+            "payload": 1924
+          },
+          {
+            "id": "c",
+            "payload": 1925
+          },
+          {
+            "id": "e",
+            "payload": 1926
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "b",
+          "payload": 1900,
+          "rrfScore": 2
+        },
+        {
+          "id": "d",
+          "payload": 1910,
+          "rrfScore": 1
+        },
+        {
+          "id": "e",
+          "payload": 1921,
+          "rrfScore": 0.976190476190476
+        },
+        {
+          "id": "乙",
+          "payload": 1912,
+          "rrfScore": 0.7833333333333332
+        },
+        {
+          "id": "甲",
+          "payload": 1911,
+          "rrfScore": 0.5
+        },
+        {
+          "id": "c",
+          "payload": 1925,
+          "rrfScore": 0.16666666666666666
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "b",
+            "payload": 2000
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 2010
+          },
+          {
+            "id": "e",
+            "payload": 2011
+          },
+          {
+            "id": "d",
+            "payload": 2012
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 2020
+          },
+          {
+            "id": "乙",
+            "payload": 2021
+          },
+          {
+            "id": "b",
+            "payload": 2022
+          },
+          {
+            "id": "a",
+            "payload": 2023
+          },
+          {
+            "id": "甲",
+            "payload": 2024
+          },
+          {
+            "id": "e",
+            "payload": 2025
+          },
+          {
+            "id": "c",
+            "payload": 2026
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "乙",
+          "payload": 2020,
+          "rrfScore": 1.5
+        },
+        {
+          "id": "b",
+          "payload": 2000,
+          "rrfScore": 1.3333333333333333
+        },
+        {
+          "id": "甲",
+          "payload": 2010,
+          "rrfScore": 1.2
+        },
+        {
+          "id": "e",
+          "payload": 2011,
+          "rrfScore": 0.6666666666666666
+        },
+        {
+          "id": "d",
+          "payload": 2012,
+          "rrfScore": 0.3333333333333333
+        },
+        {
+          "id": "a",
+          "payload": 2023,
+          "rrfScore": 0.25
+        },
+        {
+          "id": "c",
+          "payload": 2026,
+          "rrfScore": 0.14285714285714285
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "e",
+            "payload": 2100
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 2110
+          },
+          {
+            "id": "b",
+            "payload": 2111
+          },
+          {
+            "id": "c",
+            "payload": 2112
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 2120
+          },
+          {
+            "id": "甲",
+            "payload": 2121
+          },
+          {
+            "id": "乙",
+            "payload": 2122
+          },
+          {
+            "id": "c",
+            "payload": 2123
+          },
+          {
+            "id": "a",
+            "payload": 2124
+          },
+          {
+            "id": "a",
+            "payload": 2125
+          },
+          {
+            "id": "乙",
+            "payload": 2126
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "e",
+          "payload": 2100,
+          "rrfScore": 0.0297029702970297
+        },
+        {
+          "id": "c",
+          "payload": 2112,
+          "rrfScore": 0.019324122479462285
+        },
+        {
+          "id": "乙",
+          "payload": 2122,
+          "rrfScore": 0.01905453225660103
+        },
+        {
+          "id": "a",
+          "payload": 2124,
+          "rrfScore": 0.018957771787960466
+        },
+        {
+          "id": "b",
+          "payload": 2111,
+          "rrfScore": 0.00980392156862745
+        },
+        {
+          "id": "甲",
+          "payload": 2121,
+          "rrfScore": 0.00980392156862745
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "a",
+            "payload": 2200
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 2210
+          },
+          {
+            "id": "c",
+            "payload": 2211
+          },
+          {
+            "id": "a",
+            "payload": 2212
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 2220
+          },
+          {
+            "id": "d",
+            "payload": 2221
+          },
+          {
+            "id": "b",
+            "payload": 2222
+          },
+          {
+            "id": "a",
+            "payload": 2223
+          },
+          {
+            "id": "e",
+            "payload": 2224
+          },
+          {
+            "id": "b",
+            "payload": 2225
+          },
+          {
+            "id": "a",
+            "payload": 2226
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 2200,
+          "rrfScore": 0.07921027425324588
+        },
+        {
+          "id": "b",
+          "payload": 2222,
+          "rrfScore": 0.031024531024531024
+        },
+        {
+          "id": "甲",
+          "payload": 2210,
+          "rrfScore": 0.01639344262295082
+        },
+        {
+          "id": "c",
+          "payload": 2211,
+          "rrfScore": 0.016129032258064516
+        },
+        {
+          "id": "d",
+          "payload": 2221,
+          "rrfScore": 0.016129032258064516
+        },
+        {
+          "id": "e",
+          "payload": 2224,
+          "rrfScore": 0.015384615384615385
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 2300
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 2310
+          },
+          {
+            "id": "d",
+            "payload": 2311
+          },
+          {
+            "id": "d",
+            "payload": 2312
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 2320
+          },
+          {
+            "id": "d",
+            "payload": 2321
+          },
+          {
+            "id": "甲",
+            "payload": 2322
+          },
+          {
+            "id": "b",
+            "payload": 2323
+          },
+          {
+            "id": "d",
+            "payload": 2324
+          },
+          {
+            "id": "d",
+            "payload": 2325
+          },
+          {
+            "id": "e",
+            "payload": 2326
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "d",
+          "payload": 2300,
+          "rrfScore": 0.46366550116550115
+        },
+        {
+          "id": "甲",
+          "payload": 2310,
+          "rrfScore": 0.16783216783216784
+        },
+        {
+          "id": "e",
+          "payload": 2320,
+          "rrfScore": 0.1497326203208556
+        },
+        {
+          "id": "b",
+          "payload": 2323,
+          "rrfScore": 0.07142857142857142
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "c",
+            "payload": 2400
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 2410
+          },
+          {
+            "id": "d",
+            "payload": 2411
+          },
+          {
+            "id": "甲",
+            "payload": 2412
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 2420
+          },
+          {
+            "id": "d",
+            "payload": 2421
+          },
+          {
+            "id": "c",
+            "payload": 2422
+          },
+          {
+            "id": "c",
+            "payload": 2423
+          },
+          {
+            "id": "a",
+            "payload": 2424
+          },
+          {
+            "id": "d",
+            "payload": 2425
+          },
+          {
+            "id": "d",
+            "payload": 2426
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "乙",
+          "payload": 2410,
+          "rrfScore": 2
+        },
+        {
+          "id": "c",
+          "payload": 2400,
+          "rrfScore": 1.5833333333333333
+        },
+        {
+          "id": "d",
+          "payload": 2411,
+          "rrfScore": 1.3095238095238095
+        },
+        {
+          "id": "甲",
+          "payload": 2412,
+          "rrfScore": 0.3333333333333333
+        },
+        {
+          "id": "a",
+          "payload": 2424,
+          "rrfScore": 0.2
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "a",
+            "payload": 2500
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 2510
+          },
+          {
+            "id": "b",
+            "payload": 2511
+          },
+          {
+            "id": "b",
+            "payload": 2512
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 2520
+          },
+          {
+            "id": "乙",
+            "payload": 2521
+          },
+          {
+            "id": "c",
+            "payload": 2522
+          },
+          {
+            "id": "乙",
+            "payload": 2523
+          },
+          {
+            "id": "a",
+            "payload": 2524
+          },
+          {
+            "id": "a",
+            "payload": 2525
+          },
+          {
+            "id": "b",
+            "payload": 2526
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "b",
+          "payload": 2510,
+          "rrfScore": 0.06332086388835957
+        },
+        {
+          "id": "a",
+          "payload": 2500,
+          "rrfScore": 0.04692957315908136
+        },
+        {
+          "id": "乙",
+          "payload": 2521,
+          "rrfScore": 0.031754032258064516
+        },
+        {
+          "id": "d",
+          "payload": 2520,
+          "rrfScore": 0.01639344262295082
+        },
+        {
+          "id": "c",
+          "payload": 2522,
+          "rrfScore": 0.015873015873015872
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "b",
+            "payload": 2600
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 2610
+          },
+          {
+            "id": "乙",
+            "payload": 2611
+          },
+          {
+            "id": "b",
+            "payload": 2612
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 2620
+          },
+          {
+            "id": "甲",
+            "payload": 2621
+          },
+          {
+            "id": "a",
+            "payload": 2622
+          },
+          {
+            "id": "甲",
+            "payload": 2623
+          },
+          {
+            "id": "d",
+            "payload": 2624
+          },
+          {
+            "id": "c",
+            "payload": 2625
+          },
+          {
+            "id": "b",
+            "payload": 2626
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "b",
+          "payload": 2600,
+          "rrfScore": 0.31756478815302347
+        },
+        {
+          "id": "乙",
+          "payload": 2611,
+          "rrfScore": 0.17424242424242425
+        },
+        {
+          "id": "甲",
+          "payload": 2621,
+          "rrfScore": 0.15476190476190477
+        },
+        {
+          "id": "a",
+          "payload": 2622,
+          "rrfScore": 0.07692307692307693
+        },
+        {
+          "id": "d",
+          "payload": 2624,
+          "rrfScore": 0.06666666666666667
+        },
+        {
+          "id": "c",
+          "payload": 2625,
+          "rrfScore": 0.0625
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "e",
+            "payload": 2700
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 2710
+          },
+          {
+            "id": "b",
+            "payload": 2711
+          },
+          {
+            "id": "d",
+            "payload": 2712
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 2720
+          },
+          {
+            "id": "e",
+            "payload": 2721
+          },
+          {
+            "id": "c",
+            "payload": 2722
+          },
+          {
+            "id": "c",
+            "payload": 2723
+          },
+          {
+            "id": "e",
+            "payload": 2724
+          },
+          {
+            "id": "c",
+            "payload": 2725
+          },
+          {
+            "id": "e",
+            "payload": 2726
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "e",
+          "payload": 2700,
+          "rrfScore": 0.2997326203208556
+        },
+        {
+          "id": "c",
+          "payload": 2722,
+          "rrfScore": 0.21085164835164835
+        },
+        {
+          "id": "a",
+          "payload": 2710,
+          "rrfScore": 0.18181818181818182
+        },
+        {
+          "id": "b",
+          "payload": 2711,
+          "rrfScore": 0.08333333333333333
+        },
+        {
+          "id": "d",
+          "payload": 2712,
+          "rrfScore": 0.07692307692307693
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 2800
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 2810
+          },
+          {
+            "id": "c",
+            "payload": 2811
+          },
+          {
+            "id": "c",
+            "payload": 2812
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 2820
+          },
+          {
+            "id": "c",
+            "payload": 2821
+          },
+          {
+            "id": "b",
+            "payload": 2822
+          },
+          {
+            "id": "b",
+            "payload": 2823
+          },
+          {
+            "id": "d",
+            "payload": 2824
+          },
+          {
+            "id": "甲",
+            "payload": 2825
+          },
+          {
+            "id": "a",
+            "payload": 2826
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "甲",
+          "payload": 2800,
+          "rrfScore": 2.1666666666666665
+        },
+        {
+          "id": "c",
+          "payload": 2811,
+          "rrfScore": 1.3333333333333333
+        },
+        {
+          "id": "d",
+          "payload": 2820,
+          "rrfScore": 1.2
+        },
+        {
+          "id": "b",
+          "payload": 2822,
+          "rrfScore": 0.5833333333333333
+        },
+        {
+          "id": "a",
+          "payload": 2826,
+          "rrfScore": 0.14285714285714285
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "乙",
+            "payload": 2900
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 2910
+          },
+          {
+            "id": "甲",
+            "payload": 2911
+          },
+          {
+            "id": "b",
+            "payload": 2912
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 2920
+          },
+          {
+            "id": "c",
+            "payload": 2921
+          },
+          {
+            "id": "甲",
+            "payload": 2922
+          },
+          {
+            "id": "e",
+            "payload": 2923
+          },
+          {
+            "id": "乙",
+            "payload": 2924
+          },
+          {
+            "id": "d",
+            "payload": 2925
+          },
+          {
+            "id": "b",
+            "payload": 2926
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "d",
+          "payload": 2910,
+          "rrfScore": 0.029235942462170747
+        },
+        {
+          "id": "甲",
+          "payload": 2911,
+          "rrfScore": 0.01951265943270512
+        },
+        {
+          "id": "乙",
+          "payload": 2900,
+          "rrfScore": 0.019424799622819428
+        },
+        {
+          "id": "b",
+          "payload": 2912,
+          "rrfScore": 0.01905453225660103
+        },
+        {
+          "id": "c",
+          "payload": 2921,
+          "rrfScore": 0.00980392156862745
+        },
+        {
+          "id": "e",
+          "payload": 2923,
+          "rrfScore": 0.009615384615384616
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "乙",
+            "payload": 3000
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 3010
+          },
+          {
+            "id": "d",
+            "payload": 3011
+          },
+          {
+            "id": "c",
+            "payload": 3012
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 3020
+          },
+          {
+            "id": "b",
+            "payload": 3021
+          },
+          {
+            "id": "乙",
+            "payload": 3022
+          },
+          {
+            "id": "c",
+            "payload": 3023
+          },
+          {
+            "id": "d",
+            "payload": 3024
+          },
+          {
+            "id": "乙",
+            "payload": 3025
+          },
+          {
+            "id": "e",
+            "payload": 3026
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "乙",
+          "payload": 3000,
+          "rrfScore": 0.32124125874125875
+        },
+        {
+          "id": "d",
+          "payload": 3011,
+          "rrfScore": 0.2409090909090909
+        },
+        {
+          "id": "c",
+          "payload": 3012,
+          "rrfScore": 0.14835164835164835
+        },
+        {
+          "id": "b",
+          "payload": 3021,
+          "rrfScore": 0.08333333333333333
+        },
+        {
+          "id": "e",
+          "payload": 3026,
+          "rrfScore": 0.058823529411764705
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "c",
+            "payload": 3100
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 3110
+          },
+          {
+            "id": "a",
+            "payload": 3111
+          },
+          {
+            "id": "c",
+            "payload": 3112
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 3120
+          },
+          {
+            "id": "d",
+            "payload": 3121
+          },
+          {
+            "id": "a",
+            "payload": 3122
+          },
+          {
+            "id": "a",
+            "payload": 3123
+          },
+          {
+            "id": "d",
+            "payload": 3124
+          },
+          {
+            "id": "甲",
+            "payload": 3125
+          },
+          {
+            "id": "a",
+            "payload": 3126
+          }
+        ]
+      ],
+      "k": 1,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 3110,
+          "rrfScore": 1.4083333333333332
+        },
+        {
+          "id": "c",
+          "payload": 3100,
+          "rrfScore": 0.75
+        },
+        {
+          "id": "甲",
+          "payload": 3120,
+          "rrfScore": 0.6428571428571428
+        },
+        {
+          "id": "d",
+          "payload": 3121,
+          "rrfScore": 0.5
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 3200
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 3210
+          },
+          {
+            "id": "b",
+            "payload": 3211
+          },
+          {
+            "id": "a",
+            "payload": 3212
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 3220
+          },
+          {
+            "id": "c",
+            "payload": 3221
+          },
+          {
+            "id": "甲",
+            "payload": 3222
+          },
+          {
+            "id": "e",
+            "payload": 3223
+          },
+          {
+            "id": "乙",
+            "payload": 3224
+          },
+          {
+            "id": "d",
+            "payload": 3225
+          },
+          {
+            "id": "a",
+            "payload": 3226
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "d",
+          "payload": 3200,
+          "rrfScore": 0.04793840039741679
+        },
+        {
+          "id": "a",
+          "payload": 3212,
+          "rrfScore": 0.047191831630295056
+        },
+        {
+          "id": "b",
+          "payload": 3211,
+          "rrfScore": 0.016129032258064516
+        },
+        {
+          "id": "c",
+          "payload": 3221,
+          "rrfScore": 0.016129032258064516
+        },
+        {
+          "id": "甲",
+          "payload": 3222,
+          "rrfScore": 0.015873015873015872
+        },
+        {
+          "id": "e",
+          "payload": 3223,
+          "rrfScore": 0.015625
+        },
+        {
+          "id": "乙",
+          "payload": 3224,
+          "rrfScore": 0.015384615384615385
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 3300
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 3310
+          },
+          {
+            "id": "甲",
+            "payload": 3311
+          },
+          {
+            "id": "a",
+            "payload": 3312
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 3320
+          },
+          {
+            "id": "c",
+            "payload": 3321
+          },
+          {
+            "id": "b",
+            "payload": 3322
+          },
+          {
+            "id": "a",
+            "payload": 3323
+          },
+          {
+            "id": "e",
+            "payload": 3324
+          },
+          {
+            "id": "b",
+            "payload": 3325
+          },
+          {
+            "id": "c",
+            "payload": 3326
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "甲",
+          "payload": 3300,
+          "rrfScore": 0.26515151515151514
+        },
+        {
+          "id": "a",
+          "payload": 3310,
+          "rrfScore": 0.23926073926073926
+        },
+        {
+          "id": "c",
+          "payload": 3321,
+          "rrfScore": 0.14215686274509803
+        },
+        {
+          "id": "b",
+          "payload": 3322,
+          "rrfScore": 0.13942307692307693
+        },
+        {
+          "id": "e",
+          "payload": 3324,
+          "rrfScore": 0.06666666666666667
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "e",
+            "payload": 3400
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 3410
+          },
+          {
+            "id": "乙",
+            "payload": 3411
+          },
+          {
+            "id": "d",
+            "payload": 3412
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 3420
+          },
+          {
+            "id": "b",
+            "payload": 3421
+          },
+          {
+            "id": "e",
+            "payload": 3422
+          },
+          {
+            "id": "甲",
+            "payload": 3423
+          },
+          {
+            "id": "乙",
+            "payload": 3424
+          },
+          {
+            "id": "c",
+            "payload": 3425
+          },
+          {
+            "id": "d",
+            "payload": 3426
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "e",
+          "payload": 3400,
+          "rrfScore": 0.25874125874125875
+        },
+        {
+          "id": "乙",
+          "payload": 3410,
+          "rrfScore": 0.2409090909090909
+        },
+        {
+          "id": "d",
+          "payload": 3412,
+          "rrfScore": 0.13574660633484165
+        },
+        {
+          "id": "b",
+          "payload": 3421,
+          "rrfScore": 0.08333333333333333
+        },
+        {
+          "id": "甲",
+          "payload": 3423,
+          "rrfScore": 0.07142857142857142
+        },
+        {
+          "id": "c",
+          "payload": 3425,
+          "rrfScore": 0.0625
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "乙",
+            "payload": 3500
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 3510
+          },
+          {
+            "id": "b",
+            "payload": 3511
+          },
+          {
+            "id": "c",
+            "payload": 3512
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 3520
+          },
+          {
+            "id": "c",
+            "payload": 3521
+          },
+          {
+            "id": "d",
+            "payload": 3522
+          },
+          {
+            "id": "e",
+            "payload": 3523
+          },
+          {
+            "id": "a",
+            "payload": 3524
+          },
+          {
+            "id": "甲",
+            "payload": 3525
+          },
+          {
+            "id": "e",
+            "payload": 3526
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "c",
+          "payload": 3510,
+          "rrfScore": 0.03931463963072492
+        },
+        {
+          "id": "e",
+          "payload": 3523,
+          "rrfScore": 0.01896117900790798
+        },
+        {
+          "id": "乙",
+          "payload": 3500,
+          "rrfScore": 0.009900990099009901
+        },
+        {
+          "id": "b",
+          "payload": 3511,
+          "rrfScore": 0.00980392156862745
+        },
+        {
+          "id": "d",
+          "payload": 3522,
+          "rrfScore": 0.009708737864077669
+        },
+        {
+          "id": "a",
+          "payload": 3524,
+          "rrfScore": 0.009523809523809525
+        },
+        {
+          "id": "甲",
+          "payload": 3525,
+          "rrfScore": 0.009433962264150943
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 3600
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 3610
+          },
+          {
+            "id": "c",
+            "payload": 3611
+          },
+          {
+            "id": "e",
+            "payload": 3612
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 3620
+          },
+          {
+            "id": "c",
+            "payload": 3621
+          },
+          {
+            "id": "b",
+            "payload": 3622
+          },
+          {
+            "id": "a",
+            "payload": 3623
+          },
+          {
+            "id": "c",
+            "payload": 3624
+          },
+          {
+            "id": "a",
+            "payload": 3625
+          },
+          {
+            "id": "a",
+            "payload": 3626
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "甲",
+          "payload": 3600,
+          "rrfScore": 2
+        },
+        {
+          "id": "b",
+          "payload": 3610,
+          "rrfScore": 1.3333333333333333
+        },
+        {
+          "id": "c",
+          "payload": 3611,
+          "rrfScore": 1.2
+        },
+        {
+          "id": "a",
+          "payload": 3623,
+          "rrfScore": 0.5595238095238095
+        },
+        {
+          "id": "e",
+          "payload": 3612,
+          "rrfScore": 0.3333333333333333
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "b",
+            "payload": 3700
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 3710
+          },
+          {
+            "id": "b",
+            "payload": 3711
+          },
+          {
+            "id": "d",
+            "payload": 3712
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 3720
+          },
+          {
+            "id": "c",
+            "payload": 3721
+          },
+          {
+            "id": "e",
+            "payload": 3722
+          },
+          {
+            "id": "e",
+            "payload": 3723
+          },
+          {
+            "id": "c",
+            "payload": 3724
+          },
+          {
+            "id": "b",
+            "payload": 3725
+          },
+          {
+            "id": "d",
+            "payload": 3726
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "c",
+          "payload": 3710,
+          "rrfScore": 0.047907090265630725
+        },
+        {
+          "id": "b",
+          "payload": 3700,
+          "rrfScore": 0.04767399003253049
+        },
+        {
+          "id": "e",
+          "payload": 3722,
+          "rrfScore": 0.03149801587301587
+        },
+        {
+          "id": "d",
+          "payload": 3712,
+          "rrfScore": 0.030798389007344232
+        },
+        {
+          "id": "a",
+          "payload": 3720,
+          "rrfScore": 0.01639344262295082
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 3800
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 3810
+          },
+          {
+            "id": "甲",
+            "payload": 3811
+          },
+          {
+            "id": "c",
+            "payload": 3812
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 3820
+          },
+          {
+            "id": "甲",
+            "payload": 3821
+          },
+          {
+            "id": "a",
+            "payload": 3822
+          },
+          {
+            "id": "甲",
+            "payload": 3823
+          },
+          {
+            "id": "b",
+            "payload": 3824
+          },
+          {
+            "id": "e",
+            "payload": 3825
+          },
+          {
+            "id": "甲",
+            "payload": 3826
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "甲",
+          "payload": 3800,
+          "rrfScore": 2.392857142857143
+        },
+        {
+          "id": "a",
+          "payload": 3810,
+          "rrfScore": 1.3333333333333333
+        },
+        {
+          "id": "b",
+          "payload": 3820,
+          "rrfScore": 1.2
+        },
+        {
+          "id": "c",
+          "payload": 3812,
+          "rrfScore": 0.3333333333333333
+        },
+        {
+          "id": "e",
+          "payload": 3825,
+          "rrfScore": 0.16666666666666666
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "e",
+            "payload": 3900
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 3910
+          },
+          {
+            "id": "a",
+            "payload": 3911
+          },
+          {
+            "id": "甲",
+            "payload": 3912
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 3920
+          },
+          {
+            "id": "甲",
+            "payload": 3921
+          },
+          {
+            "id": "a",
+            "payload": 3922
+          },
+          {
+            "id": "乙",
+            "payload": 3923
+          },
+          {
+            "id": "b",
+            "payload": 3924
+          },
+          {
+            "id": "c",
+            "payload": 3925
+          },
+          {
+            "id": "a",
+            "payload": 3926
+          }
+        ]
+      ],
+      "k": 1,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 3910,
+          "rrfScore": 1.2083333333333333
+        },
+        {
+          "id": "乙",
+          "payload": 3920,
+          "rrfScore": 0.7
+        },
+        {
+          "id": "甲",
+          "payload": 3912,
+          "rrfScore": 0.5833333333333333
+        },
+        {
+          "id": "e",
+          "payload": 3900,
+          "rrfScore": 0.5
+        },
+        {
+          "id": "b",
+          "payload": 3924,
+          "rrfScore": 0.16666666666666666
+        },
+        {
+          "id": "c",
+          "payload": 3925,
+          "rrfScore": 0.14285714285714285
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "乙",
+            "payload": 4000
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 4010
+          },
+          {
+            "id": "a",
+            "payload": 4011
+          },
+          {
+            "id": "e",
+            "payload": 4012
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 4020
+          },
+          {
+            "id": "乙",
+            "payload": 4021
+          },
+          {
+            "id": "b",
+            "payload": 4022
+          },
+          {
+            "id": "甲",
+            "payload": 4023
+          },
+          {
+            "id": "d",
+            "payload": 4024
+          },
+          {
+            "id": "d",
+            "payload": 4025
+          },
+          {
+            "id": "b",
+            "payload": 4026
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "乙",
+          "payload": 4000,
+          "rrfScore": 1.5
+        },
+        {
+          "id": "a",
+          "payload": 4011,
+          "rrfScore": 1.5
+        },
+        {
+          "id": "c",
+          "payload": 4010,
+          "rrfScore": 1
+        },
+        {
+          "id": "b",
+          "payload": 4022,
+          "rrfScore": 0.47619047619047616
+        },
+        {
+          "id": "d",
+          "payload": 4024,
+          "rrfScore": 0.3666666666666667
+        },
+        {
+          "id": "e",
+          "payload": 4012,
+          "rrfScore": 0.3333333333333333
+        },
+        {
+          "id": "甲",
+          "payload": 4023,
+          "rrfScore": 0.25
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 4100
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 4110
+          },
+          {
+            "id": "甲",
+            "payload": 4111
+          },
+          {
+            "id": "乙",
+            "payload": 4112
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 4120
+          },
+          {
+            "id": "乙",
+            "payload": 4121
+          },
+          {
+            "id": "b",
+            "payload": 4122
+          },
+          {
+            "id": "c",
+            "payload": 4123
+          },
+          {
+            "id": "d",
+            "payload": 4124
+          },
+          {
+            "id": "e",
+            "payload": 4125
+          },
+          {
+            "id": "c",
+            "payload": 4126
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "乙",
+          "payload": 4112,
+          "rrfScore": 0.02941364953171502
+        },
+        {
+          "id": "d",
+          "payload": 4100,
+          "rrfScore": 0.019424799622819428
+        },
+        {
+          "id": "e",
+          "payload": 4110,
+          "rrfScore": 0.019334952363160844
+        },
+        {
+          "id": "c",
+          "payload": 4123,
+          "rrfScore": 0.01896117900790798
+        },
+        {
+          "id": "甲",
+          "payload": 4111,
+          "rrfScore": 0.00980392156862745
+        },
+        {
+          "id": "b",
+          "payload": 4122,
+          "rrfScore": 0.009708737864077669
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "a",
+            "payload": 4200
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 4210
+          },
+          {
+            "id": "e",
+            "payload": 4211
+          },
+          {
+            "id": "甲",
+            "payload": 4212
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 4220
+          },
+          {
+            "id": "乙",
+            "payload": 4221
+          },
+          {
+            "id": "乙",
+            "payload": 4222
+          },
+          {
+            "id": "a",
+            "payload": 4223
+          },
+          {
+            "id": "e",
+            "payload": 4224
+          },
+          {
+            "id": "d",
+            "payload": 4225
+          },
+          {
+            "id": "c",
+            "payload": 4226
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "e",
+          "payload": 4210,
+          "rrfScore": 0.047907090265630725
+        },
+        {
+          "id": "a",
+          "payload": 4200,
+          "rrfScore": 0.032018442622950824
+        },
+        {
+          "id": "乙",
+          "payload": 4221,
+          "rrfScore": 0.03200204813108039
+        },
+        {
+          "id": "d",
+          "payload": 4220,
+          "rrfScore": 0.031544957774465976
+        },
+        {
+          "id": "甲",
+          "payload": 4212,
+          "rrfScore": 0.015873015873015872
+        },
+        {
+          "id": "c",
+          "payload": 4226,
+          "rrfScore": 0.014925373134328358
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "b",
+            "payload": 4300
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 4310
+          },
+          {
+            "id": "c",
+            "payload": 4311
+          },
+          {
+            "id": "e",
+            "payload": 4312
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 4320
+          },
+          {
+            "id": "c",
+            "payload": 4321
+          },
+          {
+            "id": "甲",
+            "payload": 4322
+          },
+          {
+            "id": "乙",
+            "payload": 4323
+          },
+          {
+            "id": "e",
+            "payload": 4324
+          },
+          {
+            "id": "b",
+            "payload": 4325
+          },
+          {
+            "id": "甲",
+            "payload": 4326
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "b",
+          "payload": 4300,
+          "rrfScore": 0.029235942462170747
+        },
+        {
+          "id": "e",
+          "payload": 4310,
+          "rrfScore": 0.029133537486897093
+        },
+        {
+          "id": "c",
+          "payload": 4311,
+          "rrfScore": 0.0196078431372549
+        },
+        {
+          "id": "甲",
+          "payload": 4322,
+          "rrfScore": 0.01905453225660103
+        },
+        {
+          "id": "乙",
+          "payload": 4323,
+          "rrfScore": 0.009615384615384616
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 4400
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 4410
+          },
+          {
+            "id": "乙",
+            "payload": 4411
+          },
+          {
+            "id": "e",
+            "payload": 4412
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 4420
+          },
+          {
+            "id": "甲",
+            "payload": 4421
+          },
+          {
+            "id": "b",
+            "payload": 4422
+          },
+          {
+            "id": "d",
+            "payload": 4423
+          },
+          {
+            "id": "a",
+            "payload": 4424
+          },
+          {
+            "id": "b",
+            "payload": 4425
+          },
+          {
+            "id": "甲",
+            "payload": 4426
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "b",
+          "payload": 4410,
+          "rrfScore": 0.32124125874125875
+        },
+        {
+          "id": "甲",
+          "payload": 4400,
+          "rrfScore": 0.23306595365418897
+        },
+        {
+          "id": "乙",
+          "payload": 4411,
+          "rrfScore": 0.08333333333333333
+        },
+        {
+          "id": "e",
+          "payload": 4412,
+          "rrfScore": 0.07692307692307693
+        },
+        {
+          "id": "d",
+          "payload": 4423,
+          "rrfScore": 0.07142857142857142
+        },
+        {
+          "id": "a",
+          "payload": 4424,
+          "rrfScore": 0.06666666666666667
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "c",
+            "payload": 4500
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 4510
+          },
+          {
+            "id": "b",
+            "payload": 4511
+          },
+          {
+            "id": "b",
+            "payload": 4512
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 4520
+          },
+          {
+            "id": "甲",
+            "payload": 4521
+          },
+          {
+            "id": "c",
+            "payload": 4522
+          },
+          {
+            "id": "b",
+            "payload": 4523
+          },
+          {
+            "id": "乙",
+            "payload": 4524
+          },
+          {
+            "id": "甲",
+            "payload": 4525
+          },
+          {
+            "id": "d",
+            "payload": 4526
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "c",
+          "payload": 4500,
+          "rrfScore": 0.04865990111891751
+        },
+        {
+          "id": "b",
+          "payload": 4511,
+          "rrfScore": 0.04762704813108039
+        },
+        {
+          "id": "乙",
+          "payload": 4520,
+          "rrfScore": 0.03177805800756621
+        },
+        {
+          "id": "甲",
+          "payload": 4521,
+          "rrfScore": 0.03128054740957967
+        },
+        {
+          "id": "d",
+          "payload": 4526,
+          "rrfScore": 0.014925373134328358
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "b",
+            "payload": 4600
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 4610
+          },
+          {
+            "id": "乙",
+            "payload": 4611
+          },
+          {
+            "id": "d",
+            "payload": 4612
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 4620
+          },
+          {
+            "id": "乙",
+            "payload": 4621
+          },
+          {
+            "id": "甲",
+            "payload": 4622
+          },
+          {
+            "id": "乙",
+            "payload": 4623
+          },
+          {
+            "id": "c",
+            "payload": 4624
+          },
+          {
+            "id": "b",
+            "payload": 4625
+          },
+          {
+            "id": "乙",
+            "payload": 4626
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "乙",
+          "payload": 4611,
+          "rrfScore": 0.2969187675070028
+        },
+        {
+          "id": "甲",
+          "payload": 4610,
+          "rrfScore": 0.16783216783216784
+        },
+        {
+          "id": "b",
+          "payload": 4600,
+          "rrfScore": 0.1534090909090909
+        },
+        {
+          "id": "a",
+          "payload": 4620,
+          "rrfScore": 0.09090909090909091
+        },
+        {
+          "id": "d",
+          "payload": 4612,
+          "rrfScore": 0.07692307692307693
+        },
+        {
+          "id": "c",
+          "payload": 4624,
+          "rrfScore": 0.06666666666666667
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "e",
+            "payload": 4700
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 4710
+          },
+          {
+            "id": "乙",
+            "payload": 4711
+          },
+          {
+            "id": "c",
+            "payload": 4712
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 4720
+          },
+          {
+            "id": "c",
+            "payload": 4721
+          },
+          {
+            "id": "b",
+            "payload": 4722
+          },
+          {
+            "id": "甲",
+            "payload": 4723
+          },
+          {
+            "id": "a",
+            "payload": 4724
+          },
+          {
+            "id": "b",
+            "payload": 4725
+          },
+          {
+            "id": "甲",
+            "payload": 4726
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "b",
+          "payload": 4710,
+          "rrfScore": 0.03894468032624841
+        },
+        {
+          "id": "c",
+          "payload": 4712,
+          "rrfScore": 0.01951265943270512
+        },
+        {
+          "id": "甲",
+          "payload": 4723,
+          "rrfScore": 0.01896117900790798
+        },
+        {
+          "id": "e",
+          "payload": 4700,
+          "rrfScore": 0.009900990099009901
+        },
+        {
+          "id": "乙",
+          "payload": 4711,
+          "rrfScore": 0.00980392156862745
+        },
+        {
+          "id": "a",
+          "payload": 4724,
+          "rrfScore": 0.009523809523809525
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 4800
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 4810
+          },
+          {
+            "id": "c",
+            "payload": 4811
+          },
+          {
+            "id": "甲",
+            "payload": 4812
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 4820
+          },
+          {
+            "id": "a",
+            "payload": 4821
+          },
+          {
+            "id": "甲",
+            "payload": 4822
+          },
+          {
+            "id": "甲",
+            "payload": 4823
+          },
+          {
+            "id": "乙",
+            "payload": 4824
+          },
+          {
+            "id": "乙",
+            "payload": 4825
+          },
+          {
+            "id": "甲",
+            "payload": 4826
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "甲",
+          "payload": 4812,
+          "rrfScore": 0.03837865473606332
+        },
+        {
+          "id": "d",
+          "payload": 4800,
+          "rrfScore": 0.019801980198019802
+        },
+        {
+          "id": "c",
+          "payload": 4811,
+          "rrfScore": 0.019704911667637354
+        },
+        {
+          "id": "乙",
+          "payload": 4824,
+          "rrfScore": 0.018957771787960466
+        },
+        {
+          "id": "a",
+          "payload": 4821,
+          "rrfScore": 0.00980392156862745
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 4900
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 4910
+          },
+          {
+            "id": "甲",
+            "payload": 4911
+          },
+          {
+            "id": "e",
+            "payload": 4912
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 4920
+          },
+          {
+            "id": "甲",
+            "payload": 4921
+          },
+          {
+            "id": "甲",
+            "payload": 4922
+          },
+          {
+            "id": "d",
+            "payload": 4923
+          },
+          {
+            "id": "e",
+            "payload": 4924
+          },
+          {
+            "id": "d",
+            "payload": 4925
+          },
+          {
+            "id": "甲",
+            "payload": 4926
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "甲",
+          "payload": 4900,
+          "rrfScore": 2.4761904761904763
+        },
+        {
+          "id": "乙",
+          "payload": 4910,
+          "rrfScore": 1
+        },
+        {
+          "id": "b",
+          "payload": 4920,
+          "rrfScore": 1
+        },
+        {
+          "id": "e",
+          "payload": 4912,
+          "rrfScore": 0.5333333333333333
+        },
+        {
+          "id": "d",
+          "payload": 4923,
+          "rrfScore": 0.41666666666666663
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "a",
+            "payload": 5000
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 5010
+          },
+          {
+            "id": "d",
+            "payload": 5011
+          },
+          {
+            "id": "b",
+            "payload": 5012
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 5020
+          },
+          {
+            "id": "e",
+            "payload": 5021
+          },
+          {
+            "id": "d",
+            "payload": 5022
+          },
+          {
+            "id": "乙",
+            "payload": 5023
+          },
+          {
+            "id": "e",
+            "payload": 5024
+          },
+          {
+            "id": "b",
+            "payload": 5025
+          },
+          {
+            "id": "e",
+            "payload": 5026
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "d",
+          "payload": 5010,
+          "rrfScore": 1.8333333333333333
+        },
+        {
+          "id": "a",
+          "payload": 5000,
+          "rrfScore": 1
+        },
+        {
+          "id": "c",
+          "payload": 5020,
+          "rrfScore": 1
+        },
+        {
+          "id": "e",
+          "payload": 5021,
+          "rrfScore": 0.8428571428571427
+        },
+        {
+          "id": "b",
+          "payload": 5012,
+          "rrfScore": 0.5
+        },
+        {
+          "id": "乙",
+          "payload": 5023,
+          "rrfScore": 0.25
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 5100
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 5110
+          },
+          {
+            "id": "b",
+            "payload": 5111
+          },
+          {
+            "id": "c",
+            "payload": 5112
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 5120
+          },
+          {
+            "id": "b",
+            "payload": 5121
+          },
+          {
+            "id": "e",
+            "payload": 5122
+          },
+          {
+            "id": "乙",
+            "payload": 5123
+          },
+          {
+            "id": "c",
+            "payload": 5124
+          },
+          {
+            "id": "甲",
+            "payload": 5125
+          },
+          {
+            "id": "甲",
+            "payload": 5126
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "甲",
+          "payload": 5100,
+          "rrfScore": 0.30314171122994654
+        },
+        {
+          "id": "e",
+          "payload": 5110,
+          "rrfScore": 0.16783216783216784
+        },
+        {
+          "id": "b",
+          "payload": 5111,
+          "rrfScore": 0.16666666666666666
+        },
+        {
+          "id": "c",
+          "payload": 5112,
+          "rrfScore": 0.14358974358974358
+        },
+        {
+          "id": "乙",
+          "payload": 5123,
+          "rrfScore": 0.07142857142857142
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "b",
+            "payload": 5200
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 5210
+          },
+          {
+            "id": "甲",
+            "payload": 5211
+          },
+          {
+            "id": "a",
+            "payload": 5212
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 5220
+          },
+          {
+            "id": "甲",
+            "payload": 5221
+          },
+          {
+            "id": "乙",
+            "payload": 5222
+          },
+          {
+            "id": "a",
+            "payload": 5223
+          },
+          {
+            "id": "e",
+            "payload": 5224
+          },
+          {
+            "id": "b",
+            "payload": 5225
+          },
+          {
+            "id": "e",
+            "payload": 5226
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "b",
+          "payload": 5200,
+          "rrfScore": 0.04793840039741679
+        },
+        {
+          "id": "甲",
+          "payload": 5211,
+          "rrfScore": 0.03225806451612903
+        },
+        {
+          "id": "a",
+          "payload": 5212,
+          "rrfScore": 0.03149801587301587
+        },
+        {
+          "id": "e",
+          "payload": 5224,
+          "rrfScore": 0.030309988518943745
+        },
+        {
+          "id": "d",
+          "payload": 5220,
+          "rrfScore": 0.01639344262295082
+        },
+        {
+          "id": "乙",
+          "payload": 5222,
+          "rrfScore": 0.015873015873015872
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "乙",
+            "payload": 5300
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 5310
+          },
+          {
+            "id": "a",
+            "payload": 5311
+          },
+          {
+            "id": "乙",
+            "payload": 5312
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 5320
+          },
+          {
+            "id": "c",
+            "payload": 5321
+          },
+          {
+            "id": "b",
+            "payload": 5322
+          },
+          {
+            "id": "d",
+            "payload": 5323
+          },
+          {
+            "id": "乙",
+            "payload": 5324
+          },
+          {
+            "id": "c",
+            "payload": 5325
+          },
+          {
+            "id": "甲",
+            "payload": 5326
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "c",
+          "payload": 5310,
+          "rrfScore": 1.6666666666666667
+        },
+        {
+          "id": "乙",
+          "payload": 5300,
+          "rrfScore": 1.5333333333333332
+        },
+        {
+          "id": "a",
+          "payload": 5311,
+          "rrfScore": 1.5
+        },
+        {
+          "id": "b",
+          "payload": 5322,
+          "rrfScore": 0.3333333333333333
+        },
+        {
+          "id": "d",
+          "payload": 5323,
+          "rrfScore": 0.25
+        },
+        {
+          "id": "甲",
+          "payload": 5326,
+          "rrfScore": 0.14285714285714285
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "e",
+            "payload": 5400
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 5410
+          },
+          {
+            "id": "c",
+            "payload": 5411
+          },
+          {
+            "id": "a",
+            "payload": 5412
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 5420
+          },
+          {
+            "id": "a",
+            "payload": 5421
+          },
+          {
+            "id": "a",
+            "payload": 5422
+          },
+          {
+            "id": "e",
+            "payload": 5423
+          },
+          {
+            "id": "b",
+            "payload": 5424
+          },
+          {
+            "id": "d",
+            "payload": 5425
+          },
+          {
+            "id": "d",
+            "payload": 5426
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 5410,
+          "rrfScore": 0.3280885780885781
+        },
+        {
+          "id": "e",
+          "payload": 5400,
+          "rrfScore": 0.16233766233766234
+        },
+        {
+          "id": "d",
+          "payload": 5425,
+          "rrfScore": 0.1213235294117647
+        },
+        {
+          "id": "甲",
+          "payload": 5420,
+          "rrfScore": 0.09090909090909091
+        },
+        {
+          "id": "c",
+          "payload": 5411,
+          "rrfScore": 0.08333333333333333
+        },
+        {
+          "id": "b",
+          "payload": 5424,
+          "rrfScore": 0.06666666666666667
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 5500
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 5510
+          },
+          {
+            "id": "b",
+            "payload": 5511
+          },
+          {
+            "id": "e",
+            "payload": 5512
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 5520
+          },
+          {
+            "id": "c",
+            "payload": 5521
+          },
+          {
+            "id": "c",
+            "payload": 5522
+          },
+          {
+            "id": "a",
+            "payload": 5523
+          },
+          {
+            "id": "乙",
+            "payload": 5524
+          },
+          {
+            "id": "a",
+            "payload": 5525
+          },
+          {
+            "id": "d",
+            "payload": 5526
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 5520,
+          "rrfScore": 0.22483766233766234
+        },
+        {
+          "id": "b",
+          "payload": 5510,
+          "rrfScore": 0.17424242424242425
+        },
+        {
+          "id": "c",
+          "payload": 5521,
+          "rrfScore": 0.16025641025641024
+        },
+        {
+          "id": "d",
+          "payload": 5500,
+          "rrfScore": 0.1497326203208556
+        },
+        {
+          "id": "e",
+          "payload": 5512,
+          "rrfScore": 0.07692307692307693
+        },
+        {
+          "id": "乙",
+          "payload": 5524,
+          "rrfScore": 0.06666666666666667
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 5600
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 5610
+          },
+          {
+            "id": "甲",
+            "payload": 5611
+          },
+          {
+            "id": "c",
+            "payload": 5612
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 5620
+          },
+          {
+            "id": "d",
+            "payload": 5621
+          },
+          {
+            "id": "a",
+            "payload": 5622
+          },
+          {
+            "id": "a",
+            "payload": 5623
+          },
+          {
+            "id": "c",
+            "payload": 5624
+          },
+          {
+            "id": "a",
+            "payload": 5625
+          },
+          {
+            "id": "e",
+            "payload": 5626
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 5622,
+          "rrfScore": 0.21085164835164835
+        },
+        {
+          "id": "甲",
+          "payload": 5600,
+          "rrfScore": 0.17424242424242425
+        },
+        {
+          "id": "e",
+          "payload": 5620,
+          "rrfScore": 0.1497326203208556
+        },
+        {
+          "id": "c",
+          "payload": 5612,
+          "rrfScore": 0.14358974358974358
+        },
+        {
+          "id": "乙",
+          "payload": 5610,
+          "rrfScore": 0.09090909090909091
+        },
+        {
+          "id": "d",
+          "payload": 5621,
+          "rrfScore": 0.08333333333333333
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 5700
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 5710
+          },
+          {
+            "id": "甲",
+            "payload": 5711
+          },
+          {
+            "id": "乙",
+            "payload": 5712
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 5720
+          },
+          {
+            "id": "d",
+            "payload": 5721
+          },
+          {
+            "id": "甲",
+            "payload": 5722
+          },
+          {
+            "id": "b",
+            "payload": 5723
+          },
+          {
+            "id": "d",
+            "payload": 5724
+          },
+          {
+            "id": "乙",
+            "payload": 5725
+          },
+          {
+            "id": "d",
+            "payload": 5726
+          }
+        ]
+      ],
+      "k": 1,
+      "expected": [
+        {
+          "id": "d",
+          "payload": 5700,
+          "rrfScore": 1.625
+        },
+        {
+          "id": "甲",
+          "payload": 5711,
+          "rrfScore": 0.5833333333333333
+        },
+        {
+          "id": "a",
+          "payload": 5720,
+          "rrfScore": 0.5
+        },
+        {
+          "id": "乙",
+          "payload": 5712,
+          "rrfScore": 0.39285714285714285
+        },
+        {
+          "id": "b",
+          "payload": 5723,
+          "rrfScore": 0.2
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 5800
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 5810
+          },
+          {
+            "id": "e",
+            "payload": 5811
+          },
+          {
+            "id": "甲",
+            "payload": 5812
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 5820
+          },
+          {
+            "id": "甲",
+            "payload": 5821
+          },
+          {
+            "id": "a",
+            "payload": 5822
+          },
+          {
+            "id": "乙",
+            "payload": 5823
+          },
+          {
+            "id": "a",
+            "payload": 5824
+          },
+          {
+            "id": "c",
+            "payload": 5825
+          },
+          {
+            "id": "c",
+            "payload": 5826
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 5820,
+          "rrfScore": 0.04765107388058208
+        },
+        {
+          "id": "乙",
+          "payload": 5810,
+          "rrfScore": 0.032018442622950824
+        },
+        {
+          "id": "甲",
+          "payload": 5812,
+          "rrfScore": 0.03200204813108039
+        },
+        {
+          "id": "c",
+          "payload": 5825,
+          "rrfScore": 0.03007688828584351
+        },
+        {
+          "id": "d",
+          "payload": 5800,
+          "rrfScore": 0.01639344262295082
+        },
+        {
+          "id": "e",
+          "payload": 5811,
+          "rrfScore": 0.016129032258064516
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "c",
+            "payload": 5900
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 5910
+          },
+          {
+            "id": "b",
+            "payload": 5911
+          },
+          {
+            "id": "d",
+            "payload": 5912
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 5920
+          },
+          {
+            "id": "乙",
+            "payload": 5921
+          },
+          {
+            "id": "乙",
+            "payload": 5922
+          },
+          {
+            "id": "c",
+            "payload": 5923
+          },
+          {
+            "id": "乙",
+            "payload": 5924
+          },
+          {
+            "id": "e",
+            "payload": 5925
+          },
+          {
+            "id": "c",
+            "payload": 5926
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "乙",
+          "payload": 5921,
+          "rrfScore": 0.2269230769230769
+        },
+        {
+          "id": "c",
+          "payload": 5900,
+          "rrfScore": 0.22116119174942706
+        },
+        {
+          "id": "d",
+          "payload": 5912,
+          "rrfScore": 0.16783216783216784
+        },
+        {
+          "id": "a",
+          "payload": 5910,
+          "rrfScore": 0.09090909090909091
+        },
+        {
+          "id": "b",
+          "payload": 5911,
+          "rrfScore": 0.08333333333333333
+        },
+        {
+          "id": "e",
+          "payload": 5925,
+          "rrfScore": 0.0625
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "a",
+            "payload": 6000
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 6010
+          },
+          {
+            "id": "e",
+            "payload": 6011
+          },
+          {
+            "id": "c",
+            "payload": 6012
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 6020
+          },
+          {
+            "id": "c",
+            "payload": 6021
+          },
+          {
+            "id": "d",
+            "payload": 6022
+          },
+          {
+            "id": "e",
+            "payload": 6023
+          },
+          {
+            "id": "甲",
+            "payload": 6024
+          },
+          {
+            "id": "c",
+            "payload": 6025
+          },
+          {
+            "id": "a",
+            "payload": 6026
+          }
+        ]
+      ],
+      "k": 1,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 6000,
+          "rrfScore": 1.125
+        },
+        {
+          "id": "c",
+          "payload": 6012,
+          "rrfScore": 0.726190476190476
+        },
+        {
+          "id": "甲",
+          "payload": 6010,
+          "rrfScore": 0.6666666666666666
+        },
+        {
+          "id": "e",
+          "payload": 6011,
+          "rrfScore": 0.5333333333333333
+        },
+        {
+          "id": "d",
+          "payload": 6022,
+          "rrfScore": 0.25
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 6100
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 6110
+          },
+          {
+            "id": "d",
+            "payload": 6111
+          },
+          {
+            "id": "b",
+            "payload": 6112
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 6120
+          },
+          {
+            "id": "d",
+            "payload": 6121
+          },
+          {
+            "id": "b",
+            "payload": 6122
+          },
+          {
+            "id": "b",
+            "payload": 6123
+          },
+          {
+            "id": "甲",
+            "payload": 6124
+          },
+          {
+            "id": "a",
+            "payload": 6125
+          },
+          {
+            "id": "a",
+            "payload": 6126
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "b",
+          "payload": 6112,
+          "rrfScore": 0.3161838161838162
+        },
+        {
+          "id": "d",
+          "payload": 6111,
+          "rrfScore": 0.16666666666666666
+        },
+        {
+          "id": "甲",
+          "payload": 6100,
+          "rrfScore": 0.1575757575757576
+        },
+        {
+          "id": "a",
+          "payload": 6125,
+          "rrfScore": 0.1213235294117647
+        },
+        {
+          "id": "e",
+          "payload": 6110,
+          "rrfScore": 0.09090909090909091
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 6200
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 6210
+          },
+          {
+            "id": "e",
+            "payload": 6211
+          },
+          {
+            "id": "甲",
+            "payload": 6212
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 6220
+          },
+          {
+            "id": "d",
+            "payload": 6221
+          },
+          {
+            "id": "e",
+            "payload": 6222
+          },
+          {
+            "id": "a",
+            "payload": 6223
+          },
+          {
+            "id": "c",
+            "payload": 6224
+          },
+          {
+            "id": "乙",
+            "payload": 6225
+          },
+          {
+            "id": "乙",
+            "payload": 6226
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "d",
+          "payload": 6200,
+          "rrfScore": 2.5
+        },
+        {
+          "id": "甲",
+          "payload": 6212,
+          "rrfScore": 1.3333333333333333
+        },
+        {
+          "id": "e",
+          "payload": 6211,
+          "rrfScore": 0.8333333333333333
+        },
+        {
+          "id": "乙",
+          "payload": 6225,
+          "rrfScore": 0.30952380952380953
+        },
+        {
+          "id": "a",
+          "payload": 6223,
+          "rrfScore": 0.25
+        },
+        {
+          "id": "c",
+          "payload": 6224,
+          "rrfScore": 0.2
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 6300
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 6310
+          },
+          {
+            "id": "乙",
+            "payload": 6311
+          },
+          {
+            "id": "e",
+            "payload": 6312
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 6320
+          },
+          {
+            "id": "甲",
+            "payload": 6321
+          },
+          {
+            "id": "c",
+            "payload": 6322
+          },
+          {
+            "id": "乙",
+            "payload": 6323
+          },
+          {
+            "id": "e",
+            "payload": 6324
+          },
+          {
+            "id": "d",
+            "payload": 6325
+          },
+          {
+            "id": "c",
+            "payload": 6326
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "c",
+          "payload": 6310,
+          "rrfScore": 0.047191831630295056
+        },
+        {
+          "id": "甲",
+          "payload": 6320,
+          "rrfScore": 0.03252247488101534
+        },
+        {
+          "id": "乙",
+          "payload": 6311,
+          "rrfScore": 0.031754032258064516
+        },
+        {
+          "id": "d",
+          "payload": 6300,
+          "rrfScore": 0.031544957774465976
+        },
+        {
+          "id": "e",
+          "payload": 6312,
+          "rrfScore": 0.03125763125763126
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "b",
+            "payload": 6400
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 6410
+          },
+          {
+            "id": "b",
+            "payload": 6411
+          },
+          {
+            "id": "b",
+            "payload": 6412
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 6420
+          },
+          {
+            "id": "e",
+            "payload": 6421
+          },
+          {
+            "id": "b",
+            "payload": 6422
+          },
+          {
+            "id": "b",
+            "payload": 6423
+          },
+          {
+            "id": "c",
+            "payload": 6424
+          },
+          {
+            "id": "c",
+            "payload": 6425
+          },
+          {
+            "id": "甲",
+            "payload": 6426
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "b",
+          "payload": 6400,
+          "rrfScore": 0.39951714951714956
+        },
+        {
+          "id": "c",
+          "payload": 6420,
+          "rrfScore": 0.2200757575757576
+        },
+        {
+          "id": "e",
+          "payload": 6410,
+          "rrfScore": 0.17424242424242425
+        },
+        {
+          "id": "甲",
+          "payload": 6426,
+          "rrfScore": 0.058823529411764705
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "c",
+            "payload": 6500
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 6510
+          },
+          {
+            "id": "b",
+            "payload": 6511
+          },
+          {
+            "id": "c",
+            "payload": 6512
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 6520
+          },
+          {
+            "id": "a",
+            "payload": 6521
+          },
+          {
+            "id": "d",
+            "payload": 6522
+          },
+          {
+            "id": "b",
+            "payload": 6523
+          },
+          {
+            "id": "c",
+            "payload": 6524
+          },
+          {
+            "id": "a",
+            "payload": 6525
+          },
+          {
+            "id": "乙",
+            "payload": 6526
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "c",
+          "payload": 6500,
+          "rrfScore": 0.23449883449883452
+        },
+        {
+          "id": "b",
+          "payload": 6511,
+          "rrfScore": 0.15476190476190477
+        },
+        {
+          "id": "a",
+          "payload": 6521,
+          "rrfScore": 0.14583333333333331
+        },
+        {
+          "id": "甲",
+          "payload": 6510,
+          "rrfScore": 0.09090909090909091
+        },
+        {
+          "id": "e",
+          "payload": 6520,
+          "rrfScore": 0.09090909090909091
+        },
+        {
+          "id": "d",
+          "payload": 6522,
+          "rrfScore": 0.07692307692307693
+        },
+        {
+          "id": "乙",
+          "payload": 6526,
+          "rrfScore": 0.058823529411764705
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "乙",
+            "payload": 6600
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 6610
+          },
+          {
+            "id": "甲",
+            "payload": 6611
+          },
+          {
+            "id": "e",
+            "payload": 6612
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 6620
+          },
+          {
+            "id": "d",
+            "payload": 6621
+          },
+          {
+            "id": "b",
+            "payload": 6622
+          },
+          {
+            "id": "d",
+            "payload": 6623
+          },
+          {
+            "id": "e",
+            "payload": 6624
+          },
+          {
+            "id": "b",
+            "payload": 6625
+          },
+          {
+            "id": "c",
+            "payload": 6626
+          }
+        ]
+      ],
+      "k": 1,
+      "expected": [
+        {
+          "id": "d",
+          "payload": 6610,
+          "rrfScore": 1.0333333333333332
+        },
+        {
+          "id": "乙",
+          "payload": 6600,
+          "rrfScore": 1
+        },
+        {
+          "id": "e",
+          "payload": 6612,
+          "rrfScore": 0.41666666666666663
+        },
+        {
+          "id": "b",
+          "payload": 6622,
+          "rrfScore": 0.39285714285714285
+        },
+        {
+          "id": "甲",
+          "payload": 6611,
+          "rrfScore": 0.3333333333333333
+        },
+        {
+          "id": "c",
+          "payload": 6626,
+          "rrfScore": 0.125
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "e",
+            "payload": 6700
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 6710
+          },
+          {
+            "id": "c",
+            "payload": 6711
+          },
+          {
+            "id": "e",
+            "payload": 6712
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 6720
+          },
+          {
+            "id": "b",
+            "payload": 6721
+          },
+          {
+            "id": "乙",
+            "payload": 6722
+          },
+          {
+            "id": "d",
+            "payload": 6723
+          },
+          {
+            "id": "c",
+            "payload": 6724
+          },
+          {
+            "id": "乙",
+            "payload": 6725
+          },
+          {
+            "id": "a",
+            "payload": 6726
+          }
+        ]
+      ],
+      "k": 0,
+      "expected": [
+        {
+          "id": "c",
+          "payload": 6710,
+          "rrfScore": 1.7
+        },
+        {
+          "id": "e",
+          "payload": 6700,
+          "rrfScore": 1.3333333333333333
+        },
+        {
+          "id": "d",
+          "payload": 6720,
+          "rrfScore": 1.25
+        },
+        {
+          "id": "b",
+          "payload": 6721,
+          "rrfScore": 0.5
+        },
+        {
+          "id": "乙",
+          "payload": 6722,
+          "rrfScore": 0.5
+        },
+        {
+          "id": "a",
+          "payload": 6726,
+          "rrfScore": 0.14285714285714285
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "c",
+            "payload": 6800
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 6810
+          },
+          {
+            "id": "c",
+            "payload": 6811
+          },
+          {
+            "id": "b",
+            "payload": 6812
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 6820
+          },
+          {
+            "id": "b",
+            "payload": 6821
+          },
+          {
+            "id": "乙",
+            "payload": 6822
+          },
+          {
+            "id": "甲",
+            "payload": 6823
+          },
+          {
+            "id": "e",
+            "payload": 6824
+          },
+          {
+            "id": "e",
+            "payload": 6825
+          },
+          {
+            "id": "乙",
+            "payload": 6826
+          }
+        ]
+      ],
+      "k": 1,
+      "expected": [
+        {
+          "id": "c",
+          "payload": 6800,
+          "rrfScore": 1.3333333333333333
+        },
+        {
+          "id": "b",
+          "payload": 6812,
+          "rrfScore": 1.0833333333333333
+        },
+        {
+          "id": "乙",
+          "payload": 6822,
+          "rrfScore": 0.375
+        },
+        {
+          "id": "e",
+          "payload": 6824,
+          "rrfScore": 0.30952380952380953
+        },
+        {
+          "id": "甲",
+          "payload": 6823,
+          "rrfScore": 0.2
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "e",
+            "payload": 6900
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 6910
+          },
+          {
+            "id": "c",
+            "payload": 6911
+          },
+          {
+            "id": "a",
+            "payload": 6912
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 6920
+          },
+          {
+            "id": "甲",
+            "payload": 6921
+          },
+          {
+            "id": "e",
+            "payload": 6922
+          },
+          {
+            "id": "e",
+            "payload": 6923
+          },
+          {
+            "id": "c",
+            "payload": 6924
+          },
+          {
+            "id": "d",
+            "payload": 6925
+          },
+          {
+            "id": "a",
+            "payload": 6926
+          }
+        ]
+      ],
+      "k": 1,
+      "expected": [
+        {
+          "id": "e",
+          "payload": 6900,
+          "rrfScore": 0.95
+        },
+        {
+          "id": "甲",
+          "payload": 6920,
+          "rrfScore": 0.8333333333333333
+        },
+        {
+          "id": "乙",
+          "payload": 6910,
+          "rrfScore": 0.5
+        },
+        {
+          "id": "c",
+          "payload": 6911,
+          "rrfScore": 0.5
+        },
+        {
+          "id": "a",
+          "payload": 6912,
+          "rrfScore": 0.375
+        },
+        {
+          "id": "d",
+          "payload": 6925,
+          "rrfScore": 0.14285714285714285
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "c",
+            "payload": 7000
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 7010
+          },
+          {
+            "id": "e",
+            "payload": 7011
+          },
+          {
+            "id": "d",
+            "payload": 7012
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 7020
+          },
+          {
+            "id": "乙",
+            "payload": 7021
+          },
+          {
+            "id": "e",
+            "payload": 7022
+          },
+          {
+            "id": "d",
+            "payload": 7023
+          },
+          {
+            "id": "乙",
+            "payload": 7024
+          },
+          {
+            "id": "甲",
+            "payload": 7025
+          },
+          {
+            "id": "e",
+            "payload": 7026
+          }
+        ]
+      ],
+      "k": 1,
+      "expected": [
+        {
+          "id": "乙",
+          "payload": 7020,
+          "rrfScore": 0.9999999999999999
+        },
+        {
+          "id": "e",
+          "payload": 7011,
+          "rrfScore": 0.7083333333333333
+        },
+        {
+          "id": "c",
+          "payload": 7000,
+          "rrfScore": 0.5
+        },
+        {
+          "id": "a",
+          "payload": 7010,
+          "rrfScore": 0.5
+        },
+        {
+          "id": "d",
+          "payload": 7012,
+          "rrfScore": 0.45
+        },
+        {
+          "id": "甲",
+          "payload": 7025,
+          "rrfScore": 0.14285714285714285
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "c",
+            "payload": 7100
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 7110
+          },
+          {
+            "id": "a",
+            "payload": 7111
+          },
+          {
+            "id": "d",
+            "payload": 7112
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 7120
+          },
+          {
+            "id": "b",
+            "payload": 7121
+          },
+          {
+            "id": "a",
+            "payload": 7122
+          },
+          {
+            "id": "d",
+            "payload": 7123
+          },
+          {
+            "id": "e",
+            "payload": 7124
+          },
+          {
+            "id": "e",
+            "payload": 7125
+          },
+          {
+            "id": "乙",
+            "payload": 7126
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 7111,
+          "rrfScore": 0.16025641025641024
+        },
+        {
+          "id": "乙",
+          "payload": 7110,
+          "rrfScore": 0.1497326203208556
+        },
+        {
+          "id": "d",
+          "payload": 7112,
+          "rrfScore": 0.14835164835164835
+        },
+        {
+          "id": "e",
+          "payload": 7124,
+          "rrfScore": 0.12916666666666665
+        },
+        {
+          "id": "c",
+          "payload": 7100,
+          "rrfScore": 0.09090909090909091
+        },
+        {
+          "id": "甲",
+          "payload": 7120,
+          "rrfScore": 0.09090909090909091
+        },
+        {
+          "id": "b",
+          "payload": 7121,
+          "rrfScore": 0.08333333333333333
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "c",
+            "payload": 7200
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 7210
+          },
+          {
+            "id": "甲",
+            "payload": 7211
+          },
+          {
+            "id": "d",
+            "payload": 7212
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 7220
+          },
+          {
+            "id": "b",
+            "payload": 7221
+          },
+          {
+            "id": "c",
+            "payload": 7222
+          },
+          {
+            "id": "a",
+            "payload": 7223
+          },
+          {
+            "id": "b",
+            "payload": 7224
+          },
+          {
+            "id": "b",
+            "payload": 7225
+          },
+          {
+            "id": "e",
+            "payload": 7226
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "c",
+          "payload": 7200,
+          "rrfScore": 0.04865990111891751
+        },
+        {
+          "id": "b",
+          "payload": 7221,
+          "rrfScore": 0.04666516279419505
+        },
+        {
+          "id": "e",
+          "payload": 7210,
+          "rrfScore": 0.03131881575727918
+        },
+        {
+          "id": "甲",
+          "payload": 7211,
+          "rrfScore": 0.016129032258064516
+        },
+        {
+          "id": "d",
+          "payload": 7212,
+          "rrfScore": 0.015873015873015872
+        },
+        {
+          "id": "a",
+          "payload": 7223,
+          "rrfScore": 0.015625
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "a",
+            "payload": 7300
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 7310
+          },
+          {
+            "id": "e",
+            "payload": 7311
+          },
+          {
+            "id": "甲",
+            "payload": 7312
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 7320
+          },
+          {
+            "id": "e",
+            "payload": 7321
+          },
+          {
+            "id": "c",
+            "payload": 7322
+          },
+          {
+            "id": "甲",
+            "payload": 7323
+          },
+          {
+            "id": "e",
+            "payload": 7324
+          },
+          {
+            "id": "d",
+            "payload": 7325
+          },
+          {
+            "id": "d",
+            "payload": 7326
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "e",
+          "payload": 7311,
+          "rrfScore": 0.23333333333333334
+        },
+        {
+          "id": "a",
+          "payload": 7300,
+          "rrfScore": 0.18181818181818182
+        },
+        {
+          "id": "甲",
+          "payload": 7312,
+          "rrfScore": 0.14835164835164835
+        },
+        {
+          "id": "d",
+          "payload": 7325,
+          "rrfScore": 0.1213235294117647
+        },
+        {
+          "id": "乙",
+          "payload": 7310,
+          "rrfScore": 0.09090909090909091
+        },
+        {
+          "id": "c",
+          "payload": 7322,
+          "rrfScore": 0.07692307692307693
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "c",
+            "payload": 7400
+          }
+        ],
+        [
+          {
+            "id": "e",
+            "payload": 7410
+          },
+          {
+            "id": "甲",
+            "payload": 7411
+          },
+          {
+            "id": "e",
+            "payload": 7412
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 7420
+          },
+          {
+            "id": "甲",
+            "payload": 7421
+          },
+          {
+            "id": "d",
+            "payload": 7422
+          },
+          {
+            "id": "b",
+            "payload": 7423
+          },
+          {
+            "id": "d",
+            "payload": 7424
+          },
+          {
+            "id": "甲",
+            "payload": 7425
+          },
+          {
+            "id": "e",
+            "payload": 7426
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "甲",
+          "payload": 7411,
+          "rrfScore": 0.029041805401405843
+        },
+        {
+          "id": "e",
+          "payload": 7410,
+          "rrfScore": 0.028955522355610934
+        },
+        {
+          "id": "c",
+          "payload": 7400,
+          "rrfScore": 0.019801980198019802
+        },
+        {
+          "id": "d",
+          "payload": 7422,
+          "rrfScore": 0.019232547387887194
+        },
+        {
+          "id": "b",
+          "payload": 7423,
+          "rrfScore": 0.009615384615384616
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "d",
+            "payload": 7500
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 7510
+          },
+          {
+            "id": "b",
+            "payload": 7511
+          },
+          {
+            "id": "c",
+            "payload": 7512
+          }
+        ],
+        [
+          {
+            "id": "c",
+            "payload": 7520
+          },
+          {
+            "id": "乙",
+            "payload": 7521
+          },
+          {
+            "id": "e",
+            "payload": 7522
+          },
+          {
+            "id": "d",
+            "payload": 7523
+          },
+          {
+            "id": "d",
+            "payload": 7524
+          },
+          {
+            "id": "甲",
+            "payload": 7525
+          },
+          {
+            "id": "b",
+            "payload": 7526
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "d",
+          "payload": 7500,
+          "rrfScore": 0.229004329004329
+        },
+        {
+          "id": "c",
+          "payload": 7512,
+          "rrfScore": 0.16783216783216784
+        },
+        {
+          "id": "b",
+          "payload": 7511,
+          "rrfScore": 0.14215686274509803
+        },
+        {
+          "id": "a",
+          "payload": 7510,
+          "rrfScore": 0.09090909090909091
+        },
+        {
+          "id": "乙",
+          "payload": 7521,
+          "rrfScore": 0.08333333333333333
+        },
+        {
+          "id": "e",
+          "payload": 7522,
+          "rrfScore": 0.07692307692307693
+        },
+        {
+          "id": "甲",
+          "payload": 7525,
+          "rrfScore": 0.0625
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "a",
+            "payload": 7600
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 7610
+          },
+          {
+            "id": "e",
+            "payload": 7611
+          },
+          {
+            "id": "d",
+            "payload": 7612
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 7620
+          },
+          {
+            "id": "b",
+            "payload": 7621
+          },
+          {
+            "id": "c",
+            "payload": 7622
+          },
+          {
+            "id": "乙",
+            "payload": 7623
+          },
+          {
+            "id": "c",
+            "payload": 7624
+          },
+          {
+            "id": "c",
+            "payload": 7625
+          },
+          {
+            "id": "甲",
+            "payload": 7626
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "c",
+          "payload": 7622,
+          "rrfScore": 0.20608974358974358
+        },
+        {
+          "id": "a",
+          "payload": 7600,
+          "rrfScore": 0.18181818181818182
+        },
+        {
+          "id": "b",
+          "payload": 7620,
+          "rrfScore": 0.17424242424242425
+        },
+        {
+          "id": "e",
+          "payload": 7611,
+          "rrfScore": 0.08333333333333333
+        },
+        {
+          "id": "d",
+          "payload": 7612,
+          "rrfScore": 0.07692307692307693
+        },
+        {
+          "id": "乙",
+          "payload": 7623,
+          "rrfScore": 0.07142857142857142
+        },
+        {
+          "id": "甲",
+          "payload": 7626,
+          "rrfScore": 0.058823529411764705
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 7700
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 7710
+          },
+          {
+            "id": "b",
+            "payload": 7711
+          },
+          {
+            "id": "a",
+            "payload": 7712
+          }
+        ],
+        [
+          {
+            "id": "d",
+            "payload": 7720
+          },
+          {
+            "id": "c",
+            "payload": 7721
+          },
+          {
+            "id": "c",
+            "payload": 7722
+          },
+          {
+            "id": "乙",
+            "payload": 7723
+          },
+          {
+            "id": "a",
+            "payload": 7724
+          },
+          {
+            "id": "c",
+            "payload": 7725
+          },
+          {
+            "id": "乙",
+            "payload": 7726
+          }
+        ]
+      ],
+      "k": 100,
+      "expected": [
+        {
+          "id": "c",
+          "payload": 7721,
+          "rrfScore": 0.028946621696856065
+        },
+        {
+          "id": "d",
+          "payload": 7710,
+          "rrfScore": 0.019801980198019802
+        },
+        {
+          "id": "a",
+          "payload": 7712,
+          "rrfScore": 0.019232547387887194
+        },
+        {
+          "id": "乙",
+          "payload": 7723,
+          "rrfScore": 0.01896117900790798
+        },
+        {
+          "id": "甲",
+          "payload": 7700,
+          "rrfScore": 0.009900990099009901
+        },
+        {
+          "id": "b",
+          "payload": 7711,
+          "rrfScore": 0.00980392156862745
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "b",
+            "payload": 7800
+          }
+        ],
+        [
+          {
+            "id": "甲",
+            "payload": 7810
+          },
+          {
+            "id": "a",
+            "payload": 7811
+          },
+          {
+            "id": "d",
+            "payload": 7812
+          }
+        ],
+        [
+          {
+            "id": "乙",
+            "payload": 7820
+          },
+          {
+            "id": "甲",
+            "payload": 7821
+          },
+          {
+            "id": "a",
+            "payload": 7822
+          },
+          {
+            "id": "d",
+            "payload": 7823
+          },
+          {
+            "id": "a",
+            "payload": 7824
+          },
+          {
+            "id": "a",
+            "payload": 7825
+          },
+          {
+            "id": "a",
+            "payload": 7826
+          }
+        ]
+      ],
+      "k": 60,
+      "expected": [
+        {
+          "id": "a",
+          "payload": 7811,
+          "rrfScore": 0.07746355180153928
+        },
+        {
+          "id": "甲",
+          "payload": 7810,
+          "rrfScore": 0.03252247488101534
+        },
+        {
+          "id": "d",
+          "payload": 7812,
+          "rrfScore": 0.03149801587301587
+        },
+        {
+          "id": "b",
+          "payload": 7800,
+          "rrfScore": 0.01639344262295082
+        },
+        {
+          "id": "乙",
+          "payload": 7820,
+          "rrfScore": 0.01639344262295082
+        }
+      ]
+    },
+    {
+      "lists": [
+        [
+          {
+            "id": "甲",
+            "payload": 7900
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "payload": 7910
+          },
+          {
+            "id": "a",
+            "payload": 7911
+          },
+          {
+            "id": "e",
+            "payload": 7912
+          }
+        ],
+        [
+          {
+            "id": "b",
+            "payload": 7920
+          },
+          {
+            "id": "b",
+            "payload": 7921
+          },
+          {
+            "id": "c",
+            "payload": 7922
+          },
+          {
+            "id": "e",
+            "payload": 7923
+          },
+          {
+            "id": "甲",
+            "payload": 7924
+          },
+          {
+            "id": "b",
+            "payload": 7925
+          },
+          {
+            "id": "d",
+            "payload": 7926
+          }
+        ]
+      ],
+      "k": 10,
+      "expected": [
+        {
+          "id": "b",
+          "payload": 7920,
+          "rrfScore": 0.23674242424242425
+        },
+        {
+          "id": "a",
+          "payload": 7910,
+          "rrfScore": 0.17424242424242425
+        },
+        {
+          "id": "甲",
+          "payload": 7900,
+          "rrfScore": 0.1575757575757576
+        },
+        {
+          "id": "e",
+          "payload": 7912,
+          "rrfScore": 0.14835164835164835
+        },
+        {
+          "id": "c",
+          "payload": 7922,
+          "rrfScore": 0.07692307692307693
+        },
+        {
+          "id": "d",
+          "payload": 7926,
+          "rrfScore": 0.058823529411764705
+        }
+      ]
+    }
+  ],
+  "bm25Cases": [
+    {
+      "rank": -28.571428571428573,
+      "expected": 0.966183574879227
+    },
+    {
+      "rank": -28.428571428571427,
+      "expected": 0.9660194174757282
+    },
+    {
+      "rank": -28.285714285714285,
+      "expected": 0.9658536585365853
+    },
+    {
+      "rank": -28.142857142857142,
+      "expected": 0.9656862745098039
+    },
+    {
+      "rank": -28,
+      "expected": 0.9655172413793104
+    },
+    {
+      "rank": -27.857142857142858,
+      "expected": 0.9653465346534653
+    },
+    {
+      "rank": -27.714285714285715,
+      "expected": 0.9651741293532339
+    },
+    {
+      "rank": -27.571428571428573,
+      "expected": 0.965
+    },
+    {
+      "rank": -27.428571428571427,
+      "expected": 0.964824120603015
+    },
+    {
+      "rank": -27.285714285714285,
+      "expected": 0.9646464646464646
+    },
+    {
+      "rank": -27.142857142857142,
+      "expected": 0.9644670050761421
+    },
+    {
+      "rank": -27,
+      "expected": 0.9642857142857143
+    },
+    {
+      "rank": -26.857142857142858,
+      "expected": 0.9641025641025641
+    },
+    {
+      "rank": -26.714285714285715,
+      "expected": 0.9639175257731959
+    },
+    {
+      "rank": -26.571428571428573,
+      "expected": 0.9637305699481865
+    },
+    {
+      "rank": -26.428571428571427,
+      "expected": 0.9635416666666666
+    },
+    {
+      "rank": -26.285714285714285,
+      "expected": 0.9633507853403142
+    },
+    {
+      "rank": -26.142857142857142,
+      "expected": 0.9631578947368421
+    },
+    {
+      "rank": -26,
+      "expected": 0.9629629629629629
+    },
+    {
+      "rank": -25.857142857142858,
+      "expected": 0.9627659574468085
+    },
+    {
+      "rank": -25.714285714285715,
+      "expected": 0.9625668449197861
+    },
+    {
+      "rank": -25.571428571428573,
+      "expected": 0.9623655913978495
+    },
+    {
+      "rank": -25.428571428571427,
+      "expected": 0.9621621621621621
+    },
+    {
+      "rank": -25.285714285714285,
+      "expected": 0.9619565217391305
+    },
+    {
+      "rank": -25.142857142857142,
+      "expected": 0.9617486338797814
+    },
+    {
+      "rank": -25,
+      "expected": 0.9615384615384616
+    },
+    {
+      "rank": -24.857142857142858,
+      "expected": 0.9613259668508287
+    },
+    {
+      "rank": -24.714285714285715,
+      "expected": 0.9611111111111111
+    },
+    {
+      "rank": -24.571428571428573,
+      "expected": 0.9608938547486033
+    },
+    {
+      "rank": -24.428571428571427,
+      "expected": 0.9606741573033708
+    },
+    {
+      "rank": -24.285714285714285,
+      "expected": 0.96045197740113
+    },
+    {
+      "rank": -24.142857142857142,
+      "expected": 0.9602272727272727
+    },
+    {
+      "rank": -24,
+      "expected": 0.96
+    },
+    {
+      "rank": -23.857142857142858,
+      "expected": 0.9597701149425287
+    },
+    {
+      "rank": -23.714285714285715,
+      "expected": 0.9595375722543352
+    },
+    {
+      "rank": -23.571428571428573,
+      "expected": 0.9593023255813954
+    },
+    {
+      "rank": -23.428571428571427,
+      "expected": 0.9590643274853801
+    },
+    {
+      "rank": -23.285714285714285,
+      "expected": 0.9588235294117647
+    },
+    {
+      "rank": -23.142857142857142,
+      "expected": 0.9585798816568047
+    },
+    {
+      "rank": -23,
+      "expected": 0.9583333333333334
+    },
+    {
+      "rank": -22.857142857142858,
+      "expected": 0.9580838323353293
+    },
+    {
+      "rank": -22.714285714285715,
+      "expected": 0.9578313253012049
+    },
+    {
+      "rank": -22.571428571428573,
+      "expected": 0.9575757575757575
+    },
+    {
+      "rank": -22.428571428571427,
+      "expected": 0.9573170731707317
+    },
+    {
+      "rank": -22.285714285714285,
+      "expected": 0.9570552147239264
+    },
+    {
+      "rank": -22.142857142857142,
+      "expected": 0.9567901234567902
+    },
+    {
+      "rank": -22,
+      "expected": 0.9565217391304348
+    },
+    {
+      "rank": -21.857142857142858,
+      "expected": 0.95625
+    },
+    {
+      "rank": -21.714285714285715,
+      "expected": 0.9559748427672956
+    },
+    {
+      "rank": -21.571428571428573,
+      "expected": 0.9556962025316456
+    },
+    {
+      "rank": -21.428571428571427,
+      "expected": 0.9554140127388535
+    },
+    {
+      "rank": -21.285714285714285,
+      "expected": 0.9551282051282052
+    },
+    {
+      "rank": -21.142857142857142,
+      "expected": 0.9548387096774194
+    },
+    {
+      "rank": -21,
+      "expected": 0.9545454545454546
+    },
+    {
+      "rank": -20.857142857142858,
+      "expected": 0.954248366013072
+    },
+    {
+      "rank": -20.714285714285715,
+      "expected": 0.9539473684210527
+    },
+    {
+      "rank": -20.571428571428573,
+      "expected": 0.9536423841059603
+    },
+    {
+      "rank": -20.428571428571427,
+      "expected": 0.9533333333333334
+    },
+    {
+      "rank": -20.285714285714285,
+      "expected": 0.9530201342281879
+    },
+    {
+      "rank": -20.142857142857142,
+      "expected": 0.9527027027027027
+    },
+    {
+      "rank": -20,
+      "expected": 0.9523809523809523
+    },
+    {
+      "rank": -19.857142857142858,
+      "expected": 0.952054794520548
+    },
+    {
+      "rank": -19.714285714285715,
+      "expected": 0.9517241379310345
+    },
+    {
+      "rank": -19.571428571428573,
+      "expected": 0.9513888888888888
+    },
+    {
+      "rank": -19.428571428571427,
+      "expected": 0.951048951048951
+    },
+    {
+      "rank": -19.285714285714285,
+      "expected": 0.9507042253521126
+    },
+    {
+      "rank": -19.142857142857142,
+      "expected": 0.950354609929078
+    },
+    {
+      "rank": -19,
+      "expected": 0.95
+    },
+    {
+      "rank": -18.857142857142858,
+      "expected": 0.9496402877697842
+    },
+    {
+      "rank": -18.714285714285715,
+      "expected": 0.9492753623188406
+    },
+    {
+      "rank": -18.571428571428573,
+      "expected": 0.948905109489051
+    },
+    {
+      "rank": -18.428571428571427,
+      "expected": 0.9485294117647058
+    },
+    {
+      "rank": -18.285714285714285,
+      "expected": 0.9481481481481482
+    },
+    {
+      "rank": -18.142857142857142,
+      "expected": 0.9477611940298507
+    },
+    {
+      "rank": -18,
+      "expected": 0.9473684210526315
+    },
+    {
+      "rank": -17.857142857142858,
+      "expected": 0.946969696969697
+    },
+    {
+      "rank": -17.714285714285715,
+      "expected": 0.9465648854961832
+    },
+    {
+      "rank": -17.571428571428573,
+      "expected": 0.9461538461538461
+    },
+    {
+      "rank": -17.428571428571427,
+      "expected": 0.9457364341085271
+    },
+    {
+      "rank": -17.285714285714285,
+      "expected": 0.9453125
+    },
+    {
+      "rank": -17.142857142857142,
+      "expected": 0.9448818897637795
+    },
+    {
+      "rank": -17,
+      "expected": 0.9444444444444444
+    },
+    {
+      "rank": -16.857142857142858,
+      "expected": 0.944
+    },
+    {
+      "rank": -16.714285714285715,
+      "expected": 0.9435483870967742
+    },
+    {
+      "rank": -16.571428571428573,
+      "expected": 0.943089430894309
+    },
+    {
+      "rank": -16.428571428571427,
+      "expected": 0.9426229508196722
+    },
+    {
+      "rank": -16.285714285714285,
+      "expected": 0.9421487603305785
+    },
+    {
+      "rank": -16.142857142857142,
+      "expected": 0.9416666666666667
+    },
+    {
+      "rank": -16,
+      "expected": 0.9411764705882353
+    },
+    {
+      "rank": -15.857142857142858,
+      "expected": 0.940677966101695
+    },
+    {
+      "rank": -15.714285714285714,
+      "expected": 0.94017094017094
+    },
+    {
+      "rank": -15.571428571428571,
+      "expected": 0.9396551724137931
+    },
+    {
+      "rank": -15.428571428571429,
+      "expected": 0.9391304347826086
+    },
+    {
+      "rank": -15.285714285714286,
+      "expected": 0.9385964912280703
+    },
+    {
+      "rank": -15.142857142857142,
+      "expected": 0.9380530973451328
+    },
+    {
+      "rank": -15,
+      "expected": 0.9375
+    },
+    {
+      "rank": -14.857142857142858,
+      "expected": 0.9369369369369369
+    },
+    {
+      "rank": -14.714285714285714,
+      "expected": 0.9363636363636364
+    },
+    {
+      "rank": -14.571428571428571,
+      "expected": 0.9357798165137615
+    },
+    {
+      "rank": -14.428571428571429,
+      "expected": 0.9351851851851852
+    },
+    {
+      "rank": -14.285714285714286,
+      "expected": 0.9345794392523364
+    },
+    {
+      "rank": -14.142857142857142,
+      "expected": 0.9339622641509434
+    },
+    {
+      "rank": -14,
+      "expected": 0.9333333333333333
+    },
+    {
+      "rank": -13.857142857142858,
+      "expected": 0.9326923076923077
+    },
+    {
+      "rank": -13.714285714285714,
+      "expected": 0.9320388349514563
+    },
+    {
+      "rank": -13.571428571428571,
+      "expected": 0.9313725490196079
+    },
+    {
+      "rank": -13.428571428571429,
+      "expected": 0.9306930693069307
+    },
+    {
+      "rank": -13.285714285714286,
+      "expected": 0.93
+    },
+    {
+      "rank": -13.142857142857142,
+      "expected": 0.9292929292929293
+    },
+    {
+      "rank": -13,
+      "expected": 0.9285714285714286
+    },
+    {
+      "rank": -12.857142857142858,
+      "expected": 0.9278350515463918
+    },
+    {
+      "rank": -12.714285714285714,
+      "expected": 0.9270833333333334
+    },
+    {
+      "rank": -12.571428571428571,
+      "expected": 0.9263157894736842
+    },
+    {
+      "rank": -12.428571428571429,
+      "expected": 0.925531914893617
+    },
+    {
+      "rank": -12.285714285714286,
+      "expected": 0.9247311827956989
+    },
+    {
+      "rank": -12.142857142857142,
+      "expected": 0.9239130434782609
+    },
+    {
+      "rank": -12,
+      "expected": 0.9230769230769231
+    },
+    {
+      "rank": -11.857142857142858,
+      "expected": 0.9222222222222223
+    },
+    {
+      "rank": -11.714285714285714,
+      "expected": 0.9213483146067416
+    },
+    {
+      "rank": -11.571428571428571,
+      "expected": 0.9204545454545454
+    },
+    {
+      "rank": -11.428571428571429,
+      "expected": 0.9195402298850575
+    },
+    {
+      "rank": -11.285714285714286,
+      "expected": 0.9186046511627907
+    },
+    {
+      "rank": -11.142857142857142,
+      "expected": 0.9176470588235294
+    },
+    {
+      "rank": -11,
+      "expected": 0.9166666666666666
+    },
+    {
+      "rank": -10.857142857142858,
+      "expected": 0.9156626506024096
+    },
+    {
+      "rank": -10.714285714285714,
+      "expected": 0.9146341463414634
+    },
+    {
+      "rank": -10.571428571428571,
+      "expected": 0.9135802469135802
+    },
+    {
+      "rank": -10.428571428571429,
+      "expected": 0.9125
+    },
+    {
+      "rank": -10.285714285714286,
+      "expected": 0.9113924050632911
+    },
+    {
+      "rank": -10.142857142857142,
+      "expected": 0.9102564102564102
+    },
+    {
+      "rank": -10,
+      "expected": 0.9090909090909091
+    },
+    {
+      "rank": -9.857142857142858,
+      "expected": 0.9078947368421053
+    },
+    {
+      "rank": -9.714285714285714,
+      "expected": 0.9066666666666666
+    },
+    {
+      "rank": -9.571428571428571,
+      "expected": 0.9054054054054054
+    },
+    {
+      "rank": -9.428571428571429,
+      "expected": 0.9041095890410958
+    },
+    {
+      "rank": -9.285714285714286,
+      "expected": 0.9027777777777778
+    },
+    {
+      "rank": -9.142857142857142,
+      "expected": 0.9014084507042254
+    },
+    {
+      "rank": -9,
+      "expected": 0.9
+    },
+    {
+      "rank": -8.857142857142858,
+      "expected": 0.8985507246376812
+    },
+    {
+      "rank": -8.714285714285714,
+      "expected": 0.8970588235294118
+    },
+    {
+      "rank": -8.571428571428571,
+      "expected": 0.8955223880597015
+    },
+    {
+      "rank": -8.428571428571429,
+      "expected": 0.8939393939393939
+    },
+    {
+      "rank": -8.285714285714286,
+      "expected": 0.8923076923076924
+    },
+    {
+      "rank": -8.142857142857142,
+      "expected": 0.890625
+    },
+    {
+      "rank": -8,
+      "expected": 0.8888888888888888
+    },
+    {
+      "rank": -7.857142857142857,
+      "expected": 0.8870967741935483
+    },
+    {
+      "rank": -7.714285714285714,
+      "expected": 0.8852459016393441
+    },
+    {
+      "rank": -7.571428571428571,
+      "expected": 0.8833333333333333
+    },
+    {
+      "rank": -7.428571428571429,
+      "expected": 0.8813559322033898
+    },
+    {
+      "rank": -7.285714285714286,
+      "expected": 0.8793103448275863
+    },
+    {
+      "rank": -7.142857142857143,
+      "expected": 0.8771929824561404
+    },
+    {
+      "rank": -7,
+      "expected": 0.875
+    },
+    {
+      "rank": -6.857142857142857,
+      "expected": 0.8727272727272727
+    },
+    {
+      "rank": -6.714285714285714,
+      "expected": 0.8703703703703703
+    },
+    {
+      "rank": -6.571428571428571,
+      "expected": 0.8679245283018868
+    },
+    {
+      "rank": -6.428571428571429,
+      "expected": 0.8653846153846154
+    },
+    {
+      "rank": -6.285714285714286,
+      "expected": 0.8627450980392157
+    },
+    {
+      "rank": -6.142857142857143,
+      "expected": 0.86
+    },
+    {
+      "rank": -6,
+      "expected": 0.8571428571428571
+    },
+    {
+      "rank": -5.857142857142857,
+      "expected": 0.8541666666666666
+    },
+    {
+      "rank": -5.714285714285714,
+      "expected": 0.851063829787234
+    },
+    {
+      "rank": -5.571428571428571,
+      "expected": 0.8478260869565217
+    },
+    {
+      "rank": -5.428571428571429,
+      "expected": 0.8444444444444444
+    },
+    {
+      "rank": -5.285714285714286,
+      "expected": 0.8409090909090909
+    },
+    {
+      "rank": -5.142857142857143,
+      "expected": 0.8372093023255814
+    },
+    {
+      "rank": -5,
+      "expected": 0.8333333333333334
+    },
+    {
+      "rank": -4.857142857142857,
+      "expected": 0.8292682926829268
+    },
+    {
+      "rank": -4.714285714285714,
+      "expected": 0.825
+    },
+    {
+      "rank": -4.571428571428571,
+      "expected": 0.8205128205128205
+    },
+    {
+      "rank": -4.428571428571429,
+      "expected": 0.8157894736842105
+    },
+    {
+      "rank": -4.285714285714286,
+      "expected": 0.8108108108108109
+    },
+    {
+      "rank": -4.142857142857143,
+      "expected": 0.8055555555555556
+    },
+    {
+      "rank": -4,
+      "expected": 0.8
+    },
+    {
+      "rank": -3.857142857142857,
+      "expected": 0.7941176470588235
+    },
+    {
+      "rank": -3.7142857142857144,
+      "expected": 0.7878787878787878
+    },
+    {
+      "rank": -3.5714285714285716,
+      "expected": 0.7812500000000001
+    },
+    {
+      "rank": -3.4285714285714284,
+      "expected": 0.7741935483870966
+    },
+    {
+      "rank": -3.2857142857142856,
+      "expected": 0.7666666666666666
+    },
+    {
+      "rank": -3.142857142857143,
+      "expected": 0.7586206896551725
+    },
+    {
+      "rank": -3,
+      "expected": 0.75
+    },
+    {
+      "rank": -2.857142857142857,
+      "expected": 0.7407407407407407
+    },
+    {
+      "rank": -2.7142857142857144,
+      "expected": 0.7307692307692307
+    },
+    {
+      "rank": -2.5714285714285716,
+      "expected": 0.72
+    },
+    {
+      "rank": -2.4285714285714284,
+      "expected": 0.7083333333333334
+    },
+    {
+      "rank": -2.2857142857142856,
+      "expected": 0.6956521739130435
+    },
+    {
+      "rank": -2.142857142857143,
+      "expected": 0.6818181818181818
+    },
+    {
+      "rank": -2,
+      "expected": 0.6666666666666666
+    },
+    {
+      "rank": -1.8571428571428572,
+      "expected": 0.65
+    },
+    {
+      "rank": -1.7142857142857142,
+      "expected": 0.631578947368421
+    },
+    {
+      "rank": -1.5714285714285714,
+      "expected": 0.6111111111111112
+    },
+    {
+      "rank": -1.4285714285714286,
+      "expected": 0.588235294117647
+    },
+    {
+      "rank": -1.2857142857142858,
+      "expected": 0.5625000000000001
+    },
+    {
+      "rank": -1.1428571428571428,
+      "expected": 0.5333333333333333
+    },
+    {
+      "rank": -1,
+      "expected": 0.5
+    },
+    {
+      "rank": -0.8571428571428571,
+      "expected": 0.4615384615384615
+    },
+    {
+      "rank": -0.7142857142857143,
+      "expected": 0.41666666666666663
+    },
+    {
+      "rank": -0.5714285714285714,
+      "expected": 0.36363636363636365
+    },
+    {
+      "rank": -0.42857142857142855,
+      "expected": 0.3
+    },
+    {
+      "rank": -0.2857142857142857,
+      "expected": 0.22222222222222224
+    },
+    {
+      "rank": -0.14285714285714285,
+      "expected": 0.125
+    },
+    {
+      "rank": 0,
+      "expected": 1
+    },
+    {
+      "rank": 0.14285714285714285,
+      "expected": 0.875
+    },
+    {
+      "rank": 0.2857142857142857,
+      "expected": 0.7777777777777779
+    },
+    {
+      "rank": 0.42857142857142855,
+      "expected": 0.7
+    },
+    {
+      "rank": 0.5714285714285714,
+      "expected": 0.6363636363636364
+    },
+    {
+      "rank": 0.7142857142857143,
+      "expected": 0.5833333333333333
+    },
+    {
+      "rank": 0.8571428571428571,
+      "expected": 0.5384615384615384
+    },
+    {
+      "rank": 1,
+      "expected": 0.5
+    },
+    {
+      "rank": 1.1428571428571428,
+      "expected": 0.4666666666666667
+    },
+    {
+      "rank": 1.2857142857142858,
+      "expected": 0.4375
+    },
+    {
+      "rank": 1.4285714285714286,
+      "expected": 0.4117647058823529
+    },
+    {
+      "rank": 1.5714285714285714,
+      "expected": 0.38888888888888895
+    },
+    {
+      "rank": 1.7142857142857142,
+      "expected": 0.3684210526315789
+    },
+    {
+      "rank": 1.8571428571428572,
+      "expected": 0.35
+    },
+    {
+      "rank": 2,
+      "expected": 0.3333333333333333
+    },
+    {
+      "rank": 2.142857142857143,
+      "expected": 0.3181818181818182
+    },
+    {
+      "rank": 2.2857142857142856,
+      "expected": 0.30434782608695654
+    },
+    {
+      "rank": 2.4285714285714284,
+      "expected": 0.2916666666666667
+    },
+    {
+      "rank": 2.5714285714285716,
+      "expected": 0.27999999999999997
+    },
+    {
+      "rank": 2.7142857142857144,
+      "expected": 0.2692307692307692
+    },
+    {
+      "rank": 2.857142857142857,
+      "expected": 0.25925925925925924
+    },
+    {
+      "rank": 3,
+      "expected": 0.25
+    },
+    {
+      "rank": 3.142857142857143,
+      "expected": 0.24137931034482762
+    },
+    {
+      "rank": 3.2857142857142856,
+      "expected": 0.23333333333333334
+    },
+    {
+      "rank": 3.4285714285714284,
+      "expected": 0.22580645161290322
+    },
+    {
+      "rank": 3.5714285714285716,
+      "expected": 0.21875
+    },
+    {
+      "rank": 3.7142857142857144,
+      "expected": 0.21212121212121213
+    },
+    {
+      "rank": 3.857142857142857,
+      "expected": 0.20588235294117646
+    },
+    {
+      "rank": 4,
+      "expected": 0.2
+    },
+    {
+      "rank": 4.142857142857143,
+      "expected": 0.19444444444444442
+    },
+    {
+      "rank": 4.285714285714286,
+      "expected": 0.1891891891891892
+    },
+    {
+      "rank": 4.428571428571429,
+      "expected": 0.18421052631578946
+    },
+    {
+      "rank": 4.571428571428571,
+      "expected": 0.1794871794871795
+    },
+    {
+      "rank": 4.714285714285714,
+      "expected": 0.175
+    },
+    {
+      "rank": 4.857142857142857,
+      "expected": 0.17073170731707318
+    },
+    {
+      "rank": 5,
+      "expected": 0.16666666666666666
+    },
+    {
+      "rank": 5.142857142857143,
+      "expected": 0.1627906976744186
+    },
+    {
+      "rank": 5.285714285714286,
+      "expected": 0.1590909090909091
+    },
+    {
+      "rank": 5.428571428571429,
+      "expected": 0.15555555555555556
+    },
+    {
+      "rank": 5.571428571428571,
+      "expected": 0.15217391304347827
+    },
+    {
+      "rank": 5.714285714285714,
+      "expected": 0.14893617021276595
+    },
+    {
+      "rank": 5.857142857142857,
+      "expected": 0.14583333333333334
+    },
+    {
+      "rank": 6,
+      "expected": 0.14285714285714285
+    },
+    {
+      "rank": 6.142857142857143,
+      "expected": 0.13999999999999999
+    },
+    {
+      "rank": 6.285714285714286,
+      "expected": 0.13725490196078433
+    },
+    {
+      "rank": 6.428571428571429,
+      "expected": 0.1346153846153846
+    },
+    {
+      "rank": 6.571428571428571,
+      "expected": 0.1320754716981132
+    },
+    {
+      "rank": 6.714285714285714,
+      "expected": 0.12962962962962962
+    },
+    {
+      "rank": 6.857142857142857,
+      "expected": 0.1272727272727273
+    },
+    {
+      "rank": 7,
+      "expected": 0.125
+    },
+    {
+      "rank": 7.142857142857143,
+      "expected": 0.12280701754385966
+    },
+    {
+      "rank": 7.285714285714286,
+      "expected": 0.12068965517241381
+    },
+    {
+      "rank": 7.428571428571429,
+      "expected": 0.11864406779661017
+    },
+    {
+      "rank": 7.571428571428571,
+      "expected": 0.11666666666666667
+    },
+    {
+      "rank": 7.714285714285714,
+      "expected": 0.11475409836065573
+    },
+    {
+      "rank": 7.857142857142857,
+      "expected": 0.11290322580645161
+    },
+    {
+      "rank": 8,
+      "expected": 0.1111111111111111
+    },
+    {
+      "rank": 8.142857142857142,
+      "expected": 0.109375
+    },
+    {
+      "rank": 8.285714285714286,
+      "expected": 0.10769230769230768
+    },
+    {
+      "rank": 8.428571428571429,
+      "expected": 0.10606060606060606
+    },
+    {
+      "rank": 8.571428571428571,
+      "expected": 0.1044776119402985
+    },
+    {
+      "rank": 8.714285714285714,
+      "expected": 0.10294117647058824
+    },
+    {
+      "rank": 8.857142857142858,
+      "expected": 0.10144927536231883
+    },
+    {
+      "rank": 9,
+      "expected": 0.1
+    },
+    {
+      "rank": 9.142857142857142,
+      "expected": 0.09859154929577466
+    },
+    {
+      "rank": 9.285714285714286,
+      "expected": 0.09722222222222221
+    },
+    {
+      "rank": 9.428571428571429,
+      "expected": 0.0958904109589041
+    },
+    {
+      "rank": 9.571428571428571,
+      "expected": 0.0945945945945946
+    },
+    {
+      "rank": 9.714285714285714,
+      "expected": 0.09333333333333334
+    },
+    {
+      "rank": 9.857142857142858,
+      "expected": 0.09210526315789473
+    },
+    {
+      "rank": 10,
+      "expected": 0.09090909090909091
+    },
+    {
+      "rank": 10.142857142857142,
+      "expected": 0.08974358974358974
+    },
+    {
+      "rank": 10.285714285714286,
+      "expected": 0.08860759493670886
+    },
+    {
+      "rank": 10.428571428571429,
+      "expected": 0.0875
+    },
+    {
+      "rank": 10.571428571428571,
+      "expected": 0.08641975308641975
+    },
+    {
+      "rank": 10.714285714285714,
+      "expected": 0.08536585365853659
+    },
+    {
+      "rank": 10.857142857142858,
+      "expected": 0.08433734939759036
+    },
+    {
+      "rank": 11,
+      "expected": 0.08333333333333333
+    },
+    {
+      "rank": 11.142857142857142,
+      "expected": 0.08235294117647059
+    },
+    {
+      "rank": 11.285714285714286,
+      "expected": 0.0813953488372093
+    },
+    {
+      "rank": 11.428571428571429,
+      "expected": 0.08045977011494253
+    },
+    {
+      "rank": 11.571428571428571,
+      "expected": 0.07954545454545454
+    },
+    {
+      "rank": 11.714285714285714,
+      "expected": 0.07865168539325842
+    },
+    {
+      "rank": 11.857142857142858,
+      "expected": 0.07777777777777778
+    },
+    {
+      "rank": 12,
+      "expected": 0.07692307692307693
+    },
+    {
+      "rank": 12.142857142857142,
+      "expected": 0.07608695652173914
+    },
+    {
+      "rank": 12.285714285714286,
+      "expected": 0.07526881720430108
+    },
+    {
+      "rank": 12.428571428571429,
+      "expected": 0.07446808510638298
+    },
+    {
+      "rank": 12.571428571428571,
+      "expected": 0.0736842105263158
+    },
+    {
+      "rank": 12.714285714285714,
+      "expected": 0.07291666666666667
+    },
+    {
+      "rank": 12.857142857142858,
+      "expected": 0.07216494845360824
+    },
+    {
+      "rank": 13,
+      "expected": 0.07142857142857142
+    },
+    {
+      "rank": 13.142857142857142,
+      "expected": 0.0707070707070707
+    },
+    {
+      "rank": 13.285714285714286,
+      "expected": 0.06999999999999999
+    },
+    {
+      "rank": 13.428571428571429,
+      "expected": 0.0693069306930693
+    },
+    {
+      "rank": 13.571428571428571,
+      "expected": 0.06862745098039216
+    },
+    {
+      "rank": 13.714285714285714,
+      "expected": 0.06796116504854369
+    },
+    {
+      "rank": 13.857142857142858,
+      "expected": 0.0673076923076923
+    },
+    {
+      "rank": 14,
+      "expected": 0.06666666666666667
+    },
+    {
+      "rank": 14.142857142857142,
+      "expected": 0.0660377358490566
+    },
+    {
+      "rank": 14.285714285714286,
+      "expected": 0.06542056074766354
+    },
+    {
+      "rank": 14.428571428571429,
+      "expected": 0.06481481481481481
+    },
+    {
+      "rank": 14.571428571428571,
+      "expected": 0.06422018348623854
+    },
+    {
+      "rank": 14.714285714285714,
+      "expected": 0.06363636363636364
+    },
+    {
+      "rank": 14.857142857142858,
+      "expected": 0.06306306306306306
+    },
+    {
+      "rank": 15,
+      "expected": 0.0625
+    },
+    {
+      "rank": 15.142857142857142,
+      "expected": 0.061946902654867256
+    },
+    {
+      "rank": 15.285714285714286,
+      "expected": 0.06140350877192983
+    },
+    {
+      "rank": 15.428571428571429,
+      "expected": 0.0608695652173913
+    },
+    {
+      "rank": 15.571428571428571,
+      "expected": 0.060344827586206906
+    },
+    {
+      "rank": 15.714285714285714,
+      "expected": 0.059829059829059825
+    },
+    {
+      "rank": 15.857142857142858,
+      "expected": 0.059322033898305086
+    },
+    {
+      "rank": 16,
+      "expected": 0.058823529411764705
+    },
+    {
+      "rank": 16.142857142857142,
+      "expected": 0.058333333333333334
+    },
+    {
+      "rank": 16.285714285714285,
+      "expected": 0.05785123966942149
+    },
+    {
+      "rank": 16.428571428571427,
+      "expected": 0.05737704918032788
+    },
+    {
+      "rank": 16.571428571428573,
+      "expected": 0.056910569105691054
+    },
+    {
+      "rank": 16.714285714285715,
+      "expected": 0.056451612903225805
+    },
+    {
+      "rank": 16.857142857142858,
+      "expected": 0.056
+    },
+    {
+      "rank": 17,
+      "expected": 0.05555555555555555
+    },
+    {
+      "rank": 17.142857142857142,
+      "expected": 0.05511811023622047
+    },
+    {
+      "rank": 17.285714285714285,
+      "expected": 0.0546875
+    },
+    {
+      "rank": 17.428571428571427,
+      "expected": 0.054263565891472874
+    },
+    {
+      "rank": 17.571428571428573,
+      "expected": 0.05384615384615384
+    },
+    {
+      "rank": 17.714285714285715,
+      "expected": 0.05343511450381679
+    },
+    {
+      "rank": 17.857142857142858,
+      "expected": 0.05303030303030303
+    },
+    {
+      "rank": 18,
+      "expected": 0.05263157894736842
+    },
+    {
+      "rank": 18.142857142857142,
+      "expected": 0.05223880597014925
+    },
+    {
+      "rank": 18.285714285714285,
+      "expected": 0.05185185185185186
+    },
+    {
+      "rank": 18.428571428571427,
+      "expected": 0.05147058823529412
+    },
+    {
+      "rank": 18.571428571428573,
+      "expected": 0.0510948905109489
+    },
+    {
+      "rank": 18.714285714285715,
+      "expected": 0.05072463768115942
+    },
+    {
+      "rank": 18.857142857142858,
+      "expected": 0.050359712230215826
+    },
+    {
+      "rank": 19,
+      "expected": 0.05
+    },
+    {
+      "rank": 19.142857142857142,
+      "expected": 0.04964539007092199
+    },
+    {
+      "rank": 19.285714285714285,
+      "expected": 0.04929577464788733
+    },
+    {
+      "rank": 19.428571428571427,
+      "expected": 0.04895104895104895
+    },
+    {
+      "rank": 19.571428571428573,
+      "expected": 0.048611111111111105
+    },
+    {
+      "rank": 19.714285714285715,
+      "expected": 0.04827586206896552
+    },
+    {
+      "rank": 19.857142857142858,
+      "expected": 0.04794520547945205
+    },
+    {
+      "rank": 20,
+      "expected": 0.047619047619047616
+    },
+    {
+      "rank": 20.142857142857142,
+      "expected": 0.0472972972972973
+    },
+    {
+      "rank": 20.285714285714285,
+      "expected": 0.04697986577181208
+    },
+    {
+      "rank": 20.428571428571427,
+      "expected": 0.04666666666666667
+    },
+    {
+      "rank": 20.571428571428573,
+      "expected": 0.04635761589403973
+    },
+    {
+      "rank": 20.714285714285715,
+      "expected": 0.046052631578947366
+    },
+    {
+      "rank": 20.857142857142858,
+      "expected": 0.0457516339869281
+    },
+    {
+      "rank": 21,
+      "expected": 0.045454545454545456
+    },
+    {
+      "rank": 21.142857142857142,
+      "expected": 0.04516129032258065
+    },
+    {
+      "rank": 21.285714285714285,
+      "expected": 0.04487179487179487
+    },
+    {
+      "rank": 21.428571428571427,
+      "expected": 0.0445859872611465
+    },
+    {
+      "rank": 21.571428571428573,
+      "expected": 0.04430379746835443
+    },
+    {
+      "rank": 21.714285714285715,
+      "expected": 0.0440251572327044
+    },
+    {
+      "rank": 21.857142857142858,
+      "expected": 0.04375
+    },
+    {
+      "rank": 22,
+      "expected": 0.043478260869565216
+    },
+    {
+      "rank": 22.142857142857142,
+      "expected": 0.043209876543209874
+    },
+    {
+      "rank": 22.285714285714285,
+      "expected": 0.04294478527607362
+    },
+    {
+      "rank": 22.428571428571427,
+      "expected": 0.042682926829268296
+    },
+    {
+      "rank": 22.571428571428573,
+      "expected": 0.04242424242424242
+    },
+    {
+      "rank": 22.714285714285715,
+      "expected": 0.04216867469879518
+    },
+    {
+      "rank": 22.857142857142858,
+      "expected": 0.041916167664670656
+    },
+    {
+      "rank": 23,
+      "expected": 0.041666666666666664
+    },
+    {
+      "rank": 23.142857142857142,
+      "expected": 0.04142011834319527
+    },
+    {
+      "rank": 23.285714285714285,
+      "expected": 0.041176470588235294
+    },
+    {
+      "rank": 23.428571428571427,
+      "expected": 0.04093567251461989
+    },
+    {
+      "rank": 23.571428571428573,
+      "expected": 0.04069767441860465
+    },
+    {
+      "rank": 23.714285714285715,
+      "expected": 0.04046242774566474
+    },
+    {
+      "rank": 23.857142857142858,
+      "expected": 0.040229885057471264
+    },
+    {
+      "rank": 24,
+      "expected": 0.04
+    },
+    {
+      "rank": 24.142857142857142,
+      "expected": 0.03977272727272727
+    },
+    {
+      "rank": 24.285714285714285,
+      "expected": 0.03954802259887006
+    },
+    {
+      "rank": 24.428571428571427,
+      "expected": 0.03932584269662921
+    },
+    {
+      "rank": 24.571428571428573,
+      "expected": 0.03910614525139665
+    },
+    {
+      "rank": 24.714285714285715,
+      "expected": 0.03888888888888889
+    },
+    {
+      "rank": 24.857142857142858,
+      "expected": 0.03867403314917127
+    },
+    {
+      "rank": 25,
+      "expected": 0.038461538461538464
+    },
+    {
+      "rank": 25.142857142857142,
+      "expected": 0.03825136612021858
+    },
+    {
+      "rank": 25.285714285714285,
+      "expected": 0.03804347826086957
+    },
+    {
+      "rank": 25.428571428571427,
+      "expected": 0.03783783783783784
+    },
+    {
+      "rank": 25.571428571428573,
+      "expected": 0.03763440860215054
+    },
+    {
+      "rank": 25.714285714285715,
+      "expected": 0.0374331550802139
+    },
+    {
+      "rank": 25.857142857142858,
+      "expected": 0.03723404255319149
+    },
+    {
+      "rank": 26,
+      "expected": 0.037037037037037035
+    },
+    {
+      "rank": 26.142857142857142,
+      "expected": 0.0368421052631579
+    },
+    {
+      "rank": 26.285714285714285,
+      "expected": 0.03664921465968587
+    },
+    {
+      "rank": 26.428571428571427,
+      "expected": 0.036458333333333336
+    },
+    {
+      "rank": 26.571428571428573,
+      "expected": 0.03626943005181347
+    },
+    {
+      "rank": 26.714285714285715,
+      "expected": 0.03608247422680412
+    },
+    {
+      "rank": 26.857142857142858,
+      "expected": 0.035897435897435895
+    },
+    {
+      "rank": 27,
+      "expected": 0.03571428571428571
+    },
+    {
+      "rank": 27.142857142857142,
+      "expected": 0.03553299492385787
+    },
+    {
+      "rank": 27.285714285714285,
+      "expected": 0.03535353535353535
+    },
+    {
+      "rank": 27.428571428571427,
+      "expected": 0.035175879396984924
+    },
+    {
+      "rank": 27.571428571428573,
+      "expected": 0.034999999999999996
+    },
+    {
+      "rank": 27.714285714285715,
+      "expected": 0.03482587064676617
+    },
+    {
+      "rank": 27.857142857142858,
+      "expected": 0.03465346534653465
+    },
+    {
+      "rank": 28,
+      "expected": 0.034482758620689655
+    },
+    {
+      "rank": 28.142857142857142,
+      "expected": 0.03431372549019608
+    },
+    {
+      "rank": 28.285714285714285,
+      "expected": 0.03414634146341464
+    },
+    {
+      "rank": 28.428571428571427,
+      "expected": 0.03398058252427184
+    },
+    {
+      "rank": 28.571428571428573,
+      "expected": 0.033816425120772944
+    },
+    {
+      "rank": 0,
+      "expected": 1
+    },
+    {
+      "rank": 0,
+      "expected": 1
+    },
+    {
+      "rank": 1.7976931348623157e+308,
+      "expected": 5.562684646268003e-309
+    },
+    {
+      "rank": 5e-324,
+      "expected": 1
+    },
+    {
+      "rank": "Infinity",
+      "expected": 0.001
+    },
+    {
+      "rank": "-Infinity",
+      "expected": 0.001
+    },
+    {
+      "rank": "NaN",
+      "expected": 0.001
+    }
+  ],
+  "ftsCases": [
+    {
+      "input": "",
+      "query": null,
+      "indexed": ""
+    },
+    {
+      "input": "   ",
+      "query": null,
+      "indexed": "     "
+    },
+    {
+      "input": "的 了 和",
+      "query": null,
+      "indexed": "的   了   和"
+    },
+    {
+      "input": "用户喜欢编程和 TypeScript",
+      "query": "\"用户\" OR \"喜欢\" OR \"编程\" OR \"TypeScript\"",
+      "indexed": "用户 喜欢 编程 和   TypeScript"
+    },
+    {
+      "input": "人工智能的分支",
+      "query": "\"人工\" OR \"智能\" OR \"人工智能\" OR \"分支\"",
+      "indexed": "人工 智能 人工智能 的 分支"
+    },
+    {
+      "input": "北京烤鸭",
+      "query": "\"北京\" OR \"烤鸭\" OR \"北京烤鸭\"",
+      "indexed": "北京 烤鸭 北京烤鸭"
+    },
+    {
+      "input": "quoted \"term\"",
+      "query": "\"quoted\" OR \"term\"",
+      "indexed": "quoted   \" term \""
+    },
+    {
+      "input": "snake_case API-2",
+      "query": "\"snake\" OR \"case\" OR \"API-2\"",
+      "indexed": "snake _ case   API-2"
+    },
+    {
+      "input": "emoji😀中文",
+      "query": "\"emoji\" OR \"中文\"",
+      "indexed": "emoji 😀 中文"
+    },
+    {
+      "input": "１２３ abc",
+      "query": "\"１\" OR \"２\" OR \"３\" OR \"abc\"",
+      "indexed": "１ ２ ３   abc"
+    }
+  ]
+}

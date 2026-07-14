@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "4339e636",
+  "source": "src/offload/index.ts registerOffload executed through real before_tool_call, after_tool_call and llm_output hooks",
+  "llmOutputReturn": null,
+  "pendingAfterTool": 1,
+  "pendingAfterLlmOutput": 1,
+  "llmOutputForcesL1": false,
+  "llmOutputRunsL2": false,
+  "pendingFiles": [],
+  "defaultDataRootSuffix": ".openclaw/context-offload",
+  "l1BatchSize": 5,
+  "l1FailureFallbackAttempt": 3,
+  "reclaimInitialDelayMs": 300000,
+  "reclaimIntervalMs": 86400000
+}

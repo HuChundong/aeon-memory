@@ -1,0 +1,12 @@
+* text=auto eol=lf
+
+# Binary files – must never undergo line-ending conversion
+*.dylib binary
+*.so binary
+*.dll binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.db binary
+*.db-shm binary
+*.db-wal binary

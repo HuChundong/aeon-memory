@@ -1,0 +1,305 @@
+{
+  "mild": {
+    "result": {
+      "replacedCount": 12,
+      "lastOffloadedId": "c11",
+      "finalThreshold": 5,
+      "replacedToolCallIds": [
+        "c0",
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8",
+        "c9",
+        "c10",
+        "c11"
+      ],
+      "replacedDetails": [
+        {
+          "toolCallId": "c0",
+          "score": 9,
+          "summaryPreview": "summary-c0",
+          "originalLength": 300,
+          "summaryLength": 130
+        },
+        {
+          "toolCallId": "c1",
+          "score": 9,
+          "summaryPreview": "summary-c1",
+          "originalLength": 300,
+          "summaryLength": 130
+        },
+        {
+          "toolCallId": "c2",
+          "score": 9,
+          "summaryPreview": "summary-c2",
+          "originalLength": 300,
+          "summaryLength": 130
+        },
+        {
+          "toolCallId": "c3",
+          "score": 9,
+          "summaryPreview": "summary-c3",
+          "originalLength": 300,
+          "summaryLength": 130
+        },
+        {
+          "toolCallId": "c4",
+          "score": 9,
+          "summaryPreview": "summary-c4",
+          "originalLength": 300,
+          "summaryLength": 130
+        },
+        {
+          "toolCallId": "c5",
+          "score": 9,
+          "summaryPreview": "summary-c5",
+          "originalLength": 300,
+          "summaryLength": 130
+        },
+        {
+          "toolCallId": "c6",
+          "score": 5,
+          "summaryPreview": "summary-c6",
+          "originalLength": 300,
+          "summaryLength": 130
+        },
+        {
+          "toolCallId": "c7",
+          "score": 5,
+          "summaryPreview": "summary-c7",
+          "originalLength": 300,
+          "summaryLength": 130
+        },
+        {
+          "toolCallId": "c8",
+          "score": 5,
+          "summaryPreview": "summary-c8",
+          "originalLength": 300,
+          "summaryLength": 130
+        },
+        {
+          "toolCallId": "c9",
+          "score": 5,
+          "summaryPreview": "summary-c9",
+          "originalLength": 300,
+          "summaryLength": 130
+        },
+        {
+          "toolCallId": "c10",
+          "score": 5,
+          "summaryPreview": "summary-c10",
+          "originalLength": 300,
+          "summaryLength": 133
+        },
+        {
+          "toolCallId": "c11",
+          "score": 5,
+          "summaryPreview": "summary-c11",
+          "originalLength": 300,
+          "summaryLength": 133
+        }
+      ]
+    },
+    "messages": [
+      {
+        "role": "tool",
+        "toolCallId": "c0",
+        "content": "[Offloaded Tool Result | node: N-c0]\nSummary: summary-c0\nresult_ref: refs/c0.md (read this file for full tool call and raw result)",
+        "_offloaded": true
+      },
+      {
+        "role": "tool",
+        "toolCallId": "c1",
+        "content": "[Offloaded Tool Result | node: N-c1]\nSummary: summary-c1\nresult_ref: refs/c1.md (read this file for full tool call and raw result)",
+        "_offloaded": true
+      },
+      {
+        "role": "tool",
+        "toolCallId": "c2",
+        "content": "[Offloaded Tool Result | node: N-c2]\nSummary: summary-c2\nresult_ref: refs/c2.md (read this file for full tool call and raw result)",
+        "_offloaded": true
+      },
+      {
+        "role": "tool",
+        "toolCallId": "c3",
+        "content": "[Offloaded Tool Result | node: N-c3]\nSummary: summary-c3\nresult_ref: refs/c3.md (read this file for full tool call and raw result)",
+        "_offloaded": true
+      },
+      {
+        "role": "tool",
+        "toolCallId": "c4",
+        "content": "[Offloaded Tool Result | node: N-c4]\nSummary: summary-c4\nresult_ref: refs/c4.md (read this file for full tool call and raw result)",
+        "_offloaded": true
+      },
+      {
+        "role": "tool",
+        "toolCallId": "c5",
+        "content": "[Offloaded Tool Result | node: N-c5]\nSummary: summary-c5\nresult_ref: refs/c5.md (read this file for full tool call and raw result)",
+        "_offloaded": true
+      },
+      {
+        "role": "tool",
+        "toolCallId": "c6",
+        "content": "[Offloaded Tool Result | node: N-c6]\nSummary: summary-c6\nresult_ref: refs/c6.md (read this file for full tool call and raw result)",
+        "_offloaded": true
+      },
+      {
+        "role": "tool",
+        "toolCallId": "c7",
+        "content": "[Offloaded Tool Result | node: N-c7]\nSummary: summary-c7\nresult_ref: refs/c7.md (read this file for full tool call and raw result)",
+        "_offloaded": true
+      },
+      {
+        "role": "tool",
+        "toolCallId": "c8",
+        "content": "[Offloaded Tool Result | node: N-c8]\nSummary: summary-c8\nresult_ref: refs/c8.md (read this file for full tool call and raw result)",
+        "_offloaded": true
+      },
+      {
+        "role": "tool",
+        "toolCallId": "c9",
+        "content": "[Offloaded Tool Result | node: N-c9]\nSummary: summary-c9\nresult_ref: refs/c9.md (read this file for full tool call and raw result)",
+        "_offloaded": true
+      },
+      {
+        "role": "tool",
+        "toolCallId": "c10",
+        "content": "[Offloaded Tool Result | node: N-c10]\nSummary: summary-c10\nresult_ref: refs/c10.md (read this file for full tool call and raw result)",
+        "_offloaded": true
+      },
+      {
+        "role": "tool",
+        "toolCallId": "c11",
+        "content": "[Offloaded Tool Result | node: N-c11]\nSummary: summary-c11\nresult_ref: refs/c11.md (read this file for full tool call and raw result)",
+        "_offloaded": true
+      },
+      {
+        "role": "user",
+        "content": "latest"
+      }
+    ]
+  },
+  "aggressive": {
+    "result": {
+      "deletedCount": 4,
+      "rounds": 1,
+      "remainingTokens": 90,
+      "allDeletedToolCallIds": [],
+      "stalledByUserMsg": false
+    },
+    "messages": [
+      {
+        "role": "assistant",
+        "content": "m4-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      {
+        "role": "user",
+        "content": "m5-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      {
+        "role": "assistant",
+        "content": "m6-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      {
+        "role": "assistant",
+        "content": "m7-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      }
+    ]
+  },
+  "emergency": {
+    "result": {
+      "deletedCount": 5,
+      "deletedToolCallIds": [],
+      "remainingTokens": 74
+    },
+    "messages": [
+      {
+        "role": "assistant",
+        "content": "e5-yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+      },
+      {
+        "role": "assistant",
+        "content": "e6-yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"
+      }
+    ]
+  },
+  "tail": {
+    "result": {
+      "deletedCount": 3,
+      "deletedToolCallIds": [
+        "tu1"
+      ],
+      "remainingTokens": 21
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "head"
+      },
+      {
+        "role": "system",
+        "content": "keep"
+      }
+    ]
+  },
+  "truncate": {
+    "result": {
+      "deletedCount": 0,
+      "deletedToolCallIds": [],
+      "remainingTokens": 46
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "head"
+      },
+      {
+        "role": "system",
+        "content": "[Tool output truncated for context management. Original ~3008 tokens, role=system]"
+      },
+      {
+        "role": "system",
+        "content": "keep"
+      }
+    ]
+  },
+  "mmd": {
+    "result": {
+      "deletedCount": 2,
+      "rounds": 1,
+      "remainingTokens": 48,
+      "allDeletedToolCallIds": [],
+      "stalledByUserMsg": false
+    },
+    "messages": [
+      {
+        "role": "system",
+        "content": "history",
+        "_mmdContextMessage": "history"
+      },
+      {
+        "role": "user",
+        "content": "latest"
+      },
+      {
+        "role": "system",
+        "content": "inject",
+        "_mmdInjection": true
+      },
+      {
+        "role": "system",
+        "content": "active",
+        "_mmdContextMessage": "active"
+      },
+      {
+        "role": "assistant",
+        "content": "recent"
+      }
+    ]
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "requests": [
+    {
+      "name": "success",
+      "authorization": "Bearer secret",
+      "body": {
+        "input": [
+          "A😀",
+          "xy"
+        ],
+        "model": "fixture-model",
+        "dimensions": 3
+      }
+    },
+    {
+      "name": "empty",
+      "authorization": "Bearer secret",
+      "body": {
+        "input": [
+          "x"
+        ],
+        "model": "fixture-model",
+        "dimensions": 3
+      }
+    },
+    {
+      "name": "missing",
+      "authorization": "Bearer secret",
+      "body": {
+        "input": [
+          "x"
+        ],
+        "model": "fixture-model",
+        "dimensions": 3
+      }
+    },
+    {
+      "name": "malformed",
+      "authorization": "Bearer secret",
+      "body": {
+        "input": [
+          "x"
+        ],
+        "model": "fixture-model",
+        "dimensions": 3
+      }
+    }
+  ],
+  "output": [
+    {
+      "name": "success",
+      "ok": true,
+      "value": [
+        [
+          0.6000000238418579,
+          0,
+          0.800000011920929
+        ],
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "name": "empty",
+      "ok": true,
+      "value": []
+    },
+    {
+      "name": "missing",
+      "ok": false,
+      "error": "Embedding API returned unexpected format: missing 'data' array"
+    },
+    {
+      "name": "malformed",
+      "ok": true,
+      "value": [
+        [
+          1,
+          0
+        ]
+      ]
+    },
+    {
+      "name": "empty_batch",
+      "ok": true,
+      "value": []
+    }
+  ]
+}

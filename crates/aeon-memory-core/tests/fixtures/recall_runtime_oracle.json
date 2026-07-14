@@ -1,0 +1,144 @@
+{
+  "populated": {
+    "prependContext": "<relevant-memories>\n以下是当前对话召回的相关记忆，不代表当前任务进程，仅作为参考：\n\n- [persona|prefs] AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n- [episodic|work] second memory\n</relevant-memories>",
+    "appendSystemContext": "<memory-tools-guide>\n## 记忆工具调用指南\n\n当上方注入的记忆片段不足以回答用户问题时，可主动调用以下工具获取更多信息：\n\n- **aeon_memory_search**：搜索结构化记忆（L1），适用于回忆用户偏好、历史事件节点、规则等关键信息。\n- **aeon_conversation_search**：搜索原始对话（L0），适用于查找具体消息原文、时间线、上下文细节；也可用于补充或校验 memory_search 的结果。\n- **read_file**（Scene Navigation 中的路径）：当已定位到相关情境，且需要该场景的完整画像、事件经过或阶段结论时使用。\n\n### ⚠️ 调用次数限制\n每轮对话中，aeon_memory_search 和 aeon_conversation_search **合计最多调用 3 次**。\n- 首次搜索无结果时，可换关键词或换工具重试，但总调用次数不要超过 3 次。\n- 若 3 次搜索后仍无结果，说明该信息不在记忆中，请直接根据已有信息回复用户，不要继续搜索。\n</memory-tools-guide>",
+    "recalledL1Memories": [
+      {
+        "content": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "score": 0,
+        "type": "persona"
+      },
+      {
+        "content": "second memory",
+        "score": 0,
+        "type": "episodic"
+      }
+    ],
+    "recalledL3Persona": null,
+    "recallStrategy": "keyword"
+  },
+  "hybrid": {
+    "prependContext": "<relevant-memories>\n以下是当前对话召回的相关记忆，不代表当前任务进程，仅作为参考：\n\n- [persona|prefs] AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n- [episodic|work] vector memory\n</relevant-memories>",
+    "appendSystemContext": "<memory-tools-guide>\n## 记忆工具调用指南\n\n当上方注入的记忆片段不足以回答用户问题时，可主动调用以下工具获取更多信息：\n\n- **aeon_memory_search**：搜索结构化记忆（L1），适用于回忆用户偏好、历史事件节点、规则等关键信息。\n- **aeon_conversation_search**：搜索原始对话（L0），适用于查找具体消息原文、时间线、上下文细节；也可用于补充或校验 memory_search 的结果。\n- **read_file**（Scene Navigation 中的路径）：当已定位到相关情境，且需要该场景的完整画像、事件经过或阶段结论时使用。\n\n### ⚠️ 调用次数限制\n每轮对话中，aeon_memory_search 和 aeon_conversation_search **合计最多调用 3 次**。\n- 首次搜索无结果时，可换关键词或换工具重试，但总调用次数不要超过 3 次。\n- 若 3 次搜索后仍无结果，说明该信息不在记忆中，请直接根据已有信息回复用户，不要继续搜索。\n</memory-tools-guide>",
+    "recalledL1Memories": [
+      {
+        "content": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "score": 0,
+        "type": "persona"
+      },
+      {
+        "content": "vector memory",
+        "score": 0,
+        "type": "episodic"
+      }
+    ],
+    "recalledL3Persona": null,
+    "recallStrategy": "hybrid"
+  },
+  "hybridFallback": {
+    "prependContext": "<relevant-memories>\n以下是当前对话召回的相关记忆，不代表当前任务进程，仅作为参考：\n\n- [persona|prefs] AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n- [episodic|work] second memory\n</relevant-memories>",
+    "appendSystemContext": "<memory-tools-guide>\n## 记忆工具调用指南\n\n当上方注入的记忆片段不足以回答用户问题时，可主动调用以下工具获取更多信息：\n\n- **aeon_memory_search**：搜索结构化记忆（L1），适用于回忆用户偏好、历史事件节点、规则等关键信息。\n- **aeon_conversation_search**：搜索原始对话（L0），适用于查找具体消息原文、时间线、上下文细节；也可用于补充或校验 memory_search 的结果。\n- **read_file**（Scene Navigation 中的路径）：当已定位到相关情境，且需要该场景的完整画像、事件经过或阶段结论时使用。\n\n### ⚠️ 调用次数限制\n每轮对话中，aeon_memory_search 和 aeon_conversation_search **合计最多调用 3 次**。\n- 首次搜索无结果时，可换关键词或换工具重试，但总调用次数不要超过 3 次。\n- 若 3 次搜索后仍无结果，说明该信息不在记忆中，请直接根据已有信息回复用户，不要继续搜索。\n</memory-tools-guide>",
+    "recalledL1Memories": [
+      {
+        "content": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "score": 0,
+        "type": "persona"
+      },
+      {
+        "content": "second memory",
+        "score": 0,
+        "type": "episodic"
+      }
+    ],
+    "recalledL3Persona": null,
+    "recallStrategy": "hybrid"
+  },
+  "vector": {
+    "prependContext": "<relevant-memories>\n以下是当前对话召回的相关记忆，不代表当前任务进程，仅作为参考：\n\n- [episodic|work] vector memory\n- [persona|prefs] AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n</relevant-memories>",
+    "appendSystemContext": "<memory-tools-guide>\n## 记忆工具调用指南\n\n当上方注入的记忆片段不足以回答用户问题时，可主动调用以下工具获取更多信息：\n\n- **aeon_memory_search**：搜索结构化记忆（L1），适用于回忆用户偏好、历史事件节点、规则等关键信息。\n- **aeon_conversation_search**：搜索原始对话（L0），适用于查找具体消息原文、时间线、上下文细节；也可用于补充或校验 memory_search 的结果。\n- **read_file**（Scene Navigation 中的路径）：当已定位到相关情境，且需要该场景的完整画像、事件经过或阶段结论时使用。\n\n### ⚠️ 调用次数限制\n每轮对话中，aeon_memory_search 和 aeon_conversation_search **合计最多调用 3 次**。\n- 首次搜索无结果时，可换关键词或换工具重试，但总调用次数不要超过 3 次。\n- 若 3 次搜索后仍无结果，说明该信息不在记忆中，请直接根据已有信息回复用户，不要继续搜索。\n</memory-tools-guide>",
+    "recalledL1Memories": [
+      {
+        "content": "vector memory",
+        "score": 0,
+        "type": "episodic"
+      },
+      {
+        "content": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "score": 0,
+        "type": "persona"
+      }
+    ],
+    "recalledL3Persona": null,
+    "recallStrategy": "embedding"
+  },
+  "timeout": null,
+  "astralGate": {
+    "appendSystemContext": "<user-persona>\n# Stable persona\n</user-persona>\n\n<memory-tools-guide>\n## 记忆工具调用指南\n\n当上方注入的记忆片段不足以回答用户问题时，可主动调用以下工具获取更多信息：\n\n- **aeon_memory_search**：搜索结构化记忆（L1），适用于回忆用户偏好、历史事件节点、规则等关键信息。\n- **aeon_conversation_search**：搜索原始对话（L0），适用于查找具体消息原文、时间线、上下文细节；也可用于补充或校验 memory_search 的结果。\n- **read_file**（Scene Navigation 中的路径）：当已定位到相关情境，且需要该场景的完整画像、事件经过或阶段结论时使用。\n\n### ⚠️ 调用次数限制\n每轮对话中，aeon_memory_search 和 aeon_conversation_search **合计最多调用 3 次**。\n- 首次搜索无结果时，可换关键词或换工具重试，但总调用次数不要超过 3 次。\n- 若 3 次搜索后仍无结果，说明该信息不在记忆中，请直接根据已有信息回复用户，不要继续搜索。\n</memory-tools-guide>",
+    "recalledL1Memories": [],
+    "recalledL3Persona": "# Stable persona",
+    "recallStrategy": "keyword"
+  },
+  "astralBudget": {
+    "prependContext": "<relevant-memories>\n以下是当前对话召回的相关记忆，不代表当前任务进程，仅作为参考：\n\n- [persona] 😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀\n</relevant-memories>",
+    "appendSystemContext": "<user-persona>\n# Stable persona\n</user-persona>\n\n<memory-tools-guide>\n## 记忆工具调用指南\n\n当上方注入的记忆片段不足以回答用户问题时，可主动调用以下工具获取更多信息：\n\n- **aeon_memory_search**：搜索结构化记忆（L1），适用于回忆用户偏好、历史事件节点、规则等关键信息。\n- **aeon_conversation_search**：搜索原始对话（L0），适用于查找具体消息原文、时间线、上下文细节；也可用于补充或校验 memory_search 的结果。\n- **read_file**（Scene Navigation 中的路径）：当已定位到相关情境，且需要该场景的完整画像、事件经过或阶段结论时使用。\n\n### ⚠️ 调用次数限制\n每轮对话中，aeon_memory_search 和 aeon_conversation_search **合计最多调用 3 次**。\n- 首次搜索无结果时，可换关键词或换工具重试，但总调用次数不要超过 3 次。\n- 若 3 次搜索后仍无结果，说明该信息不在记忆中，请直接根据已有信息回复用户，不要继续搜索。\n</memory-tools-guide>",
+    "recalledL1Memories": [
+      {
+        "content": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀",
+        "score": 0,
+        "type": "persona"
+      }
+    ],
+    "recalledL3Persona": "# Stable persona",
+    "recallStrategy": "keyword"
+  },
+  "searchFailure": {
+    "appendSystemContext": "<user-persona>\n# Stable persona\n</user-persona>\n\n<memory-tools-guide>\n## 记忆工具调用指南\n\n当上方注入的记忆片段不足以回答用户问题时，可主动调用以下工具获取更多信息：\n\n- **aeon_memory_search**：搜索结构化记忆（L1），适用于回忆用户偏好、历史事件节点、规则等关键信息。\n- **aeon_conversation_search**：搜索原始对话（L0），适用于查找具体消息原文、时间线、上下文细节；也可用于补充或校验 memory_search 的结果。\n- **read_file**（Scene Navigation 中的路径）：当已定位到相关情境，且需要该场景的完整画像、事件经过或阶段结论时使用。\n\n### ⚠️ 调用次数限制\n每轮对话中，aeon_memory_search 和 aeon_conversation_search **合计最多调用 3 次**。\n- 首次搜索无结果时，可换关键词或换工具重试，但总调用次数不要超过 3 次。\n- 若 3 次搜索后仍无结果，说明该信息不在记忆中，请直接根据已有信息回复用户，不要继续搜索。\n</memory-tools-guide>",
+    "recalledL1Memories": [],
+    "recalledL3Persona": "# Stable persona",
+    "recallStrategy": "keyword"
+  },
+  "calls": [
+    [
+      "\"memory\" OR \"query\"",
+      4
+    ],
+    [
+      "\"memory\" OR \"query\"",
+      6
+    ],
+    [
+      "vector",
+      [
+        1,
+        0
+      ],
+      6
+    ],
+    [
+      "\"memory\" OR \"query\"",
+      4
+    ],
+    [
+      "vector",
+      [
+        1,
+        0
+      ],
+      4
+    ]
+  ],
+  "embeddingCalls": [
+    [
+      "memory query",
+      {
+        "timeoutMs": 222
+      }
+    ],
+    [
+      "memory query",
+      {
+        "timeoutMs": 222
+      }
+    ]
+  ]
+}

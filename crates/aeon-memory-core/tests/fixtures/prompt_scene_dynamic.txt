@@ -1,0 +1,15 @@
+**Output language**: Scene file names, section headings, and body text must use the dominant language in the New Memories List below. For English memories, use English memory titles and English headings.
+
+⚠️ **场景数量警告**: warning
+
+### 1️⃣ New Memories List
+[{"id":"m1"}]
+
+### 2️⃣ Existing Scene Blocks Summary
+summary
+
+### 3️⃣ Current Timestamp
+2026-07-13 12:00:00
+
+### 📁 已有场景文件清单（仅以下文件可 read）
+- `coding.md`

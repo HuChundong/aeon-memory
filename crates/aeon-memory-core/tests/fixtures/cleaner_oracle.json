@@ -1,0 +1,25 @@
+{
+  "tree": {
+    "conversations": [
+      "2026-07-12.jsonl",
+      "bad.txt",
+      "notes.jsonl"
+    ],
+    "records": [
+      "2026-07-12.jsonl",
+      "bad.txt",
+      "notes.jsonl"
+    ]
+  },
+  "calls": [
+    [
+      "l0",
+      "2026-07-12T00:00:00.000Z"
+    ],
+    [
+      "l1",
+      "2026-07-12T00:00:00.000Z"
+    ]
+  ],
+  "summary": "[aeon-memory][cleaner] Cleanup done: scannedFiles=8, changedFiles=5, skippedNonShardFiles=2, deleteFailedFiles=0"
+}

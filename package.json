@@ -1,0 +1,27 @@
+{
+  "name": "@tencentdb-agent-memory/data-tools",
+  "version": "0.4.0",
+  "private": true,
+  "description": "Optional data migration and export tools for TencentDB Agent Memory",
+  "type": "module",
+  "bin": {
+    "export-tencent-vdb": "./bin/export-tencent-vdb.mjs",
+    "read-local-memory": "./bin/read-local-memory.mjs"
+  },
+  "scripts": {
+    "build": "npm run build:export && npm run build:reader",
+    "build:export": "tsc -p scripts/export-tencent-vdb/tsconfig.json",
+    "build:reader": "tsc -p scripts/read-local-memory/tsconfig.json",
+    "export-tencent-vdb": "node ./bin/export-tencent-vdb.mjs",
+    "read-local-memory": "node ./bin/read-local-memory.mjs"
+  },
+  "license": "MIT",
+  "engines": { "node": ">=22.16.0" },
+  "dependencies": {
+    "sqlite-vec": "0.1.7-alpha.2"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "typescript": "^6.0.2"
+  }
+}

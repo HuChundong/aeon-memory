@@ -1,0 +1,266 @@
+{
+  "groups": [
+    {
+      "sessionId": "round-a",
+      "messages": [
+        {
+          "id": "m10",
+          "content": "ordered-message-10",
+          "timestamp": 1010
+        },
+        {
+          "id": "m11",
+          "content": "ordered-message-11",
+          "timestamp": 1011
+        },
+        {
+          "id": "m12",
+          "content": "ordered-message-12",
+          "timestamp": 1012
+        },
+        {
+          "id": "m13",
+          "content": "ordered-message-13",
+          "timestamp": 1013
+        },
+        {
+          "id": "m14",
+          "content": "ordered-message-14",
+          "timestamp": 1014
+        },
+        {
+          "id": "m15",
+          "content": "ordered-message-15",
+          "timestamp": 1015
+        },
+        {
+          "id": "m16",
+          "content": "ordered-message-16",
+          "timestamp": 1016
+        },
+        {
+          "id": "m17",
+          "content": "ordered-message-17",
+          "timestamp": 1017
+        },
+        {
+          "id": "m18",
+          "content": "ordered-message-18",
+          "timestamp": 1018
+        },
+        {
+          "id": "m19",
+          "content": "ordered-message-19",
+          "timestamp": 1019
+        },
+        {
+          "id": "m20",
+          "content": "ordered-message-20",
+          "timestamp": 1020
+        },
+        {
+          "id": "m21",
+          "content": "ordered-message-21",
+          "timestamp": 1021
+        },
+        {
+          "id": "m22",
+          "content": "ordered-message-22",
+          "timestamp": 1022
+        },
+        {
+          "id": "m23",
+          "content": "ordered-message-23",
+          "timestamp": 1023
+        },
+        {
+          "id": "m24",
+          "content": "ordered-message-24",
+          "timestamp": 1024
+        },
+        {
+          "id": "m25",
+          "content": "ordered-message-25",
+          "timestamp": 1025
+        },
+        {
+          "id": "m26",
+          "content": "ordered-message-26",
+          "timestamp": 1026
+        },
+        {
+          "id": "m27",
+          "content": "ordered-message-27",
+          "timestamp": 1027
+        },
+        {
+          "id": "m28",
+          "content": "ordered-message-28",
+          "timestamp": 1028
+        },
+        {
+          "id": "m29",
+          "content": "ordered-message-29",
+          "timestamp": 1029
+        }
+      ],
+      "prompt": "**All timestamps below are in UTC (UTC+00:00). When reasoning about \"yesterday\", \"last week\", or time differences, use this timezone.**\n\n**输出语言**：根据下方\"待提取的新消息\"中 user 发言的主导语言书写 `scene_name` 和 memory `content`。\n\n【上一个情境】：无\n\n【背景对话】（仅供理解上下文推断关系/时间，严禁从中提取记忆）：\n[m15] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-15\n\n[m16] [user] [1970-01-01T00:00:01+00:00]: ordered-message-16\n\n[m17] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-17\n\n[m18] [user] [1970-01-01T00:00:01+00:00]: ordered-message-18\n\n[m19] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-19\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n【待提取的新消息】（务必结合 timestamp 推算时间，只从这里提取记忆！）：\n[m20] [user] [1970-01-01T00:00:01+00:00]: ordered-message-20\n\n[m21] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-21\n\n[m22] [user] [1970-01-01T00:00:01+00:00]: ordered-message-22\n\n[m23] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-23\n\n[m24] [user] [1970-01-01T00:00:01+00:00]: ordered-message-24\n\n[m25] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-25\n\n[m26] [user] [1970-01-01T00:00:01+00:00]: ordered-message-26\n\n[m27] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-27\n\n[m28] [user] [1970-01-01T00:00:01+00:00]: ordered-message-28\n\n[m29] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-29"
+    },
+    {
+      "sessionId": "round-b",
+      "messages": [
+        {
+          "id": "m30",
+          "content": "ordered-message-30",
+          "timestamp": 1030
+        },
+        {
+          "id": "m31",
+          "content": "ordered-message-31",
+          "timestamp": 1031
+        },
+        {
+          "id": "m32",
+          "content": "ordered-message-32",
+          "timestamp": 1032
+        },
+        {
+          "id": "m33",
+          "content": "ordered-message-33",
+          "timestamp": 1033
+        },
+        {
+          "id": "m34",
+          "content": "ordered-message-34",
+          "timestamp": 1034
+        },
+        {
+          "id": "m35",
+          "content": "ordered-message-35",
+          "timestamp": 1035
+        },
+        {
+          "id": "m36",
+          "content": "ordered-message-36",
+          "timestamp": 1036
+        },
+        {
+          "id": "m37",
+          "content": "ordered-message-37",
+          "timestamp": 1037
+        },
+        {
+          "id": "m38",
+          "content": "ordered-message-38",
+          "timestamp": 1038
+        },
+        {
+          "id": "m39",
+          "content": "ordered-message-39",
+          "timestamp": 1039
+        },
+        {
+          "id": "m40",
+          "content": "ordered-message-40",
+          "timestamp": 1040
+        },
+        {
+          "id": "m41",
+          "content": "ordered-message-41",
+          "timestamp": 1041
+        },
+        {
+          "id": "m42",
+          "content": "ordered-message-42",
+          "timestamp": 1042
+        },
+        {
+          "id": "m43",
+          "content": "ordered-message-43",
+          "timestamp": 1043
+        },
+        {
+          "id": "m44",
+          "content": "ordered-message-44",
+          "timestamp": 1044
+        },
+        {
+          "id": "m45",
+          "content": "ordered-message-45",
+          "timestamp": 1045
+        },
+        {
+          "id": "m46",
+          "content": "ordered-message-46",
+          "timestamp": 1046
+        },
+        {
+          "id": "m47",
+          "content": "ordered-message-47",
+          "timestamp": 1047
+        },
+        {
+          "id": "m48",
+          "content": "ordered-message-48",
+          "timestamp": 1048
+        },
+        {
+          "id": "m49",
+          "content": "ordered-message-49",
+          "timestamp": 1049
+        },
+        {
+          "id": "m50",
+          "content": "ordered-message-50",
+          "timestamp": 1050
+        },
+        {
+          "id": "m51",
+          "content": "ordered-message-51",
+          "timestamp": 1051
+        },
+        {
+          "id": "m52",
+          "content": "ordered-message-52",
+          "timestamp": 1052
+        },
+        {
+          "id": "m53",
+          "content": "ordered-message-53",
+          "timestamp": 1053
+        },
+        {
+          "id": "m54",
+          "content": "ordered-message-54",
+          "timestamp": 1054
+        },
+        {
+          "id": "m55",
+          "content": "ordered-message-55",
+          "timestamp": 1055
+        },
+        {
+          "id": "m56",
+          "content": "ordered-message-56",
+          "timestamp": 1056
+        },
+        {
+          "id": "m57",
+          "content": "ordered-message-57",
+          "timestamp": 1057
+        },
+        {
+          "id": "m58",
+          "content": "ordered-message-58",
+          "timestamp": 1058
+        },
+        {
+          "id": "m59",
+          "content": "ordered-message-59",
+          "timestamp": 1059
+        }
+      ],
+      "prompt": "**All timestamps below are in UTC (UTC+00:00). When reasoning about \"yesterday\", \"last week\", or time differences, use this timezone.**\n\n**输出语言**：根据下方\"待提取的新消息\"中 user 发言的主导语言书写 `scene_name` 和 memory `content`。\n\n【上一个情境】：无\n\n【背景对话】（仅供理解上下文推断关系/时间，严禁从中提取记忆）：\n[m45] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-45\n\n[m46] [user] [1970-01-01T00:00:01+00:00]: ordered-message-46\n\n[m47] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-47\n\n[m48] [user] [1970-01-01T00:00:01+00:00]: ordered-message-48\n\n[m49] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-49\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n【待提取的新消息】（务必结合 timestamp 推算时间，只从这里提取记忆！）：\n[m50] [user] [1970-01-01T00:00:01+00:00]: ordered-message-50\n\n[m51] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-51\n\n[m52] [user] [1970-01-01T00:00:01+00:00]: ordered-message-52\n\n[m53] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-53\n\n[m54] [user] [1970-01-01T00:00:01+00:00]: ordered-message-54\n\n[m55] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-55\n\n[m56] [user] [1970-01-01T00:00:01+00:00]: ordered-message-56\n\n[m57] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-57\n\n[m58] [user] [1970-01-01T00:00:01+00:00]: ordered-message-58\n\n[m59] [assistant] [1970-01-01T00:00:01+00:00]: ordered-message-59"
+    }
+  ]
+}

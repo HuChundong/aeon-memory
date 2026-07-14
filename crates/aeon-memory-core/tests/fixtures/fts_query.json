@@ -1,0 +1,24 @@
+{
+  "cases": [
+    {
+      "input": "hello world",
+      "expected": "\"hello\" OR \"world\""
+    },
+    {
+      "input": "用户喜欢编程和 TypeScript",
+      "expected": "\"用户\" OR \"喜欢\" OR \"编程\" OR \"TypeScript\""
+    },
+    {
+      "input": "旅行计划 API",
+      "expected": "\"旅行\" OR \"计划\" OR \"API\""
+    },
+    {
+      "input": "quoted \"term\"",
+      "expected": "\"quoted\" OR \"term\""
+    },
+    {
+      "input": "的 了 和",
+      "expected": null
+    }
+  ]
+}

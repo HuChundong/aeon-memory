@@ -1,0 +1,125 @@
+[
+  {
+    "case": {
+      "name": "explicit",
+      "cp": {
+        "request_persona_update": true,
+        "persona_update_reason": "manual"
+      },
+      "scene": false,
+      "persona": null
+    },
+    "result": {
+      "should": true,
+      "reason": "主动请求: manual"
+    }
+  },
+  {
+    "case": {
+      "name": "explicit-default",
+      "cp": {
+        "request_persona_update": true,
+        "persona_update_reason": ""
+      },
+      "scene": false,
+      "persona": null
+    },
+    "result": {
+      "should": true,
+      "reason": "主动请求: Agent 请求更新"
+    }
+  },
+  {
+    "case": {
+      "name": "cold",
+      "cp": {
+        "scenes_processed": 2,
+        "last_persona_at": 0
+      },
+      "scene": true,
+      "persona": null
+    },
+    "result": {
+      "should": true,
+      "reason": "首次冷启动：首次提取完成且有场景文件"
+    }
+  },
+  {
+    "case": {
+      "name": "recovery-missing",
+      "cp": {
+        "scenes_processed": 2,
+        "last_persona_at": 4
+      },
+      "scene": true,
+      "persona": null
+    },
+    "result": {
+      "should": true,
+      "reason": "恢复：persona.md 正文丢失或为空，需要重新生成"
+    }
+  },
+  {
+    "case": {
+      "name": "recovery-nav-only",
+      "cp": {
+        "scenes_processed": 2,
+        "last_persona_at": 4
+      },
+      "scene": true,
+      "persona": "---\n## 🗺️ Scene Navigation (Scene Index)\nnav"
+    },
+    "result": {
+      "should": true,
+      "reason": "恢复：persona.md 正文丢失或为空，需要重新生成"
+    }
+  },
+  {
+    "case": {
+      "name": "first-scene",
+      "cp": {
+        "scenes_processed": 1,
+        "last_persona_at": 0,
+        "memories_since_last_persona": 1
+      },
+      "scene": false,
+      "persona": null
+    },
+    "result": {
+      "should": true,
+      "reason": "首次 Scene Block 提取完成"
+    }
+  },
+  {
+    "case": {
+      "name": "threshold",
+      "cp": {
+        "scenes_processed": 3,
+        "last_persona_at": 3,
+        "memories_since_last_persona": 5
+      },
+      "scene": false,
+      "persona": "body"
+    },
+    "result": {
+      "should": true,
+      "reason": "达到阈值: 5 >= 5"
+    }
+  },
+  {
+    "case": {
+      "name": "none",
+      "cp": {
+        "scenes_processed": 3,
+        "last_persona_at": 3,
+        "memories_since_last_persona": 4
+      },
+      "scene": false,
+      "persona": "body"
+    },
+    "result": {
+      "should": false,
+      "reason": ""
+    }
+  }
+]

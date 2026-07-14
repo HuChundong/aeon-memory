@@ -1,0 +1,20 @@
+{
+  "status": 200,
+  "body": {
+    "l0_recorded": 2,
+    "scheduler_notified": false
+  },
+  "secondStatus": 200,
+  "secondBody": {
+    "l0_recorded": 2,
+    "scheduler_notified": false
+  },
+  "checkpointExists": true,
+  "totalProcessed": 4,
+  "l0ConversationsCount": 2,
+  "runnerState": {
+    "lastCapturedTimestampPositive": true,
+    "lastL1Cursor": 0
+  },
+  "pipelineStateCount": 0
+}

@@ -1,0 +1,21 @@
+{
+  "name": "l1_jsonl_format",
+  "record": {
+    "id": "golden_fixture_1",
+    "content": "test memory for format verification",
+    "type": "persona",
+    "priority": 50,
+    "scene_name": "test-scene",
+    "source_message_ids": [
+      "msg_001"
+    ],
+    "metadata": {},
+    "timestamps": [
+      "2026-07-13"
+    ],
+    "createdAt": "2026-07-13T00:00:00.000Z",
+    "updatedAt": "2026-07-13T00:00:01.000Z",
+    "sessionKey": "golden-session",
+    "sessionId": ""
+  }
+}

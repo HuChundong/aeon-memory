@@ -1,0 +1,51 @@
+# Standalone Rust gateway configuration.
+# Copy to aeon-memory.yaml and replace every CHANGE_ME value.
+server:
+  host: "127.0.0.1"
+  port: 8420
+  # Required before binding to a non-loopback address.
+  apiKey: "CHANGE_ME_LONG_RANDOM_TOKEN"
+  corsOrigins: []
+
+# data.baseDir is intentionally omitted. The default is
+# ~/.aeon-memory/data (using HOME/USERPROFILE). Set data.baseDir
+# explicitly only when this installation must use another persistent store.
+
+# OpenAI-compatible chat-completions endpoint used by extraction/pipelines.
+llm:
+  baseUrl: "https://api.openai.com/v1"
+  apiKey: "CHANGE_ME_LLM_KEY"
+  model: "gpt-4o"
+  maxTokens: 4096
+  timeoutMs: 120000
+  disableThinking: false
+
+memory:
+  timezone: "system"
+  storeBackend: "sqlite"
+  capture:
+    enabled: true
+  extraction:
+    enabled: true
+    enableDedup: true
+  pipeline:
+    everyNConversations: 5
+    enableWarmup: true
+  recall:
+    enabled: true
+    strategy: "hybrid"
+    maxResults: 5
+    scoreThreshold: 0.3
+  embedding:
+    enabled: true
+    provider: "openai"
+    baseUrl: "https://api.openai.com/v1"
+    apiKey: "CHANGE_ME_EMBEDDING_KEY"
+    model: "text-embedding-3-small"
+    dimensions: 1536
+    sendDimensions: true
+  # Optional short-term context offload. The three offload HTTP operations
+  # remain inert when this is false.
+  offload:
+    enabled: false
+    mode: "local"

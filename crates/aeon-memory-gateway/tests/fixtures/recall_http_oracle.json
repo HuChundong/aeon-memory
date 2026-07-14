@@ -1,0 +1,19 @@
+{
+  "empty": {
+    "status": 200,
+    "text": "{\"context\":\"\",\"memory_count\":0}",
+    "body": {
+      "context": "",
+      "memory_count": 0
+    }
+  },
+  "split": {
+    "status": 200,
+    "text": "{\"context\":\"stable official context\",\"strategy\":\"hybrid\",\"memory_count\":1}",
+    "body": {
+      "context": "stable official context",
+      "strategy": "hybrid",
+      "memory_count": 1
+    }
+  }
+}

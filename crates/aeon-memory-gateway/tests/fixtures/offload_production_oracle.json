@@ -1,0 +1,17 @@
+{
+  "source": "TencentDB-Agent-Memory src/config.ts and src/offload/index.ts",
+  "defaults": {
+    "mode": "local",
+    "temperature": 0.2,
+    "backendTimeoutMs": 120000,
+    "collectRegistersContextEngine": false,
+    "collectCompressionEnabled": false
+  },
+  "backend": {
+    "l1Path": "/offload/v1/l1/summarize",
+    "l15Path": "/offload/v1/l15/judge",
+    "l2Path": "/offload/v1/l2/generate",
+    "apiKeyHeader": "Authorization",
+    "userIdHeader": "X-User-Id"
+  }
+}

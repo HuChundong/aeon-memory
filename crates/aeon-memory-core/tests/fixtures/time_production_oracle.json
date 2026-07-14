@@ -1,0 +1,16 @@
+{
+  "shanghai": {
+    "date": "2026-01-01",
+    "formatted": "2026-01-01T08:30:00+08:00",
+    "dayStart": 1767196800000
+  },
+  "system": {
+    "timezone": "America/New_York",
+    "date": "2025-12-31",
+    "formatted": "2025-12-31T19:30:00-05:00"
+  },
+  "dst": {
+    "spring": 1772953200000,
+    "fall": 1793520000000
+  }
+}

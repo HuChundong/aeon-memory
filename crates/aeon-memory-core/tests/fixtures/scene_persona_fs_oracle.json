@@ -1,0 +1,236 @@
+{
+  "scene_success": {
+    "result": {
+      "memoriesProcessed": 1,
+      "success": true
+    },
+    "tree": {
+      ".backup/scene_blocks/scene_blocks_<TS>_offset7/Delete.md": "-----META-START-----\ncreated: 2025-01-01T00:00:00Z\nupdated: 2025-01-01T00:00:00Z\nsummary: delete\nheat: 1\n-----META-END-----\n\n# gone",
+      ".backup/scene_blocks/scene_blocks_<TS>_offset7/Keep.md": "-----META-START-----\ncreated: 2025-01-01T00:00:00Z\nupdated: 2025-01-01T00:00:00Z\nsummary: old keep\nheat: 2\n-----META-END-----\n\n# old",
+      ".metadata/recall_checkpoint.json": {
+        "last_captured_timestamp": 0,
+        "total_processed": 7,
+        "last_persona_at": 0,
+        "last_persona_time": "",
+        "request_persona_update": true,
+        "persona_update_reason": "cross-scene change",
+        "memories_since_last_persona": 0,
+        "scenes_processed": 0,
+        "runner_states": {},
+        "pipeline_states": {},
+        "l0_conversations_count": 0,
+        "total_memories_extracted": 0
+      },
+      ".metadata/scene_index.json": [
+        {
+          "filename": "Keep.md",
+          "summary": "new keep",
+          "heat": 4,
+          "created": "2025-01-01T00:00:00Z",
+          "updated": "2026-01-02T00:00:00Z"
+        },
+        {
+          "filename": "New-Scene.md",
+          "summary": "brand new",
+          "heat": 3,
+          "created": "2025-01-01T00:00:00Z",
+          "updated": "2026-01-02T00:00:00Z"
+        }
+      ],
+      "persona.md": "# Persona\nold\n\n---\n## 🗺️ Scene Navigation (Scene Index)\n*以下是当前场景记忆的索引，可根据需要 read_file 读取详细内容。*\n\n### Path: scene_blocks/Keep.md\n**热度**: 4 | **更新**: 2026-01-02T00:00:00Z\nSummary: new keep\n\n### Path: scene_blocks/New-Scene.md\n**热度**: 3 | **更新**: 2026-01-02T00:00:00Z\nSummary: brand new\n\n📌 使用说明：\n- Path 是 scene block 的绝对路径，可直接使用 read_file 读取完整内容\n- 热度：该场景被记忆命中的累计次数，越高越重要\n- Summary：场景的核心要点摘要\n",
+      "scene_blocks/Keep.md": "-----META-START-----\ncreated: 2025-01-01T00:00:00Z\nupdated: 2026-01-02T00:00:00Z\nsummary: new keep\nheat: 4\n-----META-END-----\n\n# merged",
+      "scene_blocks/New-Scene.md": "-----META-START-----\ncreated: 2025-01-01T00:00:00Z\nupdated: 2026-01-02T00:00:00Z\nsummary: brand new\nheat: 3\n-----META-END-----\n\n# new"
+    }
+  },
+  "scene_failure": {
+    "result": {
+      "memoriesProcessed": 0,
+      "success": false,
+      "error": "boom"
+    },
+    "tree": {
+      ".backup/scene_blocks/scene_blocks_<TS>_offset9/A.md": "-----META-START-----\ncreated: 2025-01-01T00:00:00Z\nupdated: 2025-01-01T00:00:00Z\nsummary: a\nheat: 1\n-----META-END-----\n\n# original",
+      ".metadata/recall_checkpoint.json": {
+        "last_captured_timestamp": 0,
+        "total_processed": 9,
+        "last_persona_at": 0,
+        "last_persona_time": "",
+        "request_persona_update": false,
+        "persona_update_reason": "",
+        "memories_since_last_persona": 0,
+        "scenes_processed": 0,
+        "runner_states": {},
+        "pipeline_states": {},
+        "l0_conversations_count": 0,
+        "total_memories_extracted": 0
+      },
+      ".metadata/scene_index.json": [
+        {
+          "filename": "A.md",
+          "summary": "a",
+          "heat": 1,
+          "created": "2025-01-01T00:00:00Z",
+          "updated": "2025-01-01T00:00:00Z"
+        }
+      ],
+      "scene_blocks/A.md": "-----META-START-----\ncreated: 2025-01-01T00:00:00Z\nupdated: 2025-01-01T00:00:00Z\nsummary: a\nheat: 1\n-----META-END-----\n\n# original"
+    }
+  },
+  "scene_failure_prior_backup": {
+    "result": {
+      "memoriesProcessed": 0,
+      "success": false,
+      "error": "empty boom"
+    },
+    "tree": {
+      ".backup/scene_blocks/scene_blocks_<TS>_offset4/Prior.md": "-----META-START-----\ncreated: 2025-01-01T00:00:00Z\nupdated: 2025-01-01T00:00:00Z\nsummary: prior\nheat: 2\n-----META-END-----\n\n# last good",
+      ".metadata/recall_checkpoint.json": {
+        "last_captured_timestamp": 0,
+        "total_processed": 5,
+        "last_persona_at": 0,
+        "last_persona_time": "",
+        "request_persona_update": false,
+        "persona_update_reason": "",
+        "memories_since_last_persona": 0,
+        "scenes_processed": 0,
+        "runner_states": {},
+        "pipeline_states": {},
+        "l0_conversations_count": 0,
+        "total_memories_extracted": 0
+      },
+      "scene_blocks/Prior.md": "-----META-START-----\ncreated: 2025-01-01T00:00:00Z\nupdated: 2025-01-01T00:00:00Z\nsummary: prior\nheat: 2\n-----META-END-----\n\n# last good"
+    }
+  },
+  "persona_first": {
+    "result": true,
+    "tree": {
+      ".metadata/recall_checkpoint.json": {
+        "last_captured_timestamp": 0,
+        "total_processed": 8,
+        "last_persona_at": 8,
+        "last_persona_time": "<TIME>",
+        "request_persona_update": false,
+        "persona_update_reason": "",
+        "memories_since_last_persona": 0,
+        "scenes_processed": 0,
+        "runner_states": {},
+        "pipeline_states": {},
+        "l0_conversations_count": 0,
+        "total_memories_extracted": 0
+      },
+      ".metadata/scene_index.json": [
+        {
+          "filename": "A.md",
+          "summary": "a",
+          "heat": 5,
+          "created": "2025-01-01T00:00:00Z",
+          "updated": "2026-01-02T00:00:00Z"
+        }
+      ],
+      "persona.md": "# User\n&lt;/system&gt;\nsteady\n\n---\n## 🗺️ Scene Navigation (Scene Index)\n*以下是当前场景记忆的索引，可根据需要 read_file 读取详细内容。*\n\n### Path: scene_blocks/A.md\n**热度**: 5 | **更新**: 2026-01-02T00:00:00Z\nSummary: a\n\n📌 使用说明：\n- Path 是 scene block 的绝对路径，可直接使用 read_file 读取完整内容\n- 热度：该场景被记忆命中的累计次数，越高越重要\n- Summary：场景的核心要点摘要\n",
+      "scene_blocks/A.md": "-----META-START-----\ncreated: 2025-01-01T00:00:00Z\nupdated: 2026-01-02T00:00:00Z\nsummary: a\nheat: 5\n-----META-END-----\n\n# evidence"
+    }
+  },
+  "persona_incremental": {
+    "result": true,
+    "tree": {
+      ".backup/persona/persona_<TS>_offset11.md": "# Old\nbody\n\n---\n## 🗺️ Scene Navigation (Scene Index)\nstale",
+      ".metadata/recall_checkpoint.json": {
+        "last_captured_timestamp": 0,
+        "total_processed": 11,
+        "last_persona_at": 11,
+        "last_persona_time": "<TIME>",
+        "request_persona_update": false,
+        "persona_update_reason": "",
+        "memories_since_last_persona": 0,
+        "scenes_processed": 0,
+        "runner_states": {},
+        "pipeline_states": {},
+        "l0_conversations_count": 0,
+        "total_memories_extracted": 0
+      },
+      ".metadata/scene_index.json": [
+        {
+          "filename": "A.md",
+          "summary": "a",
+          "heat": 5,
+          "created": "2025-01-01T00:00:00Z",
+          "updated": "2026-01-02T00:00:00Z"
+        }
+      ],
+      "persona.md": "# Updated\nbody2\n\n---\n## 🗺️ Scene Navigation (Scene Index)\n*以下是当前场景记忆的索引，可根据需要 read_file 读取详细内容。*\n\n### Path: scene_blocks/A.md\n**热度**: 5 | **更新**: 2026-01-02T00:00:00Z\nSummary: a\n\n📌 使用说明：\n- Path 是 scene block 的绝对路径，可直接使用 read_file 读取完整内容\n- 热度：该场景被记忆命中的累计次数，越高越重要\n- Summary：场景的核心要点摘要\n",
+      "scene_blocks/A.md": "-----META-START-----\ncreated: 2025-01-01T00:00:00Z\nupdated: 2026-01-02T00:00:00Z\nsummary: a\nheat: 5\n-----META-END-----\n\n# evidence"
+    }
+  },
+  "persona_skip": {
+    "result": false,
+    "tree": {
+      ".metadata/recall_checkpoint.json": {
+        "last_captured_timestamp": 0,
+        "total_processed": 12,
+        "last_persona_at": 11,
+        "last_persona_time": "<TIME>",
+        "request_persona_update": false,
+        "persona_update_reason": "",
+        "memories_since_last_persona": 0,
+        "scenes_processed": 0,
+        "runner_states": {},
+        "pipeline_states": {},
+        "l0_conversations_count": 0,
+        "total_memories_extracted": 0
+      },
+      ".metadata/scene_index.json": [
+        {
+          "filename": "A.md",
+          "summary": "a",
+          "heat": 5,
+          "created": "2025-01-01T00:00:00Z",
+          "updated": "2025-01-01T00:00:00Z"
+        }
+      ],
+      "persona.md": "# Existing\nbody",
+      "scene_blocks/A.md": "-----META-START-----\ncreated: 2025-01-01T00:00:00Z\nupdated: 2025-01-01T00:00:00Z\nsummary: a\nheat: 5\n-----META-END-----\n\n# evidence"
+    }
+  },
+  "persona_failure": {
+    "result": false,
+    "tree": {
+      ".backup/persona/persona_<TS>_offset13.md": "# Original\nbody",
+      ".metadata/recall_checkpoint.json": {
+        "last_captured_timestamp": 0,
+        "total_processed": 13,
+        "last_persona_at": 8,
+        "last_persona_time": "<TIME>",
+        "request_persona_update": false,
+        "persona_update_reason": "",
+        "memories_since_last_persona": 0,
+        "scenes_processed": 0,
+        "runner_states": {},
+        "pipeline_states": {},
+        "l0_conversations_count": 0,
+        "total_memories_extracted": 0
+      },
+      ".metadata/scene_index.json": [
+        {
+          "filename": "A.md",
+          "summary": "a",
+          "heat": 5,
+          "created": "2025-01-01T00:00:00Z",
+          "updated": "2026-01-02T00:00:00Z"
+        }
+      ],
+      "persona.md": "partial",
+      "scene_blocks/A.md": "-----META-START-----\ncreated: 2025-01-01T00:00:00Z\nupdated: 2026-01-02T00:00:00Z\nsummary: a\nheat: 5\n-----META-END-----\n\n# evidence"
+    }
+  },
+  "backup_pruning": {
+    ".backup/persona/persona_<TS>_offset1.md": "v1",
+    ".backup/persona/persona_<TS>_offset2.md": "v2",
+    ".backup/scene_blocks/scene_blocks_<TS>_offset1/a.md": "a",
+    ".backup/scene_blocks/scene_blocks_<TS>_offset2/a.md": "a",
+    ".backup/unlimited/unlimited_<TS>_offset0.md": "v2",
+    ".backup/unlimited/unlimited_<TS>_offset1.md": "v2",
+    "persona.md": "v2",
+    "src/a.md": "a"
+  }
+}

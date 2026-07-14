@@ -1,0 +1,394 @@
+{
+  "strings": [
+    {
+      "text": "",
+      "count": 0
+    },
+    {
+      "text": "hello",
+      "count": 1
+    },
+    {
+      "text": "你好，世界",
+      "count": 3
+    },
+    {
+      "text": "emoji🙂 mixed 文本",
+      "count": 5
+    },
+    {
+      "text": "<|endoftext|>",
+      "count": 4
+    },
+    {
+      "text": "x<|endofprompt|>🙂y",
+      "count": 5
+    },
+    {
+      "text": "a文\nZé🙂_Z{}",
+      "count": 9
+    },
+    {
+      "text": "中🙂中Z{__Z文Zéé文文  \nZ文\n🙂é文🙂Z_\n文 }_中_Z\n éé🙂文\n}文中_\nZ__Z中éa",
+      "count": 44
+    },
+    {
+      "text": "{{{ é文}éa}\n  ",
+      "count": 9
+    },
+    {
+      "text": "_\n🙂文文Z_éZ中中🙂  {{_}a}é_🙂\néZé文\néa\né文a文é文 ",
+      "count": 36
+    },
+    {
+      "text": "Z}é{}}_\néé}}a文",
+      "count": 11
+    },
+    {
+      "text": "é\n{_a中é\n}{éa_é🙂ZéZéé中{",
+      "count": 21
+    },
+    {
+      "text": "文🙂 Z🙂{_é _ _{} 文}{文 🙂Z\na Z{",
+      "count": 19
+    },
+    {
+      "text": "}\n_中Z🙂a}Z中Z文_🙂文{a文中 \n🙂_文中aé{文aé",
+      "count": 29
+    },
+    {
+      "text": " 🙂\n中 {\n_中{{}",
+      "count": 7
+    },
+    {
+      "text": "中}🙂🙂Z {文\n__}文中文{Z\n文 }\n\n{文{_a文{🙂🙂}🙂{_文aéZa\n{Z🙂🙂  } Z}\n\n文 ",
+      "count": 45
+    },
+    {
+      "text": "🙂} 中 \n中é中中é文 中Z 文中\nZ{}🙂a🙂a_中🙂 🙂é{Z\n }é🙂{}é\n{{ZéaaZ",
+      "count": 40
+    },
+    {
+      "text": " 中🙂é}é中文Z",
+      "count": 7
+    },
+    {
+      "text": "a文{_ é_}\nZ🙂 é}Z_}}_  a_{中\n\n_}\né中 éZ}🙂é _中文Z 文é",
+      "count": 34
+    },
+    {
+      "text": "{a\n_ a中中 {{é文文文{",
+      "count": 13
+    },
+    {
+      "text": "文🙂}{🙂_🙂",
+      "count": 6
+    },
+    {
+      "text": "ZéZ a中_",
+      "count": 6
+    },
+    {
+      "text": "\n中中",
+      "count": 3
+    },
+    {
+      "text": "中 Z文} 中é中中é_文文文 中  文{_🙂中Zaaa {a🙂 \n_}a{中 ",
+      "count": 32
+    },
+    {
+      "text": "é Zé\nZZa__中\na🙂文éaé {文 Z  _",
+      "count": 20
+    },
+    {
+      "text": "}文aZZ\n}a文Z_\n\n_\naZ中文{_é🙂 文 _a{中}🙂}中🙂aZ_🙂Z\n🙂}Z}_文_🙂éa Z中{\n_Z中\n\n}{\n_{\né}{",
+      "count": 54
+    },
+    {
+      "text": "aZ}{{ a🙂 é }🙂\n文_{éé\néé文ééé文a{\n中文éZ🙂文__🙂}}}文éa中文_🙂_",
+      "count": 40
+    },
+    {
+      "text": "Z 🙂éa文文}🙂🙂_{中中 a{文\n _ éZ_🙂 {aé}\na🙂Z🙂中🙂 é}_文 _🙂}éé{ 文a __ {_",
+      "count": 44
+    },
+    {
+      "text": "Z_}{Z🙂 _文Za}Z文{文中文a文Z文Z🙂",
+      "count": 20
+    },
+    {
+      "text": "中}\n {aaa文{éa{ Z_🙂}}a\n🙂文a",
+      "count": 18
+    },
+    {
+      "text": "中\n ___中中\n_🙂中Z\né\n a Z",
+      "count": 15
+    },
+    {
+      "text": "🙂中文éZéZ_中中_Z{_中\n🙂文文éa\n {{}文中}{文Z文{a文{",
+      "count": 32
+    },
+    {
+      "text": "中{{}文é__é\né🙂Z_a文\n\n Z🙂 🙂🙂aa a{🙂Za文 \nZ中Z Z_{a🙂中文a🙂中中}中éaZZ}Z_文文🙂中中a文a文é{\n} 🙂a中文_",
+      "count": 61
+    },
+    {
+      "text": " é}éé}__🙂文}_\n🙂a}🙂🙂文Z{_ Zé\n_{é \n  a  文中_ }文__中{ _ \n",
+      "count": 38
+    },
+    {
+      "text": " é}文🙂文_文aa__中🙂\n}文a_\né{\néaaéé\n",
+      "count": 23
+    },
+    {
+      "text": "}_Z🙂_中Z\n中文 中中Z_文aéZ",
+      "count": 16
+    },
+    {
+      "text": "文Z}文}_}a__}🙂{\n}é\nZ",
+      "count": 15
+    },
+    {
+      "text": "{🙂é文}\n 🙂文 文文Z}文 aZ{{中{ {_é中_\n_中éa",
+      "count": 25
+    },
+    {
+      "text": "é}a_ {Z🙂\n Z\nZé\nZé🙂Z文\n\n}Z文\n{{🙂_é中中é🙂",
+      "count": 31
+    },
+    {
+      "text": "é{   中 文文中🙂Z}🙂é",
+      "count": 12
+    },
+    {
+      "text": "}}é🙂中🙂{中{}aéa\na}éZ{a文 }}🙂🙂Z文éé{{}{{中\n🙂aZ\n🙂",
+      "count": 36
+    },
+    {
+      "text": "}中 é\né🙂Z🙂{ _}a}{_ 中\n{ 中中a_{é_文 文é}{} }{_Z}  {a ",
+      "count": 37
+    },
+    {
+      "text": "\né{\n   Z}中_\n中é_文Z🙂🙂 é🙂 a中aZZ🙂ZZZ é中文\né文中_🙂中\n_é文}文{\n中Za_Z}é中文🙂{🙂Z中é🙂\n{_{Zé_a__\n_",
+      "count": 61
+    },
+    {
+      "text": "中  {{ }é🙂中文Z文}a🙂{中a🙂中{文éa🙂Z文{🙂_{a_文_ 中中{\n🙂中Z\n}🙂é_{{_🙂_a",
+      "count": 47
+    },
+    {
+      "text": "文中 \n_🙂文文Z🙂",
+      "count": 9
+    },
+    {
+      "text": " \n{aé中 aé🙂__\n\nZaZ }}éé🙂文 文a{ \n中Z{中文文\néa}_ZZ中\n\n_Z中\né🙂}中éa{aZ文🙂  中中éZ文🙂文 文",
+      "count": 54
+    },
+    {
+      "text": "\n\n 🙂   }中文🙂🙂_文文{é中\n\néZZ\n}é}é中中éZ文a\nZ{\né}文中中Za}🙂_{中Z🙂_éé🙂__\n🙂_文 ",
+      "count": 51
+    },
+    {
+      "text": "Z🙂\naa🙂}_é\n🙂🙂文_",
+      "count": 12
+    },
+    {
+      "text": "中aé_文中\n{Za_🙂é{文}_Zé {}\n\n🙂\n { _ \nZZ文",
+      "count": 25
+    },
+    {
+      "text": "__{}aZ",
+      "count": 4
+    },
+    {
+      "text": "_}éa🙂é}{_🙂🙂_中{{a\n🙂é_{_\naé🙂}_🙂Z🙂{Zaaa _aéé🙂文_é中}éé文\na_ {\n\n {Z{中 中",
+      "count": 51
+    },
+    {
+      "text": "🙂🙂🙂ZZ🙂",
+      "count": 5
+    },
+    {
+      "text": "文中aZ文🙂\né\n_Z Z文中",
+      "count": 13
+    },
+    {
+      "text": "a中ZZ\n🙂中🙂 }{ _} }🙂中}{文中🙂 }文_{文🙂 中 🙂{文🙂🙂}中中",
+      "count": 32
+    },
+    {
+      "text": " _{é_🙂}{_éZ} Z中Zé中文aa\n文Zé}é",
+      "count": 22
+    },
+    {
+      "text": "_é🙂_文 中a",
+      "count": 7
+    },
+    {
+      "text": "a_ 中éZ}\na中  Za}🙂 Z{{{中{\n 🙂",
+      "count": 18
+    },
+    {
+      "text": "_中}Z_é文\nZa中文\n中_文}中 🙂文_{ 🙂中_\n{文中{\n}🙂文éa{ }Z 文é🙂{}中é文a {{_éé文\n  }",
+      "count": 50
+    },
+    {
+      "text": "}}🙂\n中\nZéZé}_🙂中中文中}__ZZ}\n中\nZ\n中🙂a_\n}}_a_éa\nZ é{中\n{é文🙂\n文a {{\n_}\nZ}} _{文} }{",
+      "count": 56
+    },
+    {
+      "text": " Zé🙂\n  🙂🙂🙂\n文中{中a🙂a中文文\n\né\n}Z{a  {中a中 a}🙂{Za\n 文_文Z文{\n_ \n \n中ZZ文中éZ_{Zé_文é}",
+      "count": 57
+    },
+    {
+      "text": "文}文🙂中}{中中\néZéé{}_{{_\nZé{\n🙂 a🙂\n  文",
+      "count": 25
+    },
+    {
+      "text": "🙂中_",
+      "count": 3
+    },
+    {
+      "text": "_a中{{文文Z🙂}Za_}🙂}{Z{Z_é中_é\né}_文文{🙂_\n }}{a中a中_}中 中",
+      "count": 39
+    },
+    {
+      "text": "a_\n}  }{_文} \n🙂{中{é 🙂文_{aéZ{é_a",
+      "count": 24
+    },
+    {
+      "text": "中a文文 中a_中}🙂é中🙂Z中{Z}\na   __中\n}é中{a🙂文{ a\na{a",
+      "count": 36
+    },
+    {
+      "text": "Z文文ZZa{文_文 中文_é{ééZ é",
+      "count": 17
+    },
+    {
+      "text": "中_éZ\n中_Zéé}文文é} 🙂",
+      "count": 15
+    },
+    {
+      "text": "\n}",
+      "count": 2
+    },
+    {
+      "text": "文}🙂Z}中 中a文🙂文é_中",
+      "count": 14
+    },
+    {
+      "text": "_中}Z\n_{_{éa}🙂a\né{\na\n{🙂a文}\n🙂{Z中Z中{\n中_ 🙂aZZ文aéa {é中aaZééZ \na 中_ 🙂中 Z",
+      "count": 53
+    }
+  ],
+  "snapshots": [
+    {
+      "input": {
+        "stage": "empty",
+        "messages": [],
+        "system": null,
+        "user": null
+      },
+      "output": {
+        "stage": "empty",
+        "encoding": "o200k_base",
+        "totalTokens": 0,
+        "systemTokens": 0,
+        "messagesTokens": 0,
+        "userPromptTokens": 0,
+        "messageCount": 0
+      }
+    },
+    {
+      "input": {
+        "stage": "dedupe",
+        "messages": [
+          {
+            "role": "user",
+            "content": " same "
+          }
+        ],
+        "system": "sys",
+        "user": "same"
+      },
+      "output": {
+        "stage": "dedupe",
+        "encoding": "o200k_base",
+        "totalTokens": 11,
+        "systemTokens": 1,
+        "messagesTokens": 10,
+        "userPromptTokens": 0,
+        "messageCount": 1
+      }
+    },
+    {
+      "input": {
+        "stage": "blocks",
+        "messages": [
+          {
+            "type": "message",
+            "message": {
+              "role": "user",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "甲"
+                },
+                {
+                  "type": "image",
+                  "url": "x"
+                },
+                {
+                  "type": "text",
+                  "text": "乙"
+                }
+              ]
+            }
+          },
+          {
+            "role": "assistant",
+            "content": "ok",
+            "details": "hidden",
+            "_offloaded": true
+          }
+        ],
+        "system": "系统🙂",
+        "user": "甲\n乙"
+      },
+      "output": {
+        "stage": "blocks",
+        "encoding": "o200k_base",
+        "totalTokens": 52,
+        "systemTokens": 2,
+        "messagesTokens": 50,
+        "userPromptTokens": 0,
+        "messageCount": 2
+      }
+    },
+    {
+      "input": {
+        "stage": "separate",
+        "messages": [
+          {
+            "role": "assistant",
+            "content": "answer",
+            "_mmdInjection": {
+              "huge": "ignored"
+            }
+          }
+        ],
+        "system": "",
+        "user": "new prompt"
+      },
+      "output": {
+        "stage": "separate",
+        "encoding": "o200k_base",
+        "totalTokens": 12,
+        "systemTokens": 0,
+        "messagesTokens": 10,
+        "userPromptTokens": 2,
+        "messageCount": 1
+      }
+    }
+  ]
+}

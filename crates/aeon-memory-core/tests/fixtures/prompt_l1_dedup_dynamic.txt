@@ -1,0 +1,33 @@
+**输出语言**：`merged_content` 使用与候选池中已有记忆相同的语言。
+
+## 统一候选记忆池（共 1 条已有记忆）
+
+[
+  {
+    "record_id": "old1",
+    "content": "用户喜欢编程",
+    "type": "persona",
+    "priority": 70,
+    "scene_name": "编程",
+    "timestamps": [
+      "2026-07-12"
+    ]
+  }
+]
+
+══════════════════════════════════════════════════
+
+## 待判断的新记忆（共 1 条）
+
+### 第 1 条新记忆 (record_id: new1)
+{
+  "record_id": "new1",
+  "content": "用户喜欢 Rust",
+  "type": "persona",
+  "priority": 80,
+  "scene_name": "编程"
+}
+
+【关联候选 ID】["old1"]
+
+请逐条判断并输出决策 JSON 数组。当某条新记忆的候选列表为空时，该条直接输出 action=store。

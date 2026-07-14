@@ -1,0 +1,122 @@
+{
+  "stats": {
+    "deletedJsonl": 2,
+    "deletedRefs": 1,
+    "deletedMmds": 2,
+    "truncatedLogs": 1,
+    "prunedRegistryEntries": 1
+  },
+  "disabled": {
+    "deletedJsonl": 0,
+    "deletedRefs": 0,
+    "deletedMmds": 0,
+    "truncatedLogs": 0,
+    "prunedRegistryEntries": 0
+  },
+  "missing": {
+    "deletedJsonl": 0,
+    "deletedRefs": 0,
+    "deletedMmds": 0,
+    "truncatedLogs": 0,
+    "prunedRegistryEntries": 0
+  },
+  "files": [
+    {
+      "path": "agent/mmds/00.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/03.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/04.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/05.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/06.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/07.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/08.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/09.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/10.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/11.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/12.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/13.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/14.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/15.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/mmds/16.mmd",
+      "size": 1
+    },
+    {
+      "path": "agent/offload-live.jsonl",
+      "size": 30
+    },
+    {
+      "path": "agent/refs/ignored.bin",
+      "size": 4
+    },
+    {
+      "path": "agent/refs/kept.md",
+      "size": 4
+    },
+    {
+      "path": "agent/sessions-registry.json",
+      "size": 60
+    },
+    {
+      "path": "agent/state.json",
+      "size": 26
+    },
+    {
+      "path": "debug.log",
+      "size": 0
+    },
+    {
+      "path": "offload-data.jsonl",
+      "size": 300000
+    },
+    {
+      "path": "trace.jsonl",
+      "size": 300000
+    }
+  ],
+  "registry": {
+    "fresh": {
+      "updatedAt": "2100-01-01T00:00:00Z"
+    }
+  }
+}

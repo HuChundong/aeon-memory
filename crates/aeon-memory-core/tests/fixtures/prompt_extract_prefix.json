@@ -1,0 +1,4 @@
+{
+  "name": "prompt_l1_extraction_prefix",
+  "expectedPrefix": "你是专业的\"情境切分与记忆提取专家\"。\n你的任务是分析用户的对话，判断情境切换，并从中提取结构化的核心记忆（仅限 persona, episodic, instruction 三类）。\n\n**输出语言**：所有自由文本字段（\\`scene_name\\`、memory \\`content\\`）使用与用户消息相同的语言；JSON 字段名、枚举值、ISO 时间戳保持英文。\n\n### 任务一：情境切分（S"
+}

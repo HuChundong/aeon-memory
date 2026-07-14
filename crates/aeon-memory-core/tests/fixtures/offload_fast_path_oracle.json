@@ -1,0 +1,58 @@
+{
+  "baseline": "4339e63650920871eb0e8888083a1779d114e3ae",
+  "confirmed": [
+    "gone2",
+    "gone_2",
+    "tool_u_1",
+    "toolu1"
+  ],
+  "deleted": [
+    "gone2",
+    "gone_2"
+  ],
+  "messages": [
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu1",
+          "input": {
+            "_offloaded": true,
+            "node_id": "N1",
+            "tool_call": "read({})"
+          }
+        }
+      ],
+      "_offloaded": true
+    },
+    {
+      "role": "tool",
+      "toolCallId": "toolu1",
+      "content": "[Offloaded Tool Result | node: N1]\nSummary: summary\nresult_ref: refs/a.md (read this file for full tool call and raw result)",
+      "_offloaded": true
+    },
+    {
+      "role": "assistant",
+      "content": [
+        {
+          "type": "text",
+          "text": "keep this text"
+        },
+        {
+          "type": "tool_use",
+          "id": "toolu1",
+          "input": {
+            "_offloaded": true,
+            "node_id": "N1",
+            "tool_call": "read({})"
+          }
+        }
+      ]
+    },
+    {
+      "role": "user",
+      "content": "latest request"
+    }
+  ]
+}

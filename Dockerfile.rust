@@ -1,0 +1,30 @@
+# syntax=docker/dockerfile:1.7
+ARG RUST_IMAGE=rust:1.88-bookworm
+ARG RUNTIME_IMAGE=debian:bookworm-slim
+FROM ${RUST_IMAGE} AS builder
+WORKDIR /src
+
+COPY Cargo.toml Cargo.lock ./
+COPY crates ./crates
+RUN cargo build --locked --release --bins --jobs 1 && \
+    install -D -m 0755 target/release/aeon-memory /out/aeon-memory && \
+    install -D -m 0755 target/release/aeon-memory-server /out/aeon-memory-server
+
+FROM ${RUNTIME_IMAGE} AS runtime
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates && \
+    rm -rf /var/lib/apt/lists/* && \
+    groupadd --system --gid 10001 aeon-memory && \
+    useradd --system --uid 10001 --gid aeon-memory --home-dir /var/lib/aeon-memory aeon-memory && \
+    install -d -o aeon-memory -g aeon-memory /var/lib/aeon-memory/aeon-memory /etc/aeon-memory
+
+COPY --from=builder /out/aeon-memory /usr/local/bin/aeon-memory
+COPY --from=builder /out/aeon-memory-server /usr/local/bin/aeon-memory-server
+COPY --chown=aeon-memory:aeon-memory config/aeon-memory.example.yaml /etc/aeon-memory/aeon-memory.yaml
+
+USER aeon-memory
+ENV HOME=/var/lib/aeon-memory \
+    AEON_MEMORY_GATEWAY_CONFIG=/etc/aeon-memory/aeon-memory.yaml \
+    AEON_MEMORY_DATA_DIR=/var/lib/aeon-memory/aeon-memory
+VOLUME ["/var/lib/aeon-memory/aeon-memory"]
+EXPOSE 8420
+ENTRYPOINT ["aeon-memory-server", "--config", "/etc/aeon-memory/aeon-memory.yaml"]

@@ -1,0 +1,43 @@
+{
+  "input": {
+    "id": "golden_fixture_1",
+    "content": "test memory for format verification",
+    "type": "persona",
+    "priority": 50,
+    "scene_name": "test-scene",
+    "source_message_ids": [
+      "msg_001"
+    ],
+    "metadata": {
+      "nested": true
+    },
+    "timestamps": [
+      "2026-07-13"
+    ],
+    "created_at": "2026-07-13T00:00:00.000Z",
+    "updated_at": "2026-07-13T00:00:01.000Z",
+    "session_key": "golden-session",
+    "session_id": "sid"
+  },
+  "expectedValue": {
+    "id": "golden_fixture_1",
+    "content": "test memory for format verification",
+    "type": "persona",
+    "priority": 50,
+    "scene_name": "test-scene",
+    "source_message_ids": [
+      "msg_001"
+    ],
+    "metadata": {
+      "nested": true
+    },
+    "timestamps": [
+      "2026-07-13"
+    ],
+    "createdAt": "2026-07-13T00:00:00.000Z",
+    "updatedAt": "2026-07-13T00:00:01.000Z",
+    "sessionKey": "golden-session",
+    "sessionId": "sid"
+  },
+  "expectedBytes": "{\"id\":\"golden_fixture_1\",\"content\":\"test memory for format verification\",\"type\":\"persona\",\"priority\":50,\"scene_name\":\"test-scene\",\"source_message_ids\":[\"msg_001\"],\"metadata\":{\"nested\":true},\"timestamps\":[\"2026-07-13\"],\"createdAt\":\"2026-07-13T00:00:00.000Z\",\"updatedAt\":\"2026-07-13T00:00:01.000Z\",\"sessionKey\":\"golden-session\",\"sessionId\":\"sid\"}\n"
+}

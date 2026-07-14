@@ -1,0 +1,99 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  SQLITE_VEC_VERSION: "0.1.7-alpha.2"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: Install sqlite-vec extension
+        shell: bash
+        run: |
+          curl -sL "https://github.com/asg017/sqlite-vec/releases/download/v${SQLITE_VEC_VERSION}/sqlite-vec-${SQLITE_VEC_VERSION}-loadable-linux-x86_64.tar.gz" \
+            | tar xz -C crates/aeon-memory-store-sqlite/tests/fixtures/ vec0.so
+      - run: cargo fmt --all -- --check
+      - run: cargo clippy --workspace --all-targets --locked -- -D warnings
+
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install sqlite-vec extension (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          curl -sL "https://github.com/asg017/sqlite-vec/releases/download/v${SQLITE_VEC_VERSION}/sqlite-vec-${SQLITE_VEC_VERSION}-loadable-linux-x86_64.tar.gz" \
+            | tar xz -C crates/aeon-memory-store-sqlite/tests/fixtures/ vec0.so
+      - name: Install sqlite-vec extension (Windows)
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          curl -sL "https://github.com/asg017/sqlite-vec/releases/download/v${SQLITE_VEC_VERSION}/sqlite-vec-${SQLITE_VEC_VERSION}-loadable-windows-x86_64.tar.gz" \
+            | tar xz -C crates/aeon-memory-store-sqlite/tests/fixtures/ vec0.dll
+      - name: Install sqlite-vec extension (macOS x86_64)
+        if: runner.os == 'macOS' && runner.arch == 'X64'
+        shell: bash
+        run: |
+          curl -sL "https://github.com/asg017/sqlite-vec/releases/download/v${SQLITE_VEC_VERSION}/sqlite-vec-${SQLITE_VEC_VERSION}-loadable-macos-x86_64.tar.gz" \
+            | tar xz -C crates/aeon-memory-store-sqlite/tests/fixtures/ vec0.dylib
+      - run: cargo test --workspace --locked
+
+  opencode-plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: integrations/opencode/package-lock.json
+      - name: Install dependencies
+        working-directory: integrations/opencode
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Typecheck
+        working-directory: integrations/opencode
+        run: npm run typecheck
+      - name: Test
+        working-directory: integrations/opencode
+        run: npm test
+      - name: Package check
+        working-directory: integrations/opencode
+        run: npm run pack:check
+
+  data-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run build

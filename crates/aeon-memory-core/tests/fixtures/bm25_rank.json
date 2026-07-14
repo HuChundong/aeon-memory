@@ -1,0 +1,28 @@
+{
+  "cases": [
+    {
+      "rank": -5,
+      "expected": 0.8333333333333334
+    },
+    {
+      "rank": 10,
+      "expected": 0.09090909090909091
+    },
+    {
+      "rank": 0,
+      "expected": 1
+    },
+    {
+      "rank": "Infinity",
+      "expected": 0.001
+    },
+    {
+      "rank": "-Infinity",
+      "expected": 0.001
+    },
+    {
+      "rank": "NaN",
+      "expected": 0.001
+    }
+  ]
+}

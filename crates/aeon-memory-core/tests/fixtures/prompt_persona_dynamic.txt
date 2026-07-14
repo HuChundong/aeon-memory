@@ -1,0 +1,31 @@
+**Output language**: `persona.md` headings and body text must use the dominant language of the changed scene content below. For English scene content, use English persona headings.
+
+**⏰ 更新时间**: 2026-07-13 12:00:00
+**模式**: 🔄 迭代更新
+
+### 触发信息
+reason
+
+## 📊 统计
+- **总记忆数**: 12 条
+- **场景总数**: 2 个
+- **变化场景**: 1 个（自上次更新后）
+
+---
+changed
+
+
+## 📄 当前 Persona（工程已预加载）
+
+*以下是现有 persona.md 的完整内容（3 字符），基于此更新后请控制在2000字内：*
+
+```markdown
+old
+```
+
+---
+
+
+## 🔄 迭代决策指南
+
+面对变化场景，自主判断处理方式：强化（佐证已有洞察）/ 补充（新维度）/ 修正（矛盾）/ 重构（结构调整）/ 不改（无有用新增内容）。

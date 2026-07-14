@@ -1,0 +1,23 @@
+[
+  {
+    "info": { "id": "u1", "sessionID": "s1", "role": "user", "time": { "created": 1 } },
+    "parts": [
+      { "type": "text", "text": "Remember blue bicycles. API_KEY=do-not-store" },
+      { "type": "text", "text": "synthetic memory", "synthetic": true }
+    ]
+  },
+  {
+    "info": {
+      "id": "a1",
+      "sessionID": "s1",
+      "role": "assistant",
+      "parentID": "u1",
+      "time": { "created": 2, "completed": 3 },
+      "finish": "stop"
+    },
+    "parts": [
+      { "type": "reasoning", "text": "private reasoning" },
+      { "type": "text", "text": "I will remember that preference." }
+    ]
+  }
+]

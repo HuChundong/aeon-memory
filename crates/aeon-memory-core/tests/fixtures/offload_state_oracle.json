@@ -1,0 +1,38 @@
+{
+  "counts": [
+    1,
+    2,
+    2,
+    2,
+    3
+  ],
+  "forced": [
+    true,
+    true
+  ],
+  "taken": [
+    "a"
+  ],
+  "processedA": true,
+  "pending": 2,
+  "empty": {
+    "messages": []
+  },
+  "internal": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "unchanged"
+      }
+    ]
+  },
+  "state": {
+    "activeMmdFile": "001-task.mmd",
+    "activeMmdId": "node-1",
+    "mmdCounter": 0,
+    "lastSessionKey": "agent:main:memory-test-session-1",
+    "lastOffloadedToolCallId": "a",
+    "lastL2TriggerTime": "2026-01-01T00:00:00Z",
+    "estimatedSystemOverhead": null
+  }
+}

@@ -1,0 +1,13 @@
+**All timestamps below are in UTC (UTC+00:00). When reasoning about "yesterday", "last week", or time differences, use this timezone.**
+
+**输出语言**：根据下方"待提取的新消息"中 user 发言的主导语言书写 `scene_name` 和 memory `content`。
+
+【上一个情境】：旅行
+
+【背景对话】（仅供理解上下文推断关系/时间，严禁从中提取记忆）：
+[b1] [assistant] [2026-07-12T00:00:00+00:00]: 背景
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+【待提取的新消息】（务必结合 timestamp 推算时间，只从这里提取记忆！）：
+[n1] [user] [2026-07-13T00:00:00+00:00]: 明天去杭州

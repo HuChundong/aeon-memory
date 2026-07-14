@@ -1,0 +1,437 @@
+{
+  "baseline": "4339e63650920871eb0e8888083a1779d114e3ae",
+  "noneInit": {
+    "needsReindex": false,
+    "reason": null
+  },
+  "noneCounts": {
+    "l1": 2,
+    "l0": 2
+  },
+  "enableInit": {
+    "needsReindex": true,
+    "reason": "legacy DB without embedding_meta — cannot verify vector compatibility"
+  },
+  "enableReindex": {
+    "result": {
+      "l1Count": 2,
+      "l0Count": 2
+    },
+    "calls": [
+      "memory alpha",
+      "memory beta",
+      "raw alpha",
+      "raw beta"
+    ],
+    "progress": [
+      {
+        "done": 1,
+        "total": 2,
+        "layer": "L1"
+      },
+      {
+        "done": 2,
+        "total": 2,
+        "layer": "L1"
+      },
+      {
+        "done": 1,
+        "total": 2,
+        "layer": "L0"
+      },
+      {
+        "done": 2,
+        "total": 2,
+        "layer": "L0"
+      }
+    ],
+    "vecCounts": {
+      "l1": 1,
+      "l0": 2
+    },
+    "search": {
+      "l1": [
+        "l1-alpha"
+      ],
+      "l0": [
+        "l0-alpha",
+        "l0-beta"
+      ]
+    },
+    "vectors": {
+      "l1": [
+        {
+          "id": "l1-alpha",
+          "vector": [
+            "1.000000",
+            "0.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        }
+      ],
+      "l0": [
+        {
+          "id": "l0-alpha",
+          "vector": [
+            "1.000000",
+            "0.250000",
+            "0.000000",
+            "0.000000"
+          ]
+        },
+        {
+          "id": "l0-beta",
+          "vector": [
+            "0.250000",
+            "1.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        }
+      ]
+    }
+  },
+  "sameConfigInit": {
+    "needsReindex": false,
+    "reason": null
+  },
+  "sameConfigState": {
+    "vecCounts": {
+      "l1": 1,
+      "l0": 2
+    },
+    "search": {
+      "l1": [
+        "l1-alpha"
+      ],
+      "l0": [
+        "l0-alpha",
+        "l0-beta"
+      ]
+    },
+    "vectors": {
+      "l1": [
+        {
+          "id": "l1-alpha",
+          "vector": [
+            "1.000000",
+            "0.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        }
+      ],
+      "l0": [
+        {
+          "id": "l0-alpha",
+          "vector": [
+            "1.000000",
+            "0.250000",
+            "0.000000",
+            "0.000000"
+          ]
+        },
+        {
+          "id": "l0-beta",
+          "vector": [
+            "0.250000",
+            "1.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        }
+      ]
+    }
+  },
+  "providerChangeInit": {
+    "needsReindex": true,
+    "reason": "provider: provider-a → provider-b"
+  },
+  "providerChangeReindex": {
+    "result": {
+      "l1Count": 2,
+      "l0Count": 2
+    },
+    "calls": [
+      "memory alpha",
+      "memory beta",
+      "raw alpha",
+      "raw beta"
+    ],
+    "progress": [
+      {
+        "done": 1,
+        "total": 2,
+        "layer": "L1"
+      },
+      {
+        "done": 2,
+        "total": 2,
+        "layer": "L1"
+      },
+      {
+        "done": 1,
+        "total": 2,
+        "layer": "L0"
+      },
+      {
+        "done": 2,
+        "total": 2,
+        "layer": "L0"
+      }
+    ],
+    "vecCounts": {
+      "l1": 2,
+      "l0": 2
+    },
+    "search": {
+      "l1": [
+        "l1-alpha",
+        "l1-beta"
+      ],
+      "l0": [
+        "l0-alpha",
+        "l0-beta"
+      ]
+    },
+    "vectors": {
+      "l1": [
+        {
+          "id": "l1-alpha",
+          "vector": [
+            "1.000000",
+            "0.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        },
+        {
+          "id": "l1-beta",
+          "vector": [
+            "0.000000",
+            "1.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        }
+      ],
+      "l0": [
+        {
+          "id": "l0-alpha",
+          "vector": [
+            "1.000000",
+            "0.250000",
+            "0.000000",
+            "0.000000"
+          ]
+        },
+        {
+          "id": "l0-beta",
+          "vector": [
+            "0.250000",
+            "1.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        }
+      ]
+    }
+  },
+  "modelChangeInit": {
+    "needsReindex": true,
+    "reason": "model: model-a → model-b"
+  },
+  "modelChangeReindex": {
+    "result": {
+      "l1Count": 2,
+      "l0Count": 2
+    },
+    "calls": [
+      "memory alpha",
+      "memory beta",
+      "raw alpha",
+      "raw beta"
+    ],
+    "progress": [
+      {
+        "done": 1,
+        "total": 2,
+        "layer": "L1"
+      },
+      {
+        "done": 2,
+        "total": 2,
+        "layer": "L1"
+      },
+      {
+        "done": 1,
+        "total": 2,
+        "layer": "L0"
+      },
+      {
+        "done": 2,
+        "total": 2,
+        "layer": "L0"
+      }
+    ],
+    "vecCounts": {
+      "l1": 2,
+      "l0": 2
+    },
+    "search": {
+      "l1": [
+        "l1-alpha",
+        "l1-beta"
+      ],
+      "l0": [
+        "l0-alpha",
+        "l0-beta"
+      ]
+    },
+    "vectors": {
+      "l1": [
+        {
+          "id": "l1-alpha",
+          "vector": [
+            "1.000000",
+            "0.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        },
+        {
+          "id": "l1-beta",
+          "vector": [
+            "0.000000",
+            "1.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        }
+      ],
+      "l0": [
+        {
+          "id": "l0-alpha",
+          "vector": [
+            "1.000000",
+            "0.250000",
+            "0.000000",
+            "0.000000"
+          ]
+        },
+        {
+          "id": "l0-beta",
+          "vector": [
+            "0.250000",
+            "1.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        }
+      ]
+    }
+  },
+  "dimensionsChangeInit": {
+    "needsReindex": true,
+    "reason": "dimensions: 4 → 6"
+  },
+  "dimensionsChangeReindex": {
+    "result": {
+      "l1Count": 2,
+      "l0Count": 2
+    },
+    "calls": [
+      "memory alpha",
+      "memory beta",
+      "raw alpha",
+      "raw beta"
+    ],
+    "progress": [
+      {
+        "done": 1,
+        "total": 2,
+        "layer": "L1"
+      },
+      {
+        "done": 2,
+        "total": 2,
+        "layer": "L1"
+      },
+      {
+        "done": 1,
+        "total": 2,
+        "layer": "L0"
+      },
+      {
+        "done": 2,
+        "total": 2,
+        "layer": "L0"
+      }
+    ],
+    "vecCounts": {
+      "l1": 2,
+      "l0": 2
+    },
+    "search": {
+      "l1": [
+        "l1-alpha",
+        "l1-beta"
+      ],
+      "l0": [
+        "l0-alpha",
+        "l0-beta"
+      ]
+    },
+    "vectors": {
+      "l1": [
+        {
+          "id": "l1-alpha",
+          "vector": [
+            "1.000000",
+            "0.000000",
+            "0.000000",
+            "0.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        },
+        {
+          "id": "l1-beta",
+          "vector": [
+            "0.000000",
+            "1.000000",
+            "0.000000",
+            "0.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        }
+      ],
+      "l0": [
+        {
+          "id": "l0-alpha",
+          "vector": [
+            "1.000000",
+            "0.250000",
+            "0.000000",
+            "0.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        },
+        {
+          "id": "l0-beta",
+          "vector": [
+            "0.250000",
+            "1.000000",
+            "0.000000",
+            "0.000000",
+            "0.000000",
+            "0.000000"
+          ]
+        }
+      ]
+    }
+  }
+}

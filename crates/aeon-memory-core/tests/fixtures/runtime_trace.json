@@ -1,0 +1,174 @@
+{
+  "pipeline": {
+    "events": [
+      {
+        "kind": "persist",
+        "states": {
+          "s": {
+            "conversation_count": 1,
+            "last_extraction_time": "",
+            "last_extraction_updated_time": "",
+            "last_active_time": 1767225845001,
+            "l2_pending_l1_count": 0,
+            "warmup_threshold": 0,
+            "l2_last_extraction_time": ""
+          }
+        }
+      },
+      {
+        "kind": "persist",
+        "states": {
+          "s": {
+            "conversation_count": 2,
+            "last_extraction_time": "",
+            "last_extraction_updated_time": "",
+            "last_active_time": 1767225845003,
+            "l2_pending_l1_count": 0,
+            "warmup_threshold": 0,
+            "l2_last_extraction_time": ""
+          }
+        }
+      },
+      {
+        "kind": "l1",
+        "session": "s"
+      },
+      {
+        "kind": "persist",
+        "states": {
+          "s": {
+            "conversation_count": 0,
+            "last_extraction_time": "",
+            "last_extraction_updated_time": "",
+            "last_active_time": 1767225845003,
+            "l2_pending_l1_count": 2,
+            "warmup_threshold": 0,
+            "l2_last_extraction_time": ""
+          }
+        }
+      },
+      {
+        "kind": "l2",
+        "session": "s",
+        "cursor": null
+      },
+      {
+        "kind": "persist",
+        "states": {
+          "s": {
+            "conversation_count": 0,
+            "last_extraction_time": "2026-01-01T00:04:05.009Z",
+            "last_extraction_updated_time": "2026-01-01T00:04:05.009Z",
+            "last_active_time": 1767225845003,
+            "l2_pending_l1_count": 0,
+            "warmup_threshold": 0,
+            "l2_last_extraction_time": "2026-01-01T00:04:05.009Z"
+          }
+        }
+      },
+      {
+        "kind": "persist",
+        "states": {
+          "s": {
+            "conversation_count": 0,
+            "last_extraction_time": "2026-01-01T00:04:05.009Z",
+            "last_extraction_updated_time": "2026-01-01T00:04:05.009Z",
+            "last_active_time": 1767225845003,
+            "l2_pending_l1_count": 0,
+            "warmup_threshold": 0,
+            "l2_last_extraction_time": "2026-01-01T00:04:05.009Z"
+          }
+        }
+      }
+    ],
+    "finalState": {
+      "conversation_count": 0,
+      "last_extraction_time": "2026-01-01T00:04:05.009Z",
+      "last_extraction_updated_time": "2026-01-01T00:04:05.009Z",
+      "last_active_time": 1767225845003,
+      "l2_pending_l1_count": 0,
+      "warmup_threshold": 0,
+      "l2_last_extraction_time": "2026-01-01T00:04:05.009Z"
+    },
+    "destroyed": true
+  },
+  "scene": {
+    "parsed": {
+      "filename": "coding.md",
+      "meta": {
+        "created": "",
+        "updated": "",
+        "summary": "",
+        "heat": 0
+      },
+      "content": "---\nsummary: Coding\nkeywords: [rust, ai]\nheat: 3\nupdated: 2026-01-01\n---\nBody"
+    },
+    "formatted": "-----META-START-----\ncreated: 2025-01-01\nupdated: 2026-01-01\nsummary: S\nheat: 2\n-----META-END-----\n\nBody",
+    "meta": "-----META-START-----\ncreated: 2025-01-01\nupdated: 2026-01-01\nsummary: S\nheat: 2\n-----META-END-----",
+    "names": [
+      "Hello-World.md",
+      "中文-场景.md",
+      "bc.md"
+    ],
+    "navigation": "---\n## 🗺️ Scene Navigation (Scene Index)\n*以下是当前场景记忆的索引，可根据需要 read_file 读取详细内容。*\n\n### Path: /data/scene_blocks/coding.md\n**热度**: 3 | **更新**: 2026-01-01\nSummary: Coding\n\n📌 使用说明：\n- Path 是 scene block 的绝对路径，可直接使用 read_file 读取完整内容\n- 热度：该场景被记忆命中的累计次数，越高越重要\n- Summary：场景的核心要点摘要",
+    "stripped": "Persona\n\n<scene-navigation>old</scene-navigation>"
+  },
+  "profile": {
+    "ids": [
+      "profile:v1:8e5ea31e29f3b35d1a52b2e0e80fc464cf5226a5f18ce010936e93d8291f5666",
+      "profile:v1:55da045509cea2c8b1e280ba4ee7dcac839b5c1047d6bcd7cc265c3e09dbe1fd"
+    ],
+    "profiles": [
+      {
+        "id": "profile:v1:7070c81b18b4c1ffde74faa9169e3aa9777044cbe229bda845d63718b1018a33",
+        "type": "l2",
+        "filename": "coding.md",
+        "content": "---\nsummary: Coding\nkeywords: [rust, ai]\nheat: 3\nupdated: 2026-01-01\n---\nBody\n",
+        "version": 0
+      },
+      {
+        "id": "profile:v1:1fcec53e1e08d24b5d14714c464258e7e19039f2ceb5781c77ca690672151817",
+        "type": "l3",
+        "filename": "persona.md",
+        "content": "Persona body",
+        "version": 0
+      }
+    ]
+  },
+  "offload": {
+    "sessionKeys": [
+      {
+        "agentName": "main",
+        "sessionId": "abc"
+      },
+      null,
+      {
+        "agentName": "x-w12",
+        "sessionId": "swebench-w12-z"
+      }
+    ],
+    "sanitized": "ab\n c",
+    "json": "{}",
+    "parsed": {
+      "entries": [
+        {
+          "tool_call_id": "x",
+          "summary": "s",
+          "timestamp": "t",
+          "tool_call": "c"
+        }
+      ],
+      "corruptCount": 1,
+      "invalidCount": 0,
+      "corruptSample": "BAD"
+    },
+    "filename": "2026-01-02T03-04-05-678Z",
+    "activePoint": 1,
+    "historyPoint": 1,
+    "normalized": "tooluabc-123",
+    "compact": "shell: {\"cmd\":\"ls -la /very/long/path\"}",
+    "toolIds": [
+      "call_1"
+    ]
+  }
+}

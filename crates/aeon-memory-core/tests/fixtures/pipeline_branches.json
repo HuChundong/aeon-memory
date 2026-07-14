@@ -1,0 +1,125 @@
+{
+  "retry": {
+    "events": [
+      {
+        "kind": "l1",
+        "attempt": 1,
+        "count": 1
+      },
+      {
+        "kind": "l1",
+        "attempt": 2,
+        "count": 1
+      },
+      {
+        "kind": "l1",
+        "attempt": 3,
+        "count": 1
+      },
+      {
+        "kind": "l2"
+      },
+      {
+        "kind": "l2"
+      }
+    ],
+    "attempts": 3,
+    "state": {
+      "conversation_count": 0,
+      "last_extraction_time": "",
+      "last_extraction_updated_time": "",
+      "last_active_time": 1770001445000,
+      "l2_pending_l1_count": 0,
+      "warmup_threshold": 0,
+      "l2_last_extraction_time": ""
+    },
+    "destroyed": true
+  },
+  "retryExhausted": {
+    "attempts": 6,
+    "buffered": 1,
+    "state": {
+      "conversation_count": 1,
+      "last_extraction_time": "",
+      "last_extraction_updated_time": "",
+      "last_active_time": 1770001445000,
+      "l2_pending_l1_count": 0,
+      "warmup_threshold": 0,
+      "l2_last_extraction_time": ""
+    },
+    "destroyed": true
+  },
+  "recovery": {
+    "events": [
+      {
+        "kind": "l2",
+        "session": "recover",
+        "cursor": "cursor-old"
+      },
+      {
+        "kind": "l3"
+      },
+      {
+        "kind": "l2",
+        "session": "recover",
+        "cursor": "2026-02-01T00:00:00Z"
+      }
+    ],
+    "state": {
+      "conversation_count": 0,
+      "last_extraction_time": "2026-02-02T03:04:05.000Z",
+      "last_extraction_updated_time": "2026-02-01T00:00:00Z",
+      "last_active_time": 1770001445000,
+      "l2_pending_l1_count": 0,
+      "warmup_threshold": 0,
+      "l2_last_extraction_time": "2026-02-02T03:04:05.000Z"
+    },
+    "destroyed": true
+  },
+  "interleave": {
+    "events": [
+      {
+        "kind": "l1",
+        "session": "a",
+        "contents": [
+          "a1",
+          "a2"
+        ]
+      },
+      {
+        "kind": "l1",
+        "session": "b",
+        "contents": [
+          "b1"
+        ]
+      },
+      {
+        "kind": "l2",
+        "session": "a"
+      },
+      {
+        "kind": "l2",
+        "session": "b"
+      }
+    ],
+    "a": {
+      "conversation_count": 0,
+      "last_extraction_time": "",
+      "last_extraction_updated_time": "",
+      "last_active_time": 1770001445000,
+      "l2_pending_l1_count": 0,
+      "warmup_threshold": 0,
+      "l2_last_extraction_time": ""
+    },
+    "b": {
+      "conversation_count": 0,
+      "last_extraction_time": "",
+      "last_extraction_updated_time": "",
+      "last_active_time": 1770001445000,
+      "l2_pending_l1_count": 0,
+      "warmup_threshold": 0,
+      "l2_last_extraction_time": ""
+    },
+    "destroyed": true
+  }
+}

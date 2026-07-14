@@ -1,0 +1,83 @@
+[
+  {
+    "name": "cursor",
+    "returned": [
+      {
+        "role": "assistant",
+        "content": "new answer",
+        "timestamp": 201
+      },
+      {
+        "role": "user",
+        "content": "new question",
+        "timestamp": 202
+      }
+    ],
+    "persisted": [
+      {
+        "role": "assistant",
+        "content": "new answer",
+        "timestamp": 201
+      },
+      {
+        "role": "user",
+        "content": "new question",
+        "timestamp": 202
+      }
+    ]
+  },
+  {
+    "name": "slice_replace",
+    "returned": [
+      {
+        "role": "user",
+        "content": "clean user prompt",
+        "timestamp": 300
+      },
+      {
+        "role": "assistant",
+        "content": "before\n\nafter",
+        "timestamp": 301
+      }
+    ],
+    "persisted": [
+      {
+        "role": "user",
+        "content": "clean user prompt",
+        "timestamp": 300
+      },
+      {
+        "role": "assistant",
+        "content": "before\n\nafter",
+        "timestamp": 301
+      }
+    ]
+  },
+  {
+    "name": "content_parts",
+    "returned": [
+      {
+        "role": "user",
+        "content": "hello",
+        "timestamp": 400
+      },
+      {
+        "role": "assistant",
+        "content": "world",
+        "timestamp": 401
+      }
+    ],
+    "persisted": [
+      {
+        "role": "user",
+        "content": "hello",
+        "timestamp": 400
+      },
+      {
+        "role": "assistant",
+        "content": "world",
+        "timestamp": 401
+      }
+    ]
+  }
+]

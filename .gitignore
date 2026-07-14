@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+
+# Runtime workspace
+workspace/
+
+# Environment variables – ignore all .env files; allow .example variants
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Test caches
+__tests__/soak/.model-cache/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Migration build output
+scripts/export-tencent-vdb/dist/
+scripts/read-local-memory/dist/
+
+# Root-level build output (not used at runtime, not published)
+dist/
+
+node_modules/
+benchmark-runs/
+.codebuddy
+.ai_assets
+
+# Dev-only scripts
+install-plugin.sh
+pnpm-lock.yaml
+yarn.lock
+test-offload.sh
+test-offload-mmd.sh
+test-offload-sessions.sh
+
+# npm pack / release tarballs (never commit packaged outputs)
+*.tgz
+*.tar.gz
+
+# log files
+*.log
+
+# Rust build output
+target/
