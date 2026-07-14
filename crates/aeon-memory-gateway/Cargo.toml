@@ -3,6 +3,10 @@ name = "aeon-memory-gateway"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+description = "Standalone CLI and HTTP server for Aeon Memory"
 
 [dependencies]
 aeon-memory-core.workspace = true

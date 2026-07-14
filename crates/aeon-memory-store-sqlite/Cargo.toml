@@ -3,6 +3,10 @@ name = "aeon-memory-store-sqlite"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+description = "SQLite, FTS5, and sqlite-vec storage backend for Aeon Memory"
 
 [dependencies]
 aeon-memory-core.workspace = true

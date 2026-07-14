@@ -1,5 +1,7 @@
 # OpenCode 自动记忆插件
 
+> npm 展示与安装入口请优先阅读 [README.md](README.md)。本文件保留更详细的实现与测试说明。
+
 这是可独立发布的 npm 包 `@aeon-memory/opencode`，最低验证版本为 OpenCode 1.17.18。它采用 OpenCode 官方插件事件和 SDK，复现自动 HostAdapter 生命周期：
 
 - `chat.message` 调用 Aeon Memory `/recall`：官方共享接口返回的 `context` 是稳定 system context；当 `memory_count > 0` 时，插件再通过官方 `/search/memories` 获取动态 L1，并由 `experimental.chat.messages.transform` 作为带“不可信历史数据”边界的 synthetic text part 附加到当前 user message。旧版 aeon-memory 仅返回 `context` 且没有 `memory_count` 时，仍按动态 user context 兼容；
@@ -18,13 +20,10 @@
 
 先启动 `aeon-memory-server`，确认 `curl http://127.0.0.1:8420/health` 正常。
 
-当前 npm 包尚未公开发布（registry 查询返回 404），因此现在请从源码安装。源码构建与
-安装需要 Node.js 22+。
-
-npm 发布后可一键安装到 OpenCode 官方全局插件目录：
+已发布的 npm 包可一键安装到 OpenCode 官方全局插件目录：
 
 ```bash
-npx @aeon-memory/opencode install
+npx @aeon-memory/opencode@latest install
 ```
 
 从源码仓库测试安装：

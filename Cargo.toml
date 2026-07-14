@@ -7,9 +7,13 @@ members = [
 ]
 
 [workspace.package]
-version = "0.1.0"
+version = "0.6.1"
 edition = "2024"
 license = "MIT"
+repository = "https://github.com/HuChundong/aeon-memory"
+homepage = "https://github.com/HuChundong/aeon-memory"
+readme = "README.md"
+rust-version = "1.85"
 
 [workspace.dependencies]
 aeon-memory-core = { path = "crates/aeon-memory-core" }

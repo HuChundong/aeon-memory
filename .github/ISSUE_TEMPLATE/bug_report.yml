@@ -1,23 +1,23 @@
 name: 🐛 Bug Report
-description: Report an issue with the plugin | 报告插件使用中的问题
+description: Report a reproducible Aeon Memory problem | 报告可复现的 Aeon Memory 问题
 title: "[Bug] "
 labels: ["bug"]
 assignees: []
 body:
   - type: input
-    id: openclaw-version
+    id: aeon-version
     attributes:
-      label: OpenClaw Version | OpenClaw 版本
-      placeholder: e.g. 2026.3.13 | 例如：2026.3.13
+      label: Aeon Memory Version | Aeon Memory 版本
+      placeholder: e.g. 0.6.0 or commit SHA | 例如：0.6.0 或提交 SHA
     validations:
       required: true
 
   - type: input
-    id: plugin-version
+    id: interface
     attributes:
-      label: Plugin Version | 插件版本
-      description: TencentDB-Agent-Memory
-      placeholder: e.g. 0.1.0 | 例如：0.1.0
+      label: Interface / Integration | 使用入口/集成
+      description: Native CLI, HTTP server, or OpenCode plugin
+      placeholder: e.g. HTTP server + @aeon-memory/opencode 0.6.0
     validations:
       required: true
 

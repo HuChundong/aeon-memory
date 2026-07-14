@@ -1,20 +1,33 @@
 {
   "name": "@aeon-memory/opencode",
-  "version": "0.6.0",
-  "description": "Automatic TencentDB Agent Memory lifecycle integration for OpenCode",
+  "version": "0.6.1",
+  "description": "Automatic Aeon Memory lifecycle integration for OpenCode",
   "type": "module",
   "license": "MIT",
   "exports": {
     ".": "./dist/aeon-memory.js"
   },
   "bin": {
-    "aeon-memory-opencode": "./dist/cli.js"
+    "aeon-memory-opencode": "dist/cli.js"
   },
   "files": [
     "dist/",
+    "README.md",
     "README_CN.md",
     "LICENSE"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HuChundong/aeon-memory.git",
+    "directory": "integrations/opencode"
+  },
+  "homepage": "https://github.com/HuChundong/aeon-memory#opencode-集成",
+  "bugs": {
+    "url": "https://github.com/HuChundong/aeon-memory/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
     "typecheck": "tsc --noEmit",

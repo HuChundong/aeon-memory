@@ -12,7 +12,10 @@
 
 ## Self-test Checklist | 自测清单
 - [ ] Verified locally | 本地验证通过
-- [ ] No existing features affected | 无影响现有功能
+- [ ] Added or updated tests for behavior changes | 行为变更已补充或更新测试
+- [ ] Updated user-facing documentation when needed | 必要时已更新用户文档
+- [ ] Preserved upstream compatibility or documented an approved difference | 已保持上游兼容或记录经批准的差异
+- [ ] Confirmed no credentials or production memory data are included | 已确认不包含凭据或生产记忆数据
 
 ## Additional Notes | 其他说明
 <!-- Optional | 可选 -->

@@ -1,4 +1,11 @@
-# TencentDB Agent Memory：独立 Rust 记忆服务
+# Aeon Memory：完整中文手册
+
+[默认中文首页](README.md) · [English](README_EN.md) ·
+[上游 TencentDB Agent Memory](https://github.com/TencentCloud/TencentDB-Agent-Memory)
+
+> Aeon Memory 是社区独立维护的 Rust 兼容实现，并非腾讯或腾讯云官方产品。核心分层记忆
+> 与上下文卸载设计源自 TencentDB Agent Memory。我们感谢上游团队与贡献者的开源工作，
+> 完整说明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
 
 这是一个无需 OpenClaw、Hermes、Node.js 或 Docker 的轻量级记忆系统。默认交付目标是
 跨平台原生单服务包，保留 L0 → L1 → L2 → L3、SQLite 全文与向量检索、场景、

@@ -1,0 +1,188 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate release
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            integrations/opencode/package-lock.json
+      - id: version
+        name: Validate tag and synchronized versions
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF_NAME}"
+          [[ "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]
+          version="${tag#v}"
+          cargo_version="$(python -c 'import tomllib; print(tomllib.load(open("Cargo.toml","rb"))["workspace"]["package"]["version"])')"
+          root_npm_version="$(node -p 'require("./package.json").version')"
+          plugin_version="$(node -p 'require("./integrations/opencode/package.json").version')"
+          test "$version" = "$cargo_version"
+          test "$version" = "$root_npm_version"
+          test "$version" = "$plugin_version"
+          test "$(node -p 'require("./package-lock.json").version')" = "$version"
+          test "$(node -p 'require("./integrations/opencode/package-lock.json").version')" = "$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - name: Install sqlite-vec test extension
+        shell: bash
+        run: |
+          curl -sL "https://github.com/asg017/sqlite-vec/releases/download/v0.1.7-alpha.2/sqlite-vec-0.1.7-alpha.2-loadable-linux-x86_64.tar.gz" \
+            | tar xz -C crates/aeon-memory-store-sqlite/tests/fixtures/ vec0.so
+      - run: cargo fmt --all -- --check
+      - run: cargo clippy --workspace --all-targets --locked -- -D warnings
+      - run: cargo test --workspace --locked
+      - name: Build data tools
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run build
+      - name: Verify OpenCode npm package
+        working-directory: integrations/opencode
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run typecheck
+          npm test
+          npm run pack:check
+
+  build-native:
+    name: Native ${{ matrix.target }}
+    needs: validate
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+          - runner: ubuntu-22.04-arm
+            target: aarch64-unknown-linux-gnu
+          - runner: macos-15-intel
+            target: x86_64-apple-darwin
+          - runner: macos-15
+            target: aarch64-apple-darwin
+          - runner: windows-2022
+            target: x86_64-pc-windows-msvc
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: Swatinem/rust-cache@v2
+      - name: Build native binaries
+        run: cargo build --workspace --locked --release --bins --target ${{ matrix.target }}
+      - name: Smoke-test native binaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          suffix=""
+          if [[ "${{ matrix.target }}" == "x86_64-pc-windows-msvc" ]]; then suffix=".exe"; fi
+          "target/${{ matrix.target }}/release/aeon-memory${suffix}" --help
+          "target/${{ matrix.target }}/release/aeon-memory-server${suffix}" --help
+      - name: Package binaries with verified sqlite-vec
+        shell: bash
+        run: |
+          python scripts/package-native-release.py \
+            --target "${{ matrix.target }}" \
+            --app-version "${{ needs.validate.outputs.version }}" \
+            --binary-dir "target/${{ matrix.target }}/release" \
+            --output-dir dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: aeon-memory-${{ matrix.target }}
+          path: |
+            dist/*.tar.gz
+            dist/*.zip
+          if-no-files-found: error
+          retention-days: 7
+
+  publish-github:
+    name: Publish GitHub Release
+    needs: [validate, build-native]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: aeon-memory-*
+          path: dist
+          merge-multiple: true
+      - name: Verify artifacts and create checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(find dist -maxdepth 1 -type f \( -name '*.tar.gz' -o -name '*.zip' \) | wc -l)" -eq 5
+          (cd dist && sha256sum *.tar.gz *.zip > SHA256SUMS)
+          cat dist/SHA256SUMS
+      - name: Publish immutable release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" dist/* \
+            --verify-tag \
+            --title "Aeon Memory ${GITHUB_REF_NAME}" \
+            --generate-notes
+
+  publish-npm:
+    name: Publish npm package
+    needs: [validate, build-native]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          registry-url: https://registry.npmjs.org
+      - name: Update npm for Trusted Publishing support
+        run: npm install --global npm@latest
+      - name: Install, test, and publish
+        working-directory: integrations/opencode
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run typecheck
+          npm test
+          npm publish
+      - name: Verify public registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected="${{ needs.validate.outputs.version }}"
+          for attempt in 1 2 3 4 5 6; do
+            actual="$(npm view "@aeon-memory/opencode@$expected" version --prefer-online 2>/dev/null || true)"
+            if [[ "$actual" == "$expected" ]]; then exit 0; fi
+            sleep 10
+          done
+          echo "Published version did not become visible in the public registry" >&2
+          exit 1

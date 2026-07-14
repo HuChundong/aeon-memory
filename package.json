@@ -1,8 +1,8 @@
 {
-  "name": "@tencentdb-agent-memory/data-tools",
-  "version": "0.4.0",
+  "name": "@aeon-memory/data-tools",
+  "version": "0.6.1",
   "private": true,
-  "description": "Optional data migration and export tools for TencentDB Agent Memory",
+  "description": "Private migration and export tools for Aeon Memory",
   "type": "module",
   "bin": {
     "export-tencent-vdb": "./bin/export-tencent-vdb.mjs",

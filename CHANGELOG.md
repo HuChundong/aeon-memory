@@ -1,13 +1,40 @@
 # Changelog
 
-> Legacy notice: entries describing former agent-host plugins are retained only
-> as historical provenance. The current runtime is the standalone Rust CLI/HTTP system.
+All notable Aeon Memory changes are documented here. The format follows
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and versions follow
+[Semantic Versioning](https://semver.org/).
 
-本文件记录 `@tencentdb-agent-memory/memory-tencentdb` 插件的所有显著变更，格式遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)，版本号遵循 [Semantic Versioning](https://semver.org/)。
+> Entries below the Aeon Memory history are retained from TencentDB Agent
+> Memory for provenance and compatibility research. They describe the upstream
+> TypeScript/OpenClaw implementation, not necessarily the current Rust runtime.
+
+## [Unreleased]
+
+### Documentation and release engineering
+
+- Prepared the repository for public open-source maintenance with bilingual
+  documentation, community health files, upstream attribution, recognized MIT
+  metadata, package metadata, and automated GitHub/npm tag releases.
+
+## [0.6.1] - 2026-07-14
+
+### Added
+
+- Standalone Rust core, CLI, and ten-route HTTP server.
+- SQLite/FTS5/sqlite-vec storage and L0 through L3 memory pipeline.
+- OpenCode lifecycle integration published as `@aeon-memory/opencode`.
+- Cross-platform native release packaging and TypeScript differential tests.
+
+## [0.6.0] - 2026-07-14
+
+- First public npm publication of `@aeon-memory/opencode`.
 
 ---
 
-## [Unreleased]
+## Upstream historical changelog
+
+以下内容来自 `@tencentdb-agent-memory/memory-tencentdb` 的历史变更记录，仅用于来源追溯
+与兼容性研究，不代表当前 Aeon Memory Rust 运行时的版本或能力。
 
 ### ✨ 新功能
 

@@ -3,6 +3,10 @@ name = "aeon-memory-core"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+description = "Core L0-L3 memory pipeline for Aeon Memory"
 
 [dependencies]
 serde.workspace = true
