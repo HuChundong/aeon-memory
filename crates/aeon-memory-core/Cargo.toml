@@ -21,7 +21,7 @@ sha2.workspace = true
 md-5.workspace = true
 chrono-tz.workspace = true
 jieba-rs.workspace = true
-tiktoken-rs = "0.9"
+tiktoken-rs = "0.12"
 
 [dev-dependencies]
 filetime = "0.2"
