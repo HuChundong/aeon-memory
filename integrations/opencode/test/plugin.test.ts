@@ -1,6 +1,7 @@
 import assert from "node:assert/strict"
-import { readFile, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises"
+import { readFile, mkdir, mkdtemp, realpath, rm, writeFile } from "node:fs/promises"
 import { execFile } from "node:child_process"
+import { createRequire } from "node:module"
 import { tmpdir } from "node:os"
 import { dirname, join } from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
@@ -908,6 +909,7 @@ test("source installer migrates JSONC file URLs to a local npm dependency withou
     assert.equal(configured.plugin.length, 2)
     assert.equal(configured.plugin[1][0], "@aeon-memory/opencode")
     assert.equal(configured.plugin[1][1].gatewayUrl, "http://127.0.0.1:8420")
+    assert.equal(configured.plugin[1][1].toolsEnabled, true)
     assert.equal(configured.plugin[1][1].captureTimeoutMs, 23456)
     assert.equal(configured.plugin[1][1].offloadEnabled, true)
     await execFileAsync(join(integrationDir, "uninstall.sh"), ["--target", root])
@@ -1002,6 +1004,12 @@ test("npm pack installs cleanly and exposes an OpenCode-loadable plugin", async 
     const installed = await import(`${pathToFileURL(modulePath).href}?clean=${Date.now()}`)
     assert.deepEqual(Object.keys(installed), ["AeonMemoryPlugin"])
     assert.equal(typeof installed.AeonMemoryPlugin, "function")
+
+    const resolveFromInstalledApp = createRequire(join(appDir, "package.json"))
+    const serverPath = resolveFromInstalledApp.resolve("@aeon-memory/opencode/server")
+    assert.equal(await realpath(serverPath), await realpath(modulePath))
+    const serverEntry = await import(`${pathToFileURL(serverPath).href}?server=${Date.now()}`)
+    assert.equal(typeof serverEntry.AeonMemoryPlugin, "function")
 
     const hooks = await installed.AeonMemoryPlugin({
       directory: "/clean/repo",
