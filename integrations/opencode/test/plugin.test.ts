@@ -1,6 +1,7 @@
 import assert from "node:assert/strict"
-import { readFile, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises"
+import { readFile, mkdir, mkdtemp, realpath, rm, writeFile } from "node:fs/promises"
 import { execFile } from "node:child_process"
+import { createRequire } from "node:module"
 import { tmpdir } from "node:os"
 import { dirname, join } from "node:path"
 import { fileURLToPath, pathToFileURL } from "node:url"
@@ -1002,6 +1003,12 @@ test("npm pack installs cleanly and exposes an OpenCode-loadable plugin", async 
     const installed = await import(`${pathToFileURL(modulePath).href}?clean=${Date.now()}`)
     assert.deepEqual(Object.keys(installed), ["AeonMemoryPlugin"])
     assert.equal(typeof installed.AeonMemoryPlugin, "function")
+
+    const resolveFromInstalledApp = createRequire(join(appDir, "package.json"))
+    const serverPath = resolveFromInstalledApp.resolve("@aeon-memory/opencode/server")
+    assert.equal(await realpath(serverPath), await realpath(modulePath))
+    const serverEntry = await import(`${pathToFileURL(serverPath).href}?server=${Date.now()}`)
+    assert.equal(typeof serverEntry.AeonMemoryPlugin, "function")
 
     const hooks = await installed.AeonMemoryPlugin({
       directory: "/clean/repo",

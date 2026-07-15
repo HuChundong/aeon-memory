@@ -5,7 +5,8 @@
   "type": "module",
   "license": "MIT",
   "exports": {
-    ".": "./dist/aeon-memory.js"
+    ".": "./dist/aeon-memory.js",
+    "./server": "./dist/aeon-memory.js"
   },
   "bin": {
     "aeon-memory-opencode": "dist/cli.js"
