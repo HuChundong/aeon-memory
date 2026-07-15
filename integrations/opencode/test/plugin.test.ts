@@ -909,6 +909,7 @@ test("source installer migrates JSONC file URLs to a local npm dependency withou
     assert.equal(configured.plugin.length, 2)
     assert.equal(configured.plugin[1][0], "@aeon-memory/opencode")
     assert.equal(configured.plugin[1][1].gatewayUrl, "http://127.0.0.1:8420")
+    assert.equal(configured.plugin[1][1].toolsEnabled, true)
     assert.equal(configured.plugin[1][1].captureTimeoutMs, 23456)
     assert.equal(configured.plugin[1][1].offloadEnabled, true)
     await execFileAsync(join(integrationDir, "uninstall.sh"), ["--target", root])
