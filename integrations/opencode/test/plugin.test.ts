@@ -930,7 +930,7 @@ test("installer defaults to the published registry package and requires an expli
   const cli = join(here, "..", "dist", "cli.js")
   try {
     const dryRun = await execFileAsync(cli, ["install", "--target", root, "--dry-run"])
-    assert.match(dryRun.stdout, /Would run npm install: @aeon-memory\/opencode@0\.7\.0/)
+    assert.match(dryRun.stdout, /Would run npm install: @aeon-memory\/opencode@0\.7\.1/)
     assert.match(dryRun.stdout, /Would configure: .*opencode\.jsonc/)
     await writeFile(join(root, "opencode.json"), "{}\n")
     await writeFile(join(root, "opencode.jsonc"), "{}\n")

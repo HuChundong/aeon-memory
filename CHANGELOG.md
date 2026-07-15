@@ -6,6 +6,8 @@ Aeon Memory 的所有重要公开变更记录在此。格式遵循
 
 ## [Unreleased]
 
+## [0.7.1] - 2026-07-15
+
 ### 修复
 
 - 原生服务进程边界测试现在断言 `/health.version` 与 Cargo 编译期版本一致；`aeon-memory-server --version` 提供同一版本的独立验证，防止发布升级后误把旧进程当作新二进制。
@@ -61,7 +63,8 @@ Aeon Memory 的所有重要公开变更记录在此。格式遵循
 - OpenCode 自动记忆插件 `@aeon-memory/opencode` 首次公开发布。
 - 行为回归测试与跨平台原生打包流程。
 
-[Unreleased]: https://github.com/HuChundong/aeon-memory/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/HuChundong/aeon-memory/compare/v0.7.1...HEAD
+[0.7.1]: https://github.com/HuChundong/aeon-memory/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/HuChundong/aeon-memory/compare/v0.6.3...v0.7.0
 [0.6.3]: https://github.com/HuChundong/aeon-memory/compare/v0.6.2...v0.6.3
 [0.6.2]: https://github.com/HuChundong/aeon-memory/compare/v0.6.1...v0.6.2

@@ -1,6 +1,6 @@
 {
   "name": "@aeon-memory/data-tools",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "private": true,
   "description": "Private offline data inspection and export tools for Aeon Memory",
   "type": "module",
