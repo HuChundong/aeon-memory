@@ -135,21 +135,29 @@ impl OpenAiEmbeddingService {
         let body = self.build_body(texts);
         let body_str = serde_json::to_string(&body)?;
         let mut attempt = 0usize;
-        let response = loop {
+        let mut response = loop {
             let mut request = ureq::post(&url)
-                .set("Content-Type", "application/json")
-                .set("Authorization", &format!("Bearer {}", self.config.api_key))
-                .set("Accept", "application/json")
-                .timeout(std::time::Duration::from_millis(
-                    self.effective_timeout_ms(),
-                ));
+                .header("Content-Type", "application/json")
+                .header("Authorization", format!("Bearer {}", self.config.api_key))
+                .header("Accept", "application/json");
             if self.config.provider == "qclaw" && url != self.remote_url() {
-                request = request.set("Remote-URL", &self.remote_url());
+                request = request.header("Remote-URL", self.remote_url());
             }
-            match request.send_string(&body_str) {
-                Ok(response) => break response,
-                Err(ureq::Error::Status(code, response)) => {
-                    let response_body = response.into_string().unwrap_or_default();
+            let request = request
+                .config()
+                .timeout_global(Some(std::time::Duration::from_millis(
+                    self.effective_timeout_ms(),
+                )))
+                // Keep the v2 behaviour that lets retry logic inspect the response body.
+                .http_status_as_error(false)
+                .build();
+            match request.send(&body_str) {
+                Ok(mut response) => {
+                    let code = response.status().as_u16();
+                    if !(400..600).contains(&code) {
+                        break response;
+                    }
+                    let response_body = response.body_mut().read_to_string().unwrap_or_default();
                     let error = AeonMemoryCoreError::Embedding(format!(
                         "Embedding API returned HTTP {}: {}",
                         code,
@@ -180,7 +188,7 @@ impl OpenAiEmbeddingService {
             }
         };
 
-        let response_text = response.into_string().map_err(|e| {
+        let response_text = response.body_mut().read_to_string().map_err(|e| {
             AeonMemoryCoreError::Embedding(format!("Failed to read response: {}", e))
         })?;
 
@@ -376,7 +384,11 @@ mod tests {
                 .to_ascii_lowercase()
                 .contains("remote-url: https://remote.example/v1/embeddings")
         );
-        assert!(request.contains("Authorization: Bearer proxy-secret"));
+        assert!(
+            request
+                .to_ascii_lowercase()
+                .contains("authorization: bearer proxy-secret")
+        );
         assert_eq!(service.provider_info().provider, "qclaw");
     }
 

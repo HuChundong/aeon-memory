@@ -33,8 +33,10 @@ impl Tokenizer for O200kTokenizer {
         } else {
             tiktoken_rs::o200k_base_singleton()
                 .encode(text, &std::collections::HashSet::new())
-                .0
-                .len()
+                .map(|(tokens, _)| tokens.len())
+                // Keep the TypeScript tracker's fail-open behaviour when the
+                // tokenizer rejects an otherwise valid input.
+                .unwrap_or_else(|_| text.encode_utf16().count().div_ceil(4))
         }
     }
 }

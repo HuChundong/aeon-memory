@@ -128,7 +128,7 @@ pub fn round_idempotency_key(
     h.update(session_id.as_bytes());
     h.update(round_index.to_le_bytes());
     h.update(serde_json::to_vec(round).expect("serializable"));
-    format!("{:x}", h.finalize())
+    crate::lowercase_hex(h.finalize())
 }
 
 #[cfg(test)]
@@ -202,5 +202,13 @@ mod tests {
         assert_eq!(second.l0_recorded_count, 0);
         assert_eq!(second.idempotent_skips, 3);
         assert!(rt.destroyed);
+    }
+    #[test]
+    fn round_idempotency_key_golden() {
+        let input = input();
+        assert_eq!(
+            round_idempotency_key("s", "id", 0, &input.sessions[0].rounds[0]),
+            "b9038a6dab297ce183b2cfcf236dfe1d58b1851c572fb79a5db5b07dea724c11"
+        );
     }
 }

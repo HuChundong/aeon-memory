@@ -31,9 +31,32 @@ async fn layered_llm_server() -> String {
             };
             tokio::spawn(async move {
                 use tokio::io::{AsyncReadExt, AsyncWriteExt};
-                let mut bytes = vec![0; 128 * 1024];
-                let read = stream.read(&mut bytes).await.unwrap_or_default();
-                let request = String::from_utf8_lossy(&bytes[..read]);
+                let mut bytes = Vec::new();
+                let mut chunk = [0_u8; 4096];
+                let body_end = loop {
+                    let read = stream.read(&mut chunk).await.unwrap_or_default();
+                    if read == 0 {
+                        return;
+                    }
+                    bytes.extend_from_slice(&chunk[..read]);
+                    let Some(header_end) =
+                        bytes.windows(4).position(|window| window == b"\r\n\r\n")
+                    else {
+                        continue;
+                    };
+                    let headers = String::from_utf8_lossy(&bytes[..header_end]);
+                    let content_length = headers
+                        .lines()
+                        .filter_map(|line| line.split_once(':'))
+                        .find(|(name, _)| name.eq_ignore_ascii_case("content-length"))
+                        .and_then(|(_, value)| value.trim().parse::<usize>().ok())
+                        .unwrap_or(0);
+                    let body_end = header_end + 4 + content_length;
+                    if bytes.len() >= body_end {
+                        break body_end;
+                    }
+                };
+                let request = String::from_utf8_lossy(&bytes[..body_end]);
                 let message = if request.contains("Memory Consolidation Architect") {
                     if request.contains("\"tool_call_id\":\"scene-write\"") {
                         serde_json::json!({

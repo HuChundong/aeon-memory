@@ -16,7 +16,7 @@ thiserror.workspace = true
 chrono.workspace = true
 async-trait.workspace = true
 tokio = { workspace = true, features = ["sync"] }
-rusqlite = { version = "0.32", features = ["bundled", "load_extension"] }
+rusqlite = { version = "0.40", features = ["bundled", "load_extension"] }
 
 [lib]
 name = "aeon_memory_store_sqlite"
