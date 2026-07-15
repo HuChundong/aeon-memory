@@ -20,13 +20,13 @@ serde_yaml.workspace = true
 subtle = "2"
 thiserror.workspace = true
 tokio = { workspace = true, features = ["io-util"] }
-tower-http = { version = "0.6", features = ["cors"] }
+tower-http = { version = "0.7", features = ["cors"] }
 chrono.workspace = true
 ureq.workspace = true
 
 [dev-dependencies]
 http-body-util = "0.1"
-rusqlite = { version = "0.32", features = ["bundled"] }
+rusqlite = { version = "0.40", features = ["bundled"] }
 tower = { version = "0.5", features = ["util"] }
 
 [lib]

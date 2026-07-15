@@ -675,19 +675,23 @@ impl BackendOffloadRunner {
         let user_id = self.user_id.clone();
         let timeout = std::time::Duration::from_millis(self.timeout_ms);
         tokio::task::spawn_blocking(move || {
-            let agent = ureq::AgentBuilder::new().timeout(timeout).build();
-            let mut request = agent.post(&url).set("Content-Type", "application/json");
+            let agent: ureq::Agent = ureq::Agent::config_builder()
+                .timeout_global(Some(timeout))
+                .build()
+                .into();
+            let mut request = agent.post(&url).header("Content-Type", "application/json");
             if let Some(key) = api_key.as_deref().filter(|key| !key.is_empty()) {
-                request = request.set("Authorization", &format!("Bearer {key}"));
+                request = request.header("Authorization", format!("Bearer {key}"));
             }
             if let Some(user_id) = user_id.as_deref().filter(|id| !id.is_empty()) {
-                request = request.set("X-User-Id", user_id);
+                request = request.header("X-User-Id", user_id);
             }
             let response = request
-                .send_string(&body.to_string())
+                .send(body.to_string())
                 .map_err(|error| AeonMemoryCoreError::Http(error.to_string()))?;
             let raw = response
-                .into_string()
+                .into_body()
+                .read_to_string()
                 .map_err(|error| AeonMemoryCoreError::Http(error.to_string()))?;
             serde_json::from_str(&raw).map_err(Into::into)
         })

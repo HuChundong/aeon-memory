@@ -157,7 +157,7 @@ fn try_load_vec_extension_path(conn: &Connection, ext_path: Option<&Path>) -> bo
             return false;
         }
         let _guard_lifetime = guard.unwrap();
-        let result = conn.load_extension(ext_path.to_str().unwrap_or(""), None);
+        let result = conn.load_extension(ext_path.to_str().unwrap_or(""), None::<&str>);
         // _guard_lifetime dropped here → load_extension_disable() called
         result.is_ok()
     }

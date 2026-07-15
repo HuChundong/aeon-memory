@@ -31,12 +31,12 @@ pub fn build_profile_stable_id(scope: &str, kind: ProfileType, filename: &str) -
     };
     let mut h = Sha256::new();
     h.update(format!("{scope}\0{t}\0{filename}"));
-    format!("profile:v1:{:x}", h.finalize())
+    format!("profile:v1:{}", crate::lowercase_hex(h.finalize()))
 }
 fn md5(s: &str) -> String {
     let mut h = Md5::new();
     h.update(s);
-    format!("{:x}", h.finalize())
+    crate::lowercase_hex(h.finalize())
 }
 fn stat_times(p: &Path) -> (i64, i64) {
     let now = chrono::Utc::now().timestamp_millis();
@@ -331,6 +331,10 @@ mod tests {
             build_profile_stable_id("global", ProfileType::L2, "a.md"),
             "profile:v1:adbaf39681cdbd3ff4ea974c4f12857f4c0969cb20b6fd735406cb7a5b1bfb4f"
         )
+    }
+    #[test]
+    fn content_md5_golden() {
+        assert_eq!(md5("abc"), "900150983cd24fb0d6963f7d28e17f72");
     }
     #[test]
     fn local_files_are_exact() {

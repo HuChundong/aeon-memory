@@ -100,21 +100,28 @@ impl OpenAiLlmRunner {
         let mut retry_delay_ms = INITIAL_RETRY_DELAY_MS;
         let mut attempt = 0_usize;
 
-        let response = loop {
+        let mut response = loop {
             let remaining = deadline.saturating_duration_since(Instant::now());
             if remaining.is_zero() {
                 return Err(AeonMemoryCoreError::Llm("LLM request timed out".into()));
             }
             let request = ureq::post(url)
-                .set("Content-Type", "application/json")
-                .set("Authorization", &format!("Bearer {}", config.api_key))
-                .set("Accept", "application/json")
-                .timeout(remaining);
-            match request.send_string(&body_str) {
-                Ok(response) => break response,
-                Err(ureq::Error::Status(code, response)) => {
+                .header("Content-Type", "application/json")
+                .header("Authorization", format!("Bearer {}", config.api_key))
+                .header("Accept", "application/json")
+                .config()
+                .timeout_global(Some(remaining))
+                // Retry policy requires the HTTP status and response headers/body.
+                .http_status_as_error(false)
+                .build();
+            match request.send(&body_str) {
+                Ok(mut response) => {
+                    let code = response.status().as_u16();
+                    if !(400..600).contains(&code) {
+                        break response;
+                    }
                     let retry_after = Self::retry_after_delay(&response, retry_delay_ms);
-                    let body = response.into_string().unwrap_or_default();
+                    let body = response.body_mut().read_to_string().unwrap_or_default();
                     let error = AeonMemoryCoreError::Llm(format!(
                         "LLM API returned HTTP {}: {}",
                         code,
@@ -143,7 +150,8 @@ impl OpenAiLlmRunner {
         };
 
         let response_text = response
-            .into_string()
+            .body_mut()
+            .read_to_string()
             .map_err(|e| AeonMemoryCoreError::Llm(format!("Failed to read response: {}", e)))?;
 
         serde_json::from_str(&response_text)
@@ -376,13 +384,18 @@ impl OpenAiLlmRunner {
         matches!(status, 408 | 409 | 429) || status >= 500
     }
 
-    fn retry_after_delay(response: &ureq::Response, fallback_ms: u64) -> Duration {
+    fn retry_after_delay(
+        response: &ureq::http::Response<ureq::Body>,
+        fallback_ms: u64,
+    ) -> Duration {
         let header_ms = response
-            .header("retry-after-ms")
+            .headers()
+            .get("retry-after-ms")
+            .and_then(|value| value.to_str().ok())
             .and_then(|value| value.parse::<f64>().ok())
             .filter(|value| !value.is_nan());
         let retry_after_ms = header_ms.or_else(|| {
-            let value = response.header("retry-after")?;
+            let value = response.headers().get("retry-after")?.to_str().ok()?;
             if let Ok(seconds) = value.parse::<f64>() {
                 return (seconds.is_finite() && seconds >= 0.0).then_some(seconds * 1_000.0);
             }
