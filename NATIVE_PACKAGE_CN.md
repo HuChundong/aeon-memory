@@ -29,6 +29,10 @@ curl http://127.0.0.1:8420/health
 
 `/health` 表示核心已初始化和本地存储已组合，不会探测远程 LLM/Embedding 端点。
 
+升级已有受服务管理的安装时，先停止旧进程，再替换整个原生包并启动服务；不要覆盖正在运行的
+可执行文件。启动后 `./aeon-memory-server --version` 和 `/health` 返回的 `version` 必须一致。
+若磁盘文件已更新但 `/health` 仍是旧版本，说明旧进程仍持有旧 inode，重启服务即可，不能只重复复制文件。
+
 CLI 是无需服务端的替代入口。先停止使用同一数据目录的 `aeon-memory-server`，再执行：
 
 ```bash

@@ -20,6 +20,11 @@ async fn shutdown_signal() {
 }
 
 #[derive(Parser)]
+#[command(
+    name = "aeon-memory-server",
+    version,
+    about = "Aeon Memory HTTP server"
+)]
 struct Args {
     /// Gateway YAML/JSON configuration. When omitted, uses TS-compatible discovery.
     #[arg(long)]

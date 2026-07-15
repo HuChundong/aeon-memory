@@ -278,7 +278,8 @@ Offload 不属于 `data.baseDir`。其默认根目录独立为
 2. 正常停止服务，确认没有进程打开数据目录。
 3. 完整备份 `data.baseDir` 和 `aeon-memory.yaml`/JSON。
 4. 下载目标版本对应平台包并验证 Release SHA-256。
-5. 将新包解压到新目录；不要只替换程序而保留旧版 vec0。
+5. 将新包解压到新目录；不要只替换程序而保留旧版 vec0。受 launchd、systemd 或 Windows Service 管理时，先停止旧进程，再切换服务配置到新目录并启动；不得在旧进程仍运行时覆盖其可执行文件。
+6. 服务启动后同时验证磁盘二进制和运行中的 HTTP 进程版本：`./aeon-memory-server --version` 与 `curl http://127.0.0.1:8420/health` 的 `version` 必须等于目标版本。两者不一致说明仍在运行旧进程，应先完成服务重启，而不是重新下载或覆盖新文件。
 
 不要直接更换已有库的 Embedding model 或 dimensions；当前原生包没有自动 reindex
 命令。失败回滚时先停止新服务，再恢复旧程序、旧 vec0、旧配置和完整数据备份。
