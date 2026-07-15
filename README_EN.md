@@ -133,6 +133,12 @@ The default data directory is `~/.aeon-memory/data`. The precedence is
 `AEON_MEMORY_DATA_DIR`, explicit `data.baseDir`, then the default. Stop the
 service and back up the complete directory before upgrades.
 
+For a service-managed native upgrade, stop the old process before switching to
+the complete new package, then restart it. Verify both
+`aeon-memory-server --version` and `/health` report the target version; a new
+file on disk with an old `/health` version means the old process is still
+running and must be restarted.
+
 Keep the service on `127.0.0.1` unless remote access is required. For any
 non-loopback binding, use a strong API key, firewall rules, TLS termination,
 and a minimal CORS allowlist. Never commit credentials or production memory.

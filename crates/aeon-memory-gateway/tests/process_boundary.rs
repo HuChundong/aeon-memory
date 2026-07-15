@@ -188,6 +188,16 @@ fn stop_with_signal(child: &mut Child, signal: &str) {
     ignore = "Unix signal handling not available on Windows"
 )]
 fn real_server_covers_ten_routes_security_cors_shutdown_and_restart() {
+    let version = Command::new(env!("CARGO_BIN_EXE_aeon-memory-server"))
+        .arg("--version")
+        .output()
+        .unwrap();
+    assert!(version.status.success());
+    assert_eq!(
+        String::from_utf8(version.stdout).unwrap().trim(),
+        format!("aeon-memory-server {}", env!("CARGO_PKG_VERSION"))
+    );
+
     let root = std::env::temp_dir().join(format!("aeon-memory-process-e2e-{}", std::process::id()));
     let _ = fs::remove_dir_all(&root);
     fs::create_dir_all(&root).unwrap();
@@ -241,6 +251,8 @@ memory:
     )
     .unwrap();
     assert_eq!(health.status, 200);
+    let health_body: serde_json::Value = serde_json::from_str(&health.body).unwrap();
+    assert_eq!(health_body["version"], env!("CARGO_PKG_VERSION"));
     assert_eq!(
         health.header("access-control-allow-origin"),
         Some("https://allowed.example")
