@@ -243,6 +243,56 @@ test("structured recall splits dynamic user context from stable main-loop system
   assert.deepEqual(repeatedWithoutMessages.system, ["title-or-other"])
 })
 
+test("Qwen 3.6 receives stable system context as synthetic user text without changing other models", async () => {
+  const recallResponses = [{ prependContext: "dynamic memory", appendSystemContext: "stable memory guide" }]
+  const qwen = harness({ recallResponses })
+  const qwenHooks = await qwen.factory({ client: qwen.client, directory: "/repo/qwen" })
+  await qwenHooks["chat.message"]({ sessionID: "s1" }, { message: { id: "u1" }, parts: [{ type: "text", text: "remember" }] })
+  const qwenMessages = messageHistory()
+  await qwenHooks["experimental.chat.messages.transform"]({}, qwenMessages)
+  const qwenSystem = { system: ["main"] }
+  await qwenHooks["experimental.chat.system.transform"]?.({
+    sessionID: "s1",
+    model: { providerID: "vllm-gpu", id: "Qwen3.6-27B-AWQ" },
+  }, qwenSystem)
+  assert.deepEqual(qwenSystem.system, ["main"])
+  const compatPart = qwenMessages.messages[0]?.parts.find((part) => part.metadata?.kind === "system-context-model-compatibility")
+  assert.ok(compatPart)
+  assert.equal(compatPart.synthetic, true)
+  assert.match(compatPart.text ?? "", /stable memory guide/)
+
+  const other = harness({ recallResponses })
+  const otherHooks = await other.factory({ client: other.client, directory: "/repo/other" })
+  await otherHooks["chat.message"]({ sessionID: "s2" }, { message: { id: "u2" }, parts: [{ type: "text", text: "remember" }] })
+  const otherMessages = messageHistory("u2", "s2")
+  await otherHooks["experimental.chat.messages.transform"]({}, otherMessages)
+  const otherSystem = { system: ["main"] }
+  await otherHooks["experimental.chat.system.transform"]?.({
+    sessionID: "s2",
+    model: { providerID: "vllm-gpu", id: "OtherModel" },
+  }, otherSystem)
+  assert.deepEqual(otherSystem.system, ["main", "stable memory guide"])
+  assert.equal(otherMessages.messages[0]?.parts.some((part) => part.metadata?.kind === "system-context-model-compatibility"), false)
+})
+
+test("system context user-text compatibility patterns are configurable", async () => {
+  const h = harness({
+    config: { systemContextUserTextModelPatterns: ["custom/Qwen3.5-*"] },
+    recallResponses: [{ appendSystemContext: "stable memory guide" }],
+  })
+  const hooks = await h.factory({ client: h.client, directory: "/repo/custom" })
+  await hooks["chat.message"]({ sessionID: "s1" }, { message: { id: "u1" }, parts: [{ type: "text", text: "remember" }] })
+  const messages = messageHistory()
+  await hooks["experimental.chat.messages.transform"]({}, messages)
+  const system = { system: ["main"] }
+  await hooks["experimental.chat.system.transform"]?.({
+    sessionID: "s1",
+    model: { providerID: "custom", id: "qwen3.5-397b-a17b" },
+  }, system)
+  assert.deepEqual(system.system, ["main"])
+  assert.match(messages.messages[0]?.parts.at(-1)?.text ?? "", /stable memory guide/)
+})
+
 test("v0.7 gateway recall preserves the exact dynamic payload without a second search", async () => {
   const h = harness({ recallResponses: [{
     context: "stable official context",
@@ -930,7 +980,7 @@ test("installer defaults to the published registry package and requires an expli
   const cli = join(here, "..", "dist", "cli.js")
   try {
     const dryRun = await execFileAsync(cli, ["install", "--target", root, "--dry-run"])
-    assert.match(dryRun.stdout, /Would run npm install: @aeon-memory\/opencode@0\.7\.1/)
+    assert.match(dryRun.stdout, /Would run npm install: @aeon-memory\/opencode@0\.7\.2/)
     assert.match(dryRun.stdout, /Would configure: .*opencode\.jsonc/)
     await writeFile(join(root, "opencode.json"), "{}\n")
     await writeFile(join(root, "opencode.jsonc"), "{}\n")

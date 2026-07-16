@@ -6,6 +6,13 @@ Aeon Memory 的所有重要公开变更记录在此。格式遵循
 
 ## [Unreleased]
 
+## [0.7.2] - 2026-07-16
+
+### 修复
+
+- OpenCode 插件默认对 Qwen 3.6 将稳定记忆上下文作为 synthetic user text 注入，避免严格模型网关拒绝多条 system message，同时保持其他模型的 system prompt 缓存设计不变。
+- 新增可配置的 `systemContextUserTextModelPatterns` 大小写不敏感 glob 列表，可扩展同类模型兼容规则或通过空列表关闭默认规则。
+
 ## [0.7.1] - 2026-07-15
 
 ### 修复
@@ -63,7 +70,8 @@ Aeon Memory 的所有重要公开变更记录在此。格式遵循
 - OpenCode 自动记忆插件 `@aeon-memory/opencode` 首次公开发布。
 - 行为回归测试与跨平台原生打包流程。
 
-[Unreleased]: https://github.com/HuChundong/aeon-memory/compare/v0.7.1...HEAD
+[Unreleased]: https://github.com/HuChundong/aeon-memory/compare/v0.7.2...HEAD
+[0.7.2]: https://github.com/HuChundong/aeon-memory/compare/v0.7.1...v0.7.2
 [0.7.1]: https://github.com/HuChundong/aeon-memory/compare/v0.7.0...v0.7.1
 [0.7.0]: https://github.com/HuChundong/aeon-memory/compare/v0.6.3...v0.7.0
 [0.6.3]: https://github.com/HuChundong/aeon-memory/compare/v0.6.2...v0.6.3
