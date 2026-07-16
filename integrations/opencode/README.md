@@ -72,7 +72,8 @@ npx @aeon-memory/opencode@latest uninstall
         "recallMaxChars": 12000,
         "captureMaxChars": 40000,
         "offloadEnabled": false,
-        "contextWindow": 200000
+        "contextWindow": 200000,
+        "systemContextUserTextModelPatterns": ["*qwen3.6*"]
       }
     ]
   ]
@@ -96,6 +97,7 @@ npx @aeon-memory/opencode@latest uninstall
 | `captureMaxChars` | `40000` | 单条捕获文本字符上限 |
 | `offloadEnabled` | `false` | 启用三类上下文卸载 Hook |
 | `contextWindow` | `200000` | Offload DTO 的上下文窗口 |
+| `systemContextUserTextModelPatterns` | `["*qwen3.6*"]` | 大小写不敏感的模型 ID glob；命中时将稳定 system context 改为 synthetic user text，以兼容只接受单条 system message 的模型网关；设为 `[]` 可关闭 |
 
 插件只读取上述配置对象，不读取 Provider 密钥或运行时环境变量。未知字段、错误类型或越界
 值会在加载时直接报错。网络错误采用 fail-open 策略：记录警告但不会阻断 Agent。

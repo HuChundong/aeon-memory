@@ -24,6 +24,7 @@ interface Config {
   captureMaxChars: number
   offloadEnabled: boolean
   contextWindow: number
+  systemContextUserTextModelPatterns: string[]
 }
 
 interface RecallState {
@@ -104,12 +105,13 @@ const DEFAULT_CONFIG: Config = {
   captureMaxChars: 40000,
   offloadEnabled: false,
   contextWindow: 200000,
+  systemContextUserTextModelPatterns: ["*qwen3.6*"],
 }
 
 const CONFIG_KEYS = new Set<keyof Config>([
   "enabled", "recallEnabled", "captureEnabled", "toolsEnabled", "gatewayUrl", "apiKey", "userId", "recallTimeoutMs",
   "captureTimeoutMs", "sessionEndTimeoutMs", "offloadTimeoutMs",
-  "recallMaxChars", "captureMaxChars", "offloadEnabled", "contextWindow",
+  "recallMaxChars", "captureMaxChars", "offloadEnabled", "contextWindow", "systemContextUserTextModelPatterns",
 ])
 
 function boundedInteger(value: unknown, fallback: number, name: string, min: number, max: number): number {
@@ -130,6 +132,14 @@ function booleanOption(value: unknown, fallback: boolean, name: string): boolean
   if (value === undefined) return fallback
   if (typeof value !== "boolean") throw new Error(`aeon-memory option ${name} must be a boolean`)
   return value
+}
+
+function stringArrayOption(value: unknown, fallback: string[], name: string): string[] {
+  if (value === undefined) return [...fallback]
+  if (!Array.isArray(value) || value.some((item) => typeof item !== "string" || !item.trim())) {
+    throw new Error(`aeon-memory option ${name} must be an array of non-empty strings`)
+  }
+  return value.map((item) => item.trim())
 }
 
 function configFromOptions(options: PluginOptions = {}): Config {
@@ -161,7 +171,26 @@ function configFromOptions(options: PluginOptions = {}): Config {
     captureMaxChars: boundedInteger(options.captureMaxChars, DEFAULT_CONFIG.captureMaxChars, "captureMaxChars", 256, 200000),
     offloadEnabled: booleanOption(options.offloadEnabled, DEFAULT_CONFIG.offloadEnabled, "offloadEnabled"),
     contextWindow: boundedInteger(options.contextWindow, DEFAULT_CONFIG.contextWindow, "contextWindow", 1024, 2000000),
+    systemContextUserTextModelPatterns: stringArrayOption(
+      options.systemContextUserTextModelPatterns,
+      DEFAULT_CONFIG.systemContextUserTextModelPatterns,
+      "systemContextUserTextModelPatterns",
+    ),
   }
+}
+
+function globMatches(value: string, pattern: string): boolean {
+  const escaped = pattern.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*")
+  return new RegExp(`^${escaped}$`, "i").test(value)
+}
+
+function modelMatchesUserTextCompatibility(model: unknown, patterns: string[]): boolean {
+  if (!model || typeof model !== "object") return false
+  const value = model as JsonRecord
+  const modelID = typeof value.id === "string" ? value.id : typeof value.modelID === "string" ? value.modelID : ""
+  const providerID = typeof value.providerID === "string" ? value.providerID : ""
+  const identities = [modelID, providerID && modelID ? `${providerID}/${modelID}` : ""].filter(Boolean)
+  return patterns.some((pattern) => identities.some((identity) => globMatches(identity, pattern)))
 }
 
 function redactSensitive(input: unknown, maxChars = 40000): string {
@@ -516,6 +545,7 @@ function createAeonMemoryPlugin({
   return async ({ client, directory }: RuntimeInput, options: PluginOptions = {}): Promise<Hooks> => {
     const config = configFromOptions(options)
     const recalls = new Map<string, RecallState>()
+    const modelInputMessages = new Map<string, MessageWithParts[]>()
     const recallGenerations = new Map<string, number>()
     const compactions = new Map<string, CompactionState>()
     const mainSystemGates = new Set<string>()
@@ -783,6 +813,10 @@ function createAeonMemoryPlugin({
           skipInjection.add(sessionID)
           compactions.set(sessionID, { ...state, phase: "awaiting-event" })
         }
+        if (sessionIDs.size === 1) {
+          const sessionID = sessionIDs.values().next().value
+          if (sessionID && !skipInjection.has(sessionID)) modelInputMessages.set(sessionID, messages)
+        }
         if (config.offloadEnabled && sessionIDs.size === 1) {
           const sessionID = sessionIDs.values().next().value
           const state = sessionID ? compactions.get(sessionID) : undefined
@@ -843,10 +877,23 @@ function createAeonMemoryPlugin({
         if (!sessionID) return
         const stableArmed = mainSystemGates.delete(sessionID)
         const context = stableArmed ? recalls.get(sessionID)?.appendSystemContext : undefined
-        if (context) output.system.push(context)
+        const injectSystemContextAsUserText = Boolean(context) && modelMatchesUserTextCompatibility(
+          input.model,
+          config.systemContextUserTextModelPatterns,
+        )
+        if (context && !injectSystemContextAsUserText) output.system.push(context)
 
         const pending = pendingOffloads.get(sessionID)
-        if (!pending) return
+        if (!pending) {
+          if (injectSystemContextAsUserText && context) {
+            const user = latestUserMessage(modelInputMessages.get(sessionID) || [], sessionID)
+            if (user && Array.isArray(user.parts)) {
+              user.parts.push(syntheticPart(user, memoryContextText(context), "system-context-model-compatibility"))
+            }
+          }
+          modelInputMessages.delete(sessionID)
+          return
+        }
         pendingOffloads.delete(sessionID)
         const offloaded = await request("/offload/before-prompt", {
           agent_id: "opencode",
@@ -861,6 +908,14 @@ function createAeonMemoryPlugin({
           : undefined
         const transformed = responseMessages(offloaded) ?? mergeCanonicalRewrite(pending.messages, rawMessages)
         if (transformed) pending.messages.splice(0, pending.messages.length, ...transformed)
+        if (injectSystemContextAsUserText && context) {
+          const messages = pending.messages
+          const user = latestUserMessage(messages, sessionID)
+          if (user && Array.isArray(user.parts)) {
+            user.parts.push(syntheticPart(user, memoryContextText(context), "system-context-model-compatibility"))
+          }
+        }
+        modelInputMessages.delete(sessionID)
       },
 
       event: async ({ event }) => {

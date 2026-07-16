@@ -72,7 +72,8 @@ npx @aeon-memory/opencode config
         "recallMaxChars": 12000,
         "captureMaxChars": 40000,
         "offloadEnabled": false,
-        "contextWindow": 200000
+        "contextWindow": 200000,
+        "systemContextUserTextModelPatterns": ["*qwen3.6*"]
       }
     ]
   ]
@@ -96,6 +97,7 @@ npx @aeon-memory/opencode config
 | `captureMaxChars` | `40000` | 单条捕获文本上限 |
 | `offloadEnabled` | `false` | 是否启用完整 offload 生命周期 |
 | `contextWindow` | `200000` | offload DTO 的上下文窗口 |
+| `systemContextUserTextModelPatterns` | `["*qwen3.6*"]` | 大小写不敏感的模型 ID glob；命中时将稳定 system context 改为 synthetic user text，以兼容只接受单条 system message 的模型网关；设为 `[]` 可关闭 |
 
 未知配置项、错误类型和越界数值会在插件加载时直接报错，避免拼写错误被静默忽略。超时合法范围为 100–600000 ms。`/capture` 是 fail-open 的普通请求，不应同步等待 L1/L2/L3 模型管线；`/session/end` 只用于真正的生命周期结束，因此保留较长的 flush 上限。
 
