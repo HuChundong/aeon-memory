@@ -24,6 +24,16 @@ const ZH_STOP_WORDS: &[&str] = &[
     "它", "们", "那", "吗", "吧", "呢", "啊", "呀", "哦", "嗯",
 ];
 
+/// Escape one token as an FTS5 literal phrase.
+///
+/// Every token is quoted before it reaches SQLite's `MATCH` parser. Within a
+/// quoted FTS5 phrase, a double quote is represented by two double quotes;
+/// escaping rather than removing it preserves the user's original search
+/// term while preventing FTS operators from changing query semantics.
+pub fn sanitize_fts_token(token: &str) -> String {
+    format!("\"{}\"", token.replace('"', "\"\""))
+}
+
 /// Build an FTS5 MATCH query from raw text. Port of buildFtsQuery() in sqlite.ts:198-230.
 /// Uses jieba for Chinese segmentation; jieba is always available in this crate.
 pub fn build_fts_query(raw: &str) -> Option<String> {
@@ -60,10 +70,7 @@ pub fn build_fts_query(raw: &str) -> Option<String> {
         return None;
     }
 
-    let quoted: Vec<String> = unique
-        .iter()
-        .map(|t| format!("\"{}\"", t.replace('"', "")))
-        .collect();
+    let quoted: Vec<String> = unique.iter().map(|t| sanitize_fts_token(t)).collect();
     Some(quoted.join(" OR "))
 }
 
@@ -214,6 +221,15 @@ mod tests {
     #[test]
     fn test_build_fts_pure_stop_words_matches_ts() {
         assert_eq!(build_fts_query("的 了 和"), None);
+    }
+
+    #[test]
+    fn sanitize_fts_token_preserves_quotes_as_fts5_literal_content() {
+        assert_eq!(
+            sanitize_fts_token("alpha\" OR beta"),
+            "\"alpha\"\" OR beta\""
+        );
+        assert_eq!(sanitize_fts_token("NOT * (x)"), "\"NOT * (x)\"");
     }
 
     #[test]
