@@ -20,7 +20,7 @@ use aeon_memory_core::{
         token::{O200kTokenizer, snapshot},
     },
     pipeline::{
-        checkpoint::read_checkpoint,
+        checkpoint::{read_checkpoint, recalculate_store_counts},
         manager::{PipelineConfig, PipelineManager, SystemClock},
     },
     record::l1_extractor::L1ExtractionOptions,
@@ -164,6 +164,21 @@ pub async fn build_core(config: &GatewayConfig) -> Result<Arc<CoreService>, Aeon
     let vector_store_healthy = store.is_some();
     if vector_store_healthy {
         ensure_sqlite_manifest(&data_dir);
+    }
+    // The checkpoint's aggregate L0/L1 counters are increment-only during
+    // normal operation. Reconcile them with durable rows at startup so a
+    // successful cleanup or manual pruning cannot leave stale thresholds.
+    // This is deliberately fail-open: an unavailable optional store or a
+    // checkpoint write failure must not prevent the memory service starting.
+    if let Some(store) = store.as_ref()
+        && let Ok((l0_count, l1_count)) =
+            store.with_store(|sqlite| Ok((sqlite.count_l0()?, sqlite.count_l1()?)))
+    {
+        let _ = recalculate_store_counts(
+            &data_dir.to_string_lossy(),
+            l0_count.max(0) as u64,
+            l1_count.max(0) as u64,
+        );
     }
     let cleaner = if config.memory.memory_cleanup.enabled
         && let Some(days) = config.memory.memory_cleanup.retention_days

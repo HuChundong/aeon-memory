@@ -197,6 +197,25 @@ pub fn mark_l1_extraction_complete(
     })
 }
 
+/// Reconcile durable L0/L1 aggregate counters with the SQLite store.
+///
+/// Cleanup and manual data pruning remove rows without participating in the
+/// capture/extraction increments, so these two aggregate counters can drift.
+/// The startup runtime supplies authoritative store counts and this operation
+/// updates them under the same checkpoint transaction as normal mutations.
+/// Counters with different lifecycles, such as `total_processed` and
+/// `memories_since_last_persona`, are deliberately left untouched.
+pub fn recalculate_store_counts(
+    data_dir: &str,
+    l0_conversations: u64,
+    l1_memories: u64,
+) -> AeonMemoryResult<Checkpoint> {
+    mutate_checkpoint(data_dir, |cp| {
+        cp.l0_conversations_count = l0_conversations;
+        cp.total_memories_extracted = l1_memories;
+    })
+}
+
 /// Merge pipeline states into checkpoint.
 /// port of mergePipelineStates() from checkpoint.ts:387-397
 pub fn merge_pipeline_states(
@@ -322,6 +341,29 @@ mod tests {
         let cp = read_checkpoint(dir.to_str().unwrap()).unwrap();
         assert_eq!(cp.runner_states["session-1"].last_captured_timestamp, 3000);
         assert_eq!(cp.total_processed, 3);
+    }
+
+    #[test]
+    fn recalculate_store_counts_reconciles_only_store_derived_counters() {
+        let dir = setup_dir("recalculate_store_counts");
+        write_checkpoint(
+            dir.to_str().unwrap(),
+            &Checkpoint {
+                total_processed: 99,
+                memories_since_last_persona: 7,
+                l0_conversations_count: 44,
+                total_memories_extracted: 33,
+                ..Checkpoint::default()
+            },
+        )
+        .unwrap();
+
+        let updated = recalculate_store_counts(dir.to_str().unwrap(), 2, 3).unwrap();
+        assert_eq!(updated.l0_conversations_count, 2);
+        assert_eq!(updated.total_memories_extracted, 3);
+        assert_eq!(updated.total_processed, 99);
+        assert_eq!(updated.memories_since_last_persona, 7);
+        let _ = std::fs::remove_dir_all(dir);
     }
 
     #[test]
