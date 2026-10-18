@@ -827,7 +827,7 @@ fn resolve_gateway_data_dir_with(
 
     let selected = get_env("AEON_MEMORY_DATA_DIR")
         .filter(|value| !value.is_empty())
-        .map(&expand)
+        .map(expand)
         .or_else(|| {
             (!configured.trim().is_empty())
                 .then(|| expand(std::ffi::OsString::from(configured.trim())))
