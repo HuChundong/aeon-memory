@@ -115,7 +115,8 @@ impl OffloadEngine {
             prompt,
             system_prompt: Some(system.into()),
             task_id: task.into(),
-            timeout_ms: Some(120_000),
+            // Upstream 09e2224: L2 uses the configured local backend timeout.
+            timeout_ms: (task != "offload-l2").then_some(120_000),
             max_tokens: None,
             workspace_dir: None,
             file_tool_policy: None,
@@ -495,4 +496,19 @@ fn sanitize_label(s: &str) -> String {
         })
         .collect::<String>();
     x.trim_matches('-').chars().take(30).collect::<String>()
+}
+
+#[cfg(test)]
+mod timeout_parity_tests {
+    use super::OffloadEngine;
+
+    #[test]
+    fn l2_honors_configured_backend_timeout() {
+        // Fixed oracle: TencentDB-Agent-Memory 09e2224 removes the L2-only
+        // timeoutMs override, so the local client uses its configured timeout.
+        let l2 = OffloadEngine::run_params("system", "prompt".into(), "offload-l2");
+        assert_eq!(l2.timeout_ms, None);
+        let l1 = OffloadEngine::run_params("system", "prompt".into(), "offload-l1");
+        assert_eq!(l1.timeout_ms, Some(120_000));
+    }
 }

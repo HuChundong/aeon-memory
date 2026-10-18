@@ -1,3 +1,6 @@
+// async_trait expands async methods into futures that are already must_use.
+#![allow(clippy::double_must_use)]
+
 pub mod aeon_memory_core;
 pub mod config;
 pub mod embedding;

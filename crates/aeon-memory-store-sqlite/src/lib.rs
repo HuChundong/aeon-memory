@@ -1,3 +1,6 @@
+// async_trait generates futures whose return values are already must_use.
+#![allow(clippy::double_must_use)]
+
 pub mod adapter;
 pub mod connection;
 pub mod l0;
